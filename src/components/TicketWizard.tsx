@@ -111,7 +111,6 @@ export default function TicketWizard() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="הכנס/י את שמך המלא"
-                autoFocus
               />
             </label>
 
