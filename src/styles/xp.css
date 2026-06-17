@@ -351,44 +351,159 @@ body {
   text-align: start;
 }
 
-/* ------------------------------------------------------- My Documents --- */
-.whats-there-intro {
-  margin: 0 0 18px;
-  line-height: 1.7;
-  color: #2a2a2a;
+/* ----------------------------------------------- קיר הגורלות / Fates wall --- */
+.fates-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
 }
 
-.whats-there-intro strong {
+.fates-intro {
+  margin: 0;
+  line-height: 1.6;
+  color: #2a2a2a;
+  flex: 1 1 220px;
+}
+
+.fates-intro strong {
   color: var(--xp-blue);
 }
 
-.activity-grid {
+.fates-keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-weight: 800;
+  color: #7a5a00;
+  background: linear-gradient(135deg, #fff3c4, #ffd966);
+  border: 1px solid #e6b800;
+  border-radius: 999px;
+  padding: 6px 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.fates-keys-icon {
+  font-size: 16px;
+}
+
+/* The wall itself — a grid of round discs, retro game-show style. */
+.fates-wall {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 16px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.04) 0 12px,
+      rgba(0, 0, 0, 0) 12px 24px
+    ),
+    linear-gradient(180deg, #2b6fd6, #1b4fae);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
-.activity-tile {
-  background: #fff;
-  border: 1px solid var(--xp-face-edge);
-  border-radius: 4px;
-  padding: 16px 8px;
+.fates-wall.is-locked {
+  filter: saturate(0.85);
+}
+
+/* Each ball uses a 3D flip. Hue is set per-ball via --ball-hue (inline). */
+.fate-ball {
+  all: unset;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  perspective: 700px;
+  border-radius: 50%;
+}
+
+.fate-ball:focus-visible {
+  outline: 3px solid #ffd54a;
+  outline-offset: 3px;
+}
+
+.fate-ball.is-disabled {
+  cursor: not-allowed;
+}
+
+.fate-ball-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.45, 0.05, 0.2, 1);
+}
+
+.fate-ball:not(.is-flipped):not(.is-disabled):hover .fate-ball-inner {
+  transform: scale(1.06);
+}
+
+.fate-ball.is-flipped .fate-ball-inner {
+  transform: rotateY(180deg);
+}
+
+.fate-front,
+.fate-back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.25), inset 0 6px 10px rgba(255, 255, 255, 0.35);
+}
+
+/* Front: a glossy colored disc with a number. */
+.fate-front {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 45%),
+    hsl(var(--ball-hue) 75% 55%);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.fate-number {
+  font-size: clamp(18px, 5vw, 26px);
+  font-weight: 800;
+}
+
+.fate-lock {
+  position: absolute;
+  bottom: 8%;
+  font-size: 14px;
+}
+
+/* Back: the revealed item. */
+.fate-back {
+  transform: rotateY(180deg);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 45%),
+    linear-gradient(135deg, #fff6da, #ffd34d);
+  color: #8a3b00;
+  font-weight: 800;
+  font-size: clamp(12px, 3.4vw, 16px);
   text-align: center;
+  padding: 6px;
+  line-height: 1.15;
+}
+
+.fates-footer {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fates-soldout {
+  margin: 0;
   font-weight: 700;
-  color: #222;
-  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.activity-tile:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.activity-tile--mystery {
-  background: linear-gradient(135deg, #fff8d8, #ffe9a8);
-  color: #b07b00;
-  letter-spacing: 2px;
+  color: var(--xp-blue);
 }
 
 /* ------------------------------------------------------------- Wizard --- */

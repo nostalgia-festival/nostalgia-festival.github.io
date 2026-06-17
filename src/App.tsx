@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import Hero from './components/Hero'
 import WelcomeWindow from './components/WelcomeWindow'
 import DetailsWindow from './components/DetailsWindow'
-import WhatsThereWindow from './components/WhatsThereWindow'
+import FatesWall from './components/FatesWall'
 import TicketWizard from './components/TicketWizard'
 import Taskbar from './components/Taskbar'
 import Footer from './components/Footer'
@@ -21,7 +21,7 @@ export default function App() {
       <main className="windows-stack">
         <WelcomeWindow />
         <DetailsWindow />
-        <WhatsThereWindow />
+        <FatesWall />
 
         <div ref={wizardRef} className="wizard-anchor">
           <TicketWizard />
