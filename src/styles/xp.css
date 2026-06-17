@@ -1,0 +1,762 @@
+/* ===========================================================================
+   קפסולת הזמן — Windows XP "Luna" themed styles (RTL Hebrew)
+   =========================================================================== */
+
+:root {
+  --xp-blue: #245edb;
+  --xp-blue-dark: #003fc1;
+  --xp-title-from: #0058ee;
+  --xp-title-mid: #3f8cf3;
+  --xp-title-to: #2461e6;
+  --xp-face: #ece9d8; /* classic XP control / window face */
+  --xp-face-edge: #aca899;
+  --xp-green-from: #54b14e;
+  --xp-green-to: #3a9a36;
+  --xp-taskbar-from: #245edb;
+  --xp-taskbar-to: #1941a5;
+  --text: #1a1a1a;
+  --muted: #5a5a5a;
+  --window-max: 640px;
+  --taskbar-h: 38px;
+  --font: 'Tahoma', 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  /* "Bliss"-inspired sky + rolling green hills, recreated with gradients so we
+     ship no copyrighted bitmap. */
+  background:
+    radial-gradient(120% 60% at 50% 120%, #7db84a 0%, #5fa336 35%, transparent 60%),
+    linear-gradient(180deg, #2a6fd6 0%, #4c93e8 30%, #9fd0f5 60%, #cdeaf7 75%, #d8f0c0 78%, #6fae3c 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  /* Leave room so the fixed taskbar never overlaps content. */
+  padding-bottom: calc(var(--taskbar-h) + 12px);
+}
+
+/* ----------------------------------------------------------------- Hero --- */
+.hero {
+  position: relative;
+  min-height: calc(100vh - var(--taskbar-h));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.hero-desktop-icons {
+  position: absolute;
+  top: 16px;
+  /* RTL page → "inset-inline-end" is the visual right edge, matching the mock. */
+  inset-inline-end: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 72px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  font-size: 12px;
+}
+
+.desktop-icon-glyph {
+  font-size: 30px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.hero-title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 30, 90, 0.6);
+}
+
+.hero-title-main {
+  font-size: clamp(40px, 9vw, 84px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.hero-title-sub {
+  font-size: clamp(16px, 3.4vw, 28px);
+  font-weight: 700;
+  opacity: 0.95;
+  letter-spacing: 2px;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 18px;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+/* ----------------------------------------------------------- Countdown --- */
+.countdown {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 30, 90, 0.35);
+  padding: 18px 26px;
+}
+
+.countdown-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.countdown-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 64px;
+}
+
+.countdown-value {
+  font-size: clamp(34px, 7vw, 56px);
+  font-weight: 800;
+  color: var(--xp-blue);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.countdown-sep {
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 700;
+  color: #c2c2c2;
+  line-height: 1.1;
+}
+
+.countdown--done {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--xp-blue);
+}
+
+/* ------------------------------------------------------- Windows stack --- */
+.windows-stack {
+  max-width: var(--window-max);
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* ----------------------------------------------------------- XP Window --- */
+.xp-window {
+  border: 1px solid var(--xp-blue-dark);
+  border-radius: 8px 8px 3px 3px;
+  background: var(--xp-face);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.xp-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  padding: 0 6px 0 4px;
+  background: linear-gradient(
+    180deg,
+    var(--xp-title-from) 0%,
+    var(--xp-title-mid) 8%,
+    var(--xp-title-to) 40%,
+    var(--xp-blue) 88%,
+    #1c52d6 100%
+  );
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 7px 7px 0 0;
+}
+
+.xp-titlebar-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.xp-titlebar-icon {
+  font-size: 15px;
+}
+
+.xp-caption-buttons {
+  display: flex;
+  gap: 2px;
+  /* Caption buttons stay on the left, like a real (LTR-chrome) XP window. */
+  direction: ltr;
+}
+
+.xp-caption {
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #5b8def, #2c63da);
+  text-shadow: none;
+}
+
+.xp-close {
+  background: linear-gradient(180deg, #f08060, #c63b1e);
+}
+
+.xp-menubar {
+  display: flex;
+  gap: 2px;
+  padding: 3px 6px;
+  background: var(--xp-face);
+  border-bottom: 1px solid #d6d2c2;
+  font-size: 12px;
+}
+
+.xp-menu-item {
+  padding: 2px 8px;
+  color: #222;
+  border-radius: 2px;
+}
+
+.xp-window-body {
+  background: var(--xp-face);
+  padding: 20px;
+}
+
+/* --------------------------------------------------------- welcome.exe --- */
+.welcome {
+  background: #fff;
+  border: 1px solid #d6d2c2;
+  border-radius: 4px;
+  padding: 26px 20px;
+  text-align: center;
+}
+
+.welcome-logo {
+  font-size: clamp(34px, 8vw, 56px);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--xp-blue);
+  line-height: 1.05;
+}
+
+.welcome-logo-year {
+  display: block;
+  color: #e9a000;
+}
+
+.welcome-tagline {
+  margin: 16px 0 6px;
+  font-size: clamp(16px, 3.6vw, 20px);
+  font-weight: 700;
+  color: #222;
+}
+
+.welcome-sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------------------------------------------------------- details.txt --- */
+.details-list {
+  margin: 0;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 4px;
+  border-bottom: 1px dotted #c9c4b2;
+}
+
+.details-row:last-child {
+  border-bottom: none;
+}
+
+.details-term {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #333;
+}
+
+.details-value {
+  margin: 0;
+  color: #222;
+  text-align: start;
+}
+
+/* ------------------------------------------------------- My Documents --- */
+.whats-there-intro {
+  margin: 0 0 18px;
+  line-height: 1.7;
+  color: #2a2a2a;
+}
+
+.whats-there-intro strong {
+  color: var(--xp-blue);
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+}
+
+.activity-tile {
+  background: #fff;
+  border: 1px solid var(--xp-face-edge);
+  border-radius: 4px;
+  padding: 16px 8px;
+  text-align: center;
+  font-weight: 700;
+  color: #222;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.activity-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.activity-tile--mystery {
+  background: linear-gradient(135deg, #fff8d8, #ffe9a8);
+  color: #b07b00;
+  letter-spacing: 2px;
+}
+
+/* ------------------------------------------------------------- Wizard --- */
+.wizard-anchor {
+  scroll-margin-top: 20px;
+}
+
+.wizard-header {
+  text-align: center;
+}
+
+.wizard-title {
+  margin: 0;
+  font-size: 24px;
+  color: #1c1c1c;
+}
+
+.wizard-subtitle {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.wizard-progress {
+  margin: 16px 0 18px;
+  height: 12px;
+  border-radius: 8px;
+  background: #cfcabb;
+  overflow: hidden;
+  /* fill grows from the right on an RTL page */
+}
+
+.wizard-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1d6fe0, #3aa856);
+  transition: width 0.3s ease;
+}
+
+.wizard-steps {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.wizard-step-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #d7d3c4;
+  color: #6a6655;
+  font-weight: 700;
+}
+
+.wizard-step-dot.is-active {
+  background: var(--xp-blue);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(36, 94, 219, 0.25);
+}
+
+.wizard-step-dot.is-done {
+  background: #3aa856;
+  color: #fff;
+}
+
+.wizard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Fields */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.field-label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #222;
+}
+
+.xp-input {
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 2px solid #7f9db9; /* XP sunken field border */
+  border-radius: 3px;
+  background: #fff;
+  outline: none;
+}
+
+.xp-input:focus {
+  border-color: var(--xp-blue);
+  box-shadow: 0 0 0 2px rgba(36, 94, 219, 0.2);
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.stepper-btn {
+  width: 40px;
+  font-size: 20px;
+  padding: 4px 0;
+}
+
+.stepper-value {
+  font-size: 22px;
+  font-weight: 800;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* Companions */
+.companions {
+  border: none;
+}
+
+.companion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.companion-option {
+  font-family: var(--font);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #fff;
+  border: 2px solid #b8c6d6;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: start;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.companion-option:hover {
+  border-color: var(--xp-blue);
+}
+
+.companion-option.is-selected {
+  border-color: var(--xp-blue);
+  background: #eaf2ff;
+  box-shadow: inset 0 0 0 1px var(--xp-blue);
+}
+
+.companion-emoji {
+  font-size: 20px;
+}
+
+/* Summary + price */
+.summary {
+  background: #fff;
+  border: 1px solid #d6d2c2;
+  border-radius: 4px;
+  padding: 14px 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px dotted #d6d2c2;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row span {
+  color: var(--muted);
+}
+
+.summary-row--discount strong {
+  color: #2e9b3e;
+}
+
+.price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 18px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #eaf2ff, #d7e8ff);
+  border: 1px solid #a9c6ef;
+}
+
+.price-box-label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.price-box-value {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--xp-blue);
+  line-height: 1;
+}
+
+.price-box-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.wizard-error {
+  margin: 0;
+  padding: 10px 12px;
+  background: #fff4d6;
+  border: 1px solid #e6c64d;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #7a5a00;
+}
+
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wizard-next,
+.wizard-pay {
+  min-width: 130px;
+}
+
+/* ------------------------------------------------------------ Buttons --- */
+.xp-button {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  color: #1a1a1a;
+  background: linear-gradient(180deg, #fdfdfd 0%, #e7e4d6 48%, #dad6c4 100%);
+  border: 1px solid #8a8674;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: filter 0.1s ease, box-shadow 0.1s ease;
+}
+
+.xp-button:hover:not(:disabled) {
+  filter: brightness(1.04);
+  box-shadow: 0 0 0 1px #f0a800 inset;
+}
+
+.xp-button:active:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.xp-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.xp-button--green {
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, #6fc169 0%, var(--xp-green-from) 45%, var(--xp-green-to) 100%);
+  border-color: #2c7a2a;
+}
+
+.hero-cta {
+  font-size: 18px;
+  padding: 14px 26px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ------------------------------------------------------------ Footer --- */
+.site-footer {
+  text-align: center;
+  color: #3a3a3a;
+  font-size: 13px;
+  padding: 18px 0 4px;
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
+
+.footer-love {
+  color: #555;
+}
+
+/* ----------------------------------------------------------- Taskbar --- */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  inset-inline: 0;
+  height: var(--taskbar-h);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #3f8cf3 0%, var(--xp-taskbar-from) 8%, var(--xp-taskbar-to) 100%);
+  border-top: 1px solid #6ba2f0;
+  z-index: 100;
+}
+
+.start-button {
+  font-family: var(--font);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  padding: 0 22px 0 26px;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  /* The signature lozenge Start button. */
+  background: linear-gradient(180deg, #5bb83f 0%, #43a233 45%, #2f861f 100%);
+  border-radius: 0 12px 12px 0;
+  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4);
+}
+
+.start-button:hover {
+  filter: brightness(1.06);
+}
+
+.start-flag {
+  font-size: 16px;
+}
+
+.taskbar-tray {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: linear-gradient(180deg, #1a86e0, #137bd6);
+  border-inline-start: 1px solid #0f4aa8;
+  box-shadow: inset 1px 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.tray-clock {
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------------------------------------------------------- Responsive */
+@media (max-width: 520px) {
+  .countdown-cell {
+    min-width: 48px;
+  }
+  .companion-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-desktop-icons {
+    display: none;
+  }
+}

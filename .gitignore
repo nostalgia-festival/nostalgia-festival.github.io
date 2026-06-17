@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Local env files (never commit real Supabase keys / payment URLs)
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Vite cache
+.vite/
+
+# TypeScript incremental build info
+*.tsbuildinfo
