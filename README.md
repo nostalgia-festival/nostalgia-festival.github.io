@@ -21,4 +21,4 @@ npm run build    # → dist/
 - **[SUPABASE_SETUP.md](./SUPABASE_SETUP.md)** — הקמת Supabase ופרסום ב-GitHub Pages, צעד-אחר-צעד.
 
 > לפני העלייה לאוויר חובה להגדיר את `VITE_PAYMENT_URL`, `VITE_SUPABASE_URL`,
-> `VITE_SUPABASE_ANON_KEY`, ולעדכן את מחירי הכרטיסים (placeholder) ב-`src/lib/pricing.ts`.
+> `VITE_SUPABASE_PUBLISHABLE_KEY`, ולעדכן את מחירי הכרטיסים (placeholder) ב-`src/lib/pricing.ts`.

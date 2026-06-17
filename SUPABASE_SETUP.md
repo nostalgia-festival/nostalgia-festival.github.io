@@ -24,17 +24,21 @@
 - יצר טבלה בשם `ticket_clicks` שמאחסנת: שם מלא, גיל, מספר כרטיסים, עם מי מגיעים,
   המחיר שחושב, וכן `user_agent` ו-`referrer` (מאיזו פרסומת הגיעו).
 - הפעיל **Row Level Security** והגדיר מדיניות שמאפשרת **רק הוספה (INSERT)**
-  מהדפדפן (מפתח ה-anon הציבורי). הדפדפן **לא יכול לקרוא, לשנות או למחוק** רשומות
+  מהדפדפן (המפתח הציבורי Publishable). הדפדפן **לא יכול לקרוא, לשנות או למחוק** רשומות
   של אחרים — כך הנתונים מוגנים. אתם, כבעלי הפרויקט, רואים הכל דרך הדשבורד.
 
 ### 3. השגת המפתחות
-1. בתפריט הצד: **Project Settings** (גלגל שיניים) → **API**.
+1. בתפריט הצד: **Project Settings** (גלגל שיניים) → **API Keys**.
 2. העתיקו שני ערכים:
-   - **Project URL** — למשל `https://abcd1234.supabase.co`
-   - **anon public** key (תחת "Project API keys") — מחרוזת ארוכה.
+   - **Project URL** — מתחת ל-**Data API** (או ב-**Project Settings → Data API**),
+     למשל `https://abcd1234.supabase.co`
+   - **Publishable key** — מתחיל ב-`sb_publishable_…`. זהו המפתח הציבורי החדש של
+     Supabase שמחליף את מפתח ה-`anon` הישן, ומיועד לשימוש בדפדפן.
 
-> ⚠️ **חשוב:** השתמשו אך ורק במפתח **anon public**. לעולם אל תעתיקו את מפתח
-> ה-`service_role` לאתר/ל-GitHub — הוא נותן גישה מלאה לכל הנתונים.
+> ⚠️ **חשוב:** השתמשו אך ורק במפתח **Publishable** (`sb_publishable_…`).
+> לעולם אל תעתיקו מפתח **Secret** (`sb_secret_…`) לאתר/ל-GitHub — הוא נותן גישה
+> מלאה לכל הנתונים. אם בפרויקט שלכם עדיין מוצג רק מפתח `anon` ישן, הוא יעבוד גם כן,
+> אבל מומלץ ליצור מפתח Publishable חדש.
 
 ### 4. צפייה בנתונים שנאספו
 בתפריט הצד: **Table Editor** → בחרו את הטבלה `ticket_clicks`. כל לחיצה על
@@ -66,7 +70,7 @@
 | Name (שם) | Value (ערך) |
 |---|---|
 | `VITE_SUPABASE_URL` | ה-Project URL מסעיף א'.3 |
-| `VITE_SUPABASE_ANON_KEY` | מפתח ה-anon public מסעיף א'.3 |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | מפתח ה-Publishable (`sb_publishable_…`) מסעיף א'.3 |
 | `VITE_PAYMENT_URL` | כתובת שירות התשלום מחלק ב' |
 
 > שלושת הערכים האלה ציבוריים מעצם טבעם (הם מגיעים לדפדפן), ולכן "Variables" מתאים.

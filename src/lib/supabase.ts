@@ -2,13 +2,13 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { CONFIG } from './config'
 import type { Companion } from './pricing'
 
-// The Supabase client is only created when both URL and anon key are present.
-// This lets the site build & run locally (and even on GitHub Pages) without
-// credentials — logging simply becomes a no-op in that case.
+// The Supabase client is only created when both the URL and publishable key are
+// present. This lets the site build & run locally (and even on GitHub Pages)
+// without credentials — logging simply becomes a no-op in that case.
 let client: SupabaseClient | null = null
 
-if (CONFIG.supabaseUrl && CONFIG.supabaseAnonKey) {
-  client = createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, {
+if (CONFIG.supabaseUrl && CONFIG.supabasePublishableKey) {
+  client = createClient(CONFIG.supabaseUrl, CONFIG.supabasePublishableKey, {
     auth: { persistSession: false },
   })
 }

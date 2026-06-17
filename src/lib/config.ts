@@ -3,7 +3,9 @@
 
 export const CONFIG = {
   supabaseUrl: import.meta.env.VITE_SUPABASE_URL ?? '',
-  supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY ?? '',
+  // Supabase's new "publishable" key (sb_publishable_...), which replaces the
+  // legacy anon key. Safe to expose to the browser; protected by RLS.
+  supabasePublishableKey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '',
 
   // Where to redirect the user after we log their details. When empty (e.g. in
   // local dev), the wizard shows a friendly placeholder instead of redirecting.

@@ -18,8 +18,9 @@ create table if not exists public.ticket_clicks (
 );
 
 -- Row Level Security: lock the table down, then allow ONLY anonymous inserts.
--- The browser uses the public "anon" key, so it must be allowed to INSERT,
--- but it must NOT be able to read other people's submissions.
+-- The browser uses the public "publishable" key (sb_publishable_...), which maps
+-- to the Postgres "anon" role — so that role must be allowed to INSERT, but it
+-- must NOT be able to read other people's submissions.
 alter table public.ticket_clicks enable row level security;
 
 -- Allow anonymous (and logged-in) visitors to insert their own row.

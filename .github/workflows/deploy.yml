@@ -38,10 +38,10 @@ jobs:
         env:
           # Public config injected at build time. Define these in the repo:
           #   Settings → Secrets and variables → Actions
-          # The Supabase anon key & payment URL are public by design, so
-          # "Variables" is fine; "Secrets" works too. Service-role keys: NEVER.
+          # The Supabase publishable key & payment URL are public by design, so
+          # "Variables" is fine; "Secrets" works too. Secret keys: NEVER.
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
           VITE_PAYMENT_URL: ${{ vars.VITE_PAYMENT_URL }}
 
       - name: Upload Pages artifact
