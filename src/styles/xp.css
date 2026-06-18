@@ -1188,12 +1188,13 @@ button.xp-caption:active {
 
 /* ------------------------------------------------- tray balloon tip --- */
 /* The classic pale-yellow XP notification balloon, rising from the tray with a
-   little pointer aimed at the notification area (the tray sits at the visual
-   left edge on this RTL page, so the pointer is on the inline-start side). */
+   little pointer aimed at the notification area. The tray sits at the visual
+   left edge on this RTL page, so the balloon is pinned to the physical left
+   (not inline-start, which would resolve to the right under RTL). */
 .tray-balloon {
   position: fixed;
   bottom: calc(var(--taskbar-h) + 12px);
-  inset-inline-start: 10px;
+  left: 10px;
   z-index: 150;
   width: min(250px, calc(100vw - 24px));
   padding: 10px 12px 12px;
@@ -1211,7 +1212,7 @@ button.xp-caption:active {
   content: '';
   position: absolute;
   bottom: -9px;
-  inset-inline-start: 24px;
+  left: 24px;
   width: 0;
   height: 0;
   border-style: solid;
