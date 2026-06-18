@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
-import { INFO_ITEMS } from '../lib/config'
+import { useEffect } from 'react'
+import { INFO_ITEMS, type InfoItem } from '../lib/config'
 import XPWindow from './XPWindow'
 import Icon from './Icon'
 import ProgressiveImage from './ProgressiveImage'
+import type { TaskWindow } from '../lib/useTaskWindow'
 import shustus40 from '../../images/logos/shustus-40.png'
 import shustus160 from '../../images/logos/shustus-160.png'
 import shustus440 from '../../images/logos/shustus-440.png'
@@ -31,27 +32,33 @@ const GLYPHS: Record<string, { name: string; e: string }> = {
 }
 const DEFAULT_GLYPH = { name: 'document', e: '📄' }
 
-type Item = (typeof INFO_ITEMS)[number]
+interface InfoFolderProps {
+  /** The readme currently chosen (null when none has been opened yet). */
+  selected: InfoItem | null
+  /** Choose a readme to open (and bring its window forward). */
+  onOpen: (item: InfoItem) => void
+  /** The readme popup's window lifecycle (shared with the taskbar). */
+  window: TaskWindow
+}
 
 /**
  * The "מידע" folder — an inline XP "file browser" window in the page's window
  * stack (the מידע desktop icon scrolls here). It lists the event's content as
- * files; clicking a file opens a popup with its info. Only the popup is modal:
- * it closes on its ✕ button, on a click outside (the dimmed backdrop), or on
- * Escape.
+ * files; clicking a file opens a readme popup with its info. That popup is a
+ * real window: it gets a taskbar button and can be minimized (state owned by
+ * App via useTaskWindow), and still closes on its ✕, a backdrop click, or
+ * Escape — just like the Recycle Bin.
  */
-export default function InfoFolder() {
-  const [selected, setSelected] = useState<Item | null>(null)
-
+export default function InfoFolder({ selected, onOpen, window: win }: InfoFolderProps) {
   // Escape closes the open popup.
   useEffect(() => {
-    if (!selected) return
+    if (!win.visible) return
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setSelected(null)
+      if (e.key === 'Escape') win.close()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [selected])
+  }, [win])
 
   return (
     <>
@@ -67,7 +74,7 @@ export default function InfoFolder() {
               type="button"
               key={item.id}
               className="info-file"
-              onClick={() => setSelected(item)}
+              onClick={() => onOpen(item)}
             >
               {IMAGES[item.id] ? (
                 <ProgressiveImage
@@ -88,11 +95,12 @@ export default function InfoFolder() {
         </div>
       </XPWindow>
 
-      {/* Info popup — modal; backdrop click closes the popup. */}
-      {selected && (
+      {/* Info popup — modal; backdrop click closes the popup. Only on screen
+          when visible (open and not minimized to the taskbar). */}
+      {selected && win.visible && (
         <div
           className="xp-modal-overlay"
-          onClick={() => setSelected(null)}
+          onClick={win.close}
           role="presentation"
         >
           <div className="xp-modal xp-modal--popup" onClick={(e) => e.stopPropagation()}>
@@ -105,7 +113,8 @@ export default function InfoFolder() {
                   <Icon name="document" e="📄" />
                 )
               }
-              onClose={() => setSelected(null)}
+              onClose={win.close}
+              onMinimize={win.minimize}
             >
               <div className="info-popup">
                 {IMAGES[selected.id] && (

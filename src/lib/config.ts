@@ -122,3 +122,6 @@ export const INFO_ITEMS = [
     ],
   },
 ] as const
+
+/** A single "file" inside the מידע folder (one entry of INFO_ITEMS). */
+export type InfoItem = (typeof INFO_ITEMS)[number]
