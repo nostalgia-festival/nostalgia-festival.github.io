@@ -1,5 +1,6 @@
 import { EVENT } from '../lib/config'
 import Countdown from './Countdown'
+import logo from '../../images/LogoDetails.png'
 
 interface HeroProps {
   onStartClick: () => void
@@ -26,8 +27,7 @@ export default function Hero({ onStartClick }: HeroProps) {
 
       <div className="hero-center">
         <h1 className="hero-title">
-          <span className="hero-title-main">{EVENT.titleLine1}</span>
-          <span className="hero-title-sub">{EVENT.titleLine2}</span>
+          <img className="hero-logo" src={logo} alt={EVENT.titleLine1} />
         </h1>
 
         <Countdown target={EVENT.startsAtISO} />
