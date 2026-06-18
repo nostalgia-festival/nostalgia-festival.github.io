@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import Background from './components/Background'
 import Hero from './components/Hero'
 import DetailsWindow from './components/DetailsWindow'
 import FatesWall from './components/FatesWall'
@@ -15,6 +16,8 @@ export default function App() {
 
   return (
     <div className="app">
+      <Background />
+
       <Hero onStartClick={scrollToWizard} />
 
       <main className="windows-stack">

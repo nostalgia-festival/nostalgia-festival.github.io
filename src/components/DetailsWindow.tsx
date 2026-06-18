@@ -4,7 +4,7 @@ import XPWindow from './XPWindow'
 const ROWS: { icon: string; label: string; value: string }[] = [
   { icon: '📅', label: 'תאריך', value: EVENT.dateLabel },
   { icon: '🚪', label: 'פתיחת דלתות', value: EVENT.doorsLabel },
-  { icon: '🎤', label: 'פתיחה במה ראשית', value: EVENT.mainStageLabel },
+  { icon: '🎤', label: 'אירועי במה ראשית', value: EVENT.mainStageLabel },
   { icon: '📍', label: 'מיקום', value: EVENT.locationLabel },
   { icon: '👥', label: 'קהל יעד', value: EVENT.audienceLabel },
 ]

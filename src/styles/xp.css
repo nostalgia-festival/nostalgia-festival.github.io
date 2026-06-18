@@ -34,14 +34,29 @@ body {
 body {
   font-family: var(--font);
   color: var(--text);
-  /* "Bliss"-inspired sky + rolling green hills, recreated with gradients so we
-     ship no copyrighted bitmap. */
-  background:
-    radial-gradient(120% 60% at 50% 120%, #7db84a 0%, #5fa336 35%, transparent 60%),
-    linear-gradient(180deg, #2a6fd6 0%, #4c93e8 30%, #9fd0f5 60%, #cdeaf7 75%, #d8f0c0 78%, #6fae3c 100%);
-  background-attachment: fixed;
+  /* Flat sky tone as a fallback behind the <Background> image while its first
+     (sub-1 KB) tier decodes. The actual "Bliss" wallpaper is the .bg-image
+     element below, loaded progressively low→high — see Background.tsx. */
+  background: #4c93e8;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The progressively-loaded "Bliss" wallpaper. A fixed, full-viewport <img>
+   (rather than a CSS background) so nearest-neighbour upscaling is reliable
+   across browsers and src swaps decode cleanly. */
+.bg-image {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+  /* Nearest-neighbour interpolation: the low-res tiers stay crisply blocky
+     instead of blurry, sharpening step-by-step as higher tiers load in. */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
 }
 
 .app {
