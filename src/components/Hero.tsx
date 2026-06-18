@@ -1,7 +1,17 @@
 import { EVENT } from '../lib/config'
 import Countdown from './Countdown'
-import logo from '../../images/LogoDetails.png'
-import sponsorLogo from '../../images/לוגו סגול.png'
+import Emoji from './Emoji'
+import ProgressiveImage from './ProgressiveImage'
+import logo80 from '../../images/logos/hero-logo-80.png'
+import logo320 from '../../images/logos/hero-logo-320.png'
+import logo1280 from '../../images/logos/hero-logo-1280.png'
+import sponsor24 from '../../images/logos/sponsor-24.png'
+import sponsor80 from '../../images/logos/sponsor-80.png'
+import sponsor200 from '../../images/logos/sponsor-200.png'
+
+// Logo variants ordered low → high resolution (see ProgressiveImage).
+const LOGO_TIERS = [logo80, logo320, logo1280]
+const SPONSOR_TIERS = [sponsor24, sponsor80, sponsor200]
 
 interface HeroProps {
   onStartClick: () => void
@@ -13,18 +23,18 @@ export default function Hero({ onStartClick }: HeroProps) {
     <header className="hero">
       <div className="hero-center">
         <h1 className="hero-title">
-          <img className="hero-logo" src={logo} alt={EVENT.titleLine1} />
+          <ProgressiveImage className="hero-logo" tiers={LOGO_TIERS} alt={EVENT.titleLine1} />
         </h1>
 
         <div className="hero-sponsor">
           <span className="hero-sponsor-label">בסיוע</span>
-          <img className="hero-sponsor-logo" src={sponsorLogo} alt="לוגו נותן החסות" />
+          <ProgressiveImage className="hero-sponsor-logo" tiers={SPONSOR_TIERS} alt="לוגו נותן החסות" />
         </div>
 
         <Countdown target={EVENT.startsAtISO} />
 
         <button className="hero-cta xp-button xp-button--green" onClick={onStartClick}>
-          🎟️ אני רוצה כרטיס!
+          <Emoji e="🎟️" /> אני רוצה כרטיס!
         </button>
       </div>
 

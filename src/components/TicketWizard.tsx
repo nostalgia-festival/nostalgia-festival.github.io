@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import XPWindow from './XPWindow'
+import Emoji from './Emoji'
 import { CONFIG } from '../lib/config'
 import { isSupabaseConfigured, logTicketClick } from '../lib/supabase'
 import { calculatePrice, formatPrice } from '../lib/pricing'
@@ -47,7 +48,7 @@ export default function TicketWizard() {
   return (
     <XPWindow
       title="אשף רכישת כרטיסים — tickets.exe"
-      icon="🎟️"
+      icon={<Emoji e="🎟️" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
       className="wizard-window"
     >
@@ -114,7 +115,7 @@ export default function TicketWizard() {
             onClick={handlePurchase}
             disabled={!formValid || busy}
           >
-            {busy ? 'רק רגע…' : '💳 מעבר לתשלום מאובטח'}
+            {busy ? 'רק רגע…' : <><Emoji e="💳" /> מעבר לתשלום מאובטח</>}
           </button>
         </div>
       </div>

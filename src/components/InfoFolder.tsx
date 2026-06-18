@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react'
 import { INFO_ITEMS } from '../lib/config'
 import XPWindow from './XPWindow'
-import shustusLogo from '../../images/לוגו ששטוס מ2008.png'
+import Emoji from './Emoji'
+import ProgressiveImage from './ProgressiveImage'
+import shustus40 from '../../images/logos/shustus-40.png'
+import shustus160 from '../../images/logos/shustus-160.png'
+import shustus440 from '../../images/logos/shustus-440.png'
 
-// Images for the folder entries, keyed by the `id` from INFO_ITEMS. Entries
-// without an image fall back to the emoji glyph below. (Kept here, not in
-// config.ts, so config stays free of asset imports.)
-const IMAGES: Record<string, string> = {
-  shustus: shustusLogo,
+// Image tiers (low → high res) for the folder entries, keyed by the `id` from
+// INFO_ITEMS. Entries without an image fall back to the emoji glyph below.
+// (Kept here, not in config.ts, so config stays free of asset imports.)
+const IMAGES: Record<string, string[]> = {
+  shustus: [shustus40, shustus160, shustus440],
 }
 const GLYPHS: Record<string, string> = {
   'oded-paz': '🎙️',
@@ -43,7 +47,7 @@ export default function InfoFolder() {
       {/* Folder window — a normal window in the scrolling stack. */}
       <XPWindow
         title="תכני האירוע — info"
-        icon="📁"
+        icon={<Emoji e="📁" />}
         menu={['קובץ', 'עריכה', 'תצוגה', 'מועדפים', 'עזרה']}
       >
         <div className="info-folder">
@@ -55,11 +59,9 @@ export default function InfoFolder() {
               onClick={() => setSelected(item)}
             >
               {IMAGES[item.id] ? (
-                <img className="info-file-img" src={IMAGES[item.id]} alt="" />
+                <ProgressiveImage className="info-file-img" tiers={IMAGES[item.id]} alt="" />
               ) : (
-                <span className="info-file-glyph" aria-hidden="true">
-                  {GLYPHS[item.id] ?? '📄'}
-                </span>
+                <Emoji e={GLYPHS[item.id] ?? '📄'} className="info-file-glyph" />
               )}
               <span className="info-file-label">{item.label}</span>
             </button>
@@ -77,12 +79,12 @@ export default function InfoFolder() {
           <div className="xp-modal xp-modal--popup" onClick={(e) => e.stopPropagation()}>
             <XPWindow
               title={`${selected.label} — readme.txt`}
-              icon={IMAGES[selected.id] ? '🖼️' : '📄'}
+              icon={<Emoji e={IMAGES[selected.id] ? '🖼️' : '📄'} />}
               onClose={() => setSelected(null)}
             >
               <div className="info-popup">
                 {IMAGES[selected.id] && (
-                  <img className="info-popup-img" src={IMAGES[selected.id]} alt={selected.label} />
+                  <ProgressiveImage className="info-popup-img" tiers={IMAGES[selected.id]} alt={selected.label} />
                 )}
                 <h3 className="info-popup-title">{selected.title}</h3>
                 {selected.lines.map((line, i) => (

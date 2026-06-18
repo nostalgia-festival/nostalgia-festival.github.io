@@ -1,3 +1,5 @@
+import Emoji from './Emoji'
+
 interface DesktopIconsProps {
   /** Scroll to the "פרטי האירוע" (details.txt) window. */
   onDetails: () => void
@@ -18,17 +20,17 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets }: DesktopIc
   return (
     <div className="hero-desktop-icons">
       <button type="button" className="desktop-icon" onClick={onDetails}>
-        <span className="desktop-icon-glyph">📄</span>
+        <Emoji e="📄" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">פרטים.txt</span>
       </button>
 
       <button type="button" className="desktop-icon" onClick={onInfo}>
-        <span className="desktop-icon-glyph">📁</span>
+        <Emoji e="📁" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">מידע</span>
       </button>
 
       <button type="button" className="desktop-icon" onClick={onTickets}>
-        <span className="desktop-icon-glyph">🎟️</span>
+        <Emoji e="🎟️" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">tickets.exe</span>
       </button>
     </div>

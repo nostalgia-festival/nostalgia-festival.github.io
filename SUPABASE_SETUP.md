@@ -10,7 +10,7 @@
 ### 1. יצירת פרויקט
 1. היכנסו ל-<https://supabase.com> והתחברו (אפשר עם GitHub).
 2. לחצו **New project**.
-3. בחרו ארגון, תנו שם (למשל `time-capsule`), בחרו סיסמה ל-DB (שמרו אותה בצד),
+3. בחרו ארגון, תנו שם (למשל `nostalgia-festival`), בחרו סיסמה ל-DB (שמרו אותה בצד),
    ובחרו Region קרוב (למשל `Frankfurt (eu-central-1)`).
 4. לחצו **Create new project** והמתינו ~2 דקות שהפרויקט יוקם.
 

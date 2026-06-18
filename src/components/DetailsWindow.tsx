@@ -1,5 +1,6 @@
 import { EVENT } from '../lib/config'
 import XPWindow from './XPWindow'
+import Emoji from './Emoji'
 
 const ROWS: { icon: string; label: string; value: string }[] = [
   { icon: '📅', label: 'תאריך', value: EVENT.dateLabel },
@@ -13,14 +14,14 @@ export default function DetailsWindow() {
   return (
     <XPWindow
       title="פרטי האירוע — details.txt"
-      icon="📄"
+      icon={<Emoji e="📄" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
     >
       <dl className="details-list">
         {ROWS.map((row) => (
           <div className="details-row" key={row.label}>
             <dt className="details-term">
-              <span className="details-icon">{row.icon}</span>
+              <Emoji e={row.icon} className="details-icon" />
               {row.label}
             </dt>
             <dd className="details-value">{row.value}</dd>

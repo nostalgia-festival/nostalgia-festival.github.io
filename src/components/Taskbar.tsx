@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Emoji from './Emoji'
 
 function currentClock(): string {
   const now = new Date()
@@ -23,9 +24,7 @@ export default function Taskbar({ onStartClick }: TaskbarProps) {
   return (
     <div className="taskbar">
       <button className="start-button" onClick={onStartClick}>
-        <span className="start-flag" aria-hidden="true">
-          🪟
-        </span>
+        <Emoji e="🪟" className="start-flag" />
         התחל
       </button>
 
