@@ -389,57 +389,95 @@ button.xp-caption {
 }
 
 /* ----------------------------------------------------------- Countdown --- */
+/* A late-90s/early-2000s LCD digital-clock gadget: a beige plastic bezel
+   (raised bevel) around a sunken dark-green LCD screen with glowing segments. */
 .countdown {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 22px;
-  box-shadow: 0 10px 30px rgba(0, 30, 90, 0.35);
-  padding: 18px 26px;
+  display: inline-block;
+  background: var(--xp-face);
+  border: 1px solid var(--xp-face-edge);
+  /* Raised "plastic" bevel, like an XP/2000 control. */
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #aca899,
+    0 4px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  padding: 9px;
 }
 
 .countdown-row {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
+  gap: 4px;
+  /* The LCD screen: dark glass, recessed into the bezel. */
+  background: #0b2114;
+  border: 1px solid #04120a;
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.85),
+    inset -1px -1px 0 rgba(120, 255, 170, 0.06);
+  padding: 12px 18px 8px;
 }
 
 .countdown-cell {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 64px;
+  min-width: 66px;
 }
 
 .countdown-value {
   /* "DSEG7-Classic" = 7-segment LCD face; the monospace fallback keeps the
      digits readable if the webfont fails to load. */
+  position: relative;
   font-family: "DSEG7-Classic", "Courier New", monospace;
-  font-size: clamp(30px, 6.2vw, 50px);
+  font-size: clamp(34px, 6.8vw, 54px);
   font-weight: 700;
-  color: var(--xp-blue);
+  color: #8dffbb;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  /* Tight phosphor glow — enough to read as "lit", not enough to smear. */
+  text-shadow: 0 0 3px rgba(141, 255, 187, 0.5);
+}
+
+/* The hallmark of a real LCD: the unlit "off" segments stay faintly visible
+   behind the lit digits. "88" lights every segment of a two-digit field.
+   Kept very faint so it reads as texture, not noise over the digits. */
+.countdown-value::before {
+  content: "88";
+  position: absolute;
+  inset: 0;
+  color: rgba(141, 255, 187, 0.08);
+  text-shadow: none;
 }
 
 .countdown-label {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 12px;
-  color: var(--muted);
+  color: rgba(141, 255, 187, 0.78);
   font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .countdown-sep {
   font-family: "DSEG7-Classic", "Courier New", monospace;
-  font-size: clamp(26px, 5.4vw, 44px);
+  font-size: clamp(30px, 6vw, 48px);
   font-weight: 700;
-  color: #c2c2c2;
+  color: #8dffbb;
   line-height: 1.1;
+  text-shadow: 0 0 3px rgba(141, 255, 187, 0.5);
 }
 
 .countdown--done {
-  font-size: 20px;
+  display: inline-block;
+  background: #0b2114;
+  border: 1px solid #04120a;
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.85),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+  padding: 14px 20px;
+  font-size: 18px;
   font-weight: 700;
-  color: var(--xp-blue);
+  color: #4df08a;
+  text-shadow: 0 0 7px rgba(77, 240, 138, 0.55);
 }
 
 /* ------------------------------------------------------- Windows stack --- */
@@ -1010,9 +1048,10 @@ button.xp-caption:active {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   border: none;
   cursor: pointer;
-  /* The signature lozenge Start button. */
+  /* The signature lozenge Start button. RTL: it sits at the right edge of the
+     screen, so round only the inner (left) edge — the outer edge stays flush. */
   background: linear-gradient(180deg, #5bb83f 0%, #43a233 45%, #2f861f 100%);
-  border-radius: 0 12px 12px 0;
+  border-radius: 12px 0 0 12px;
   box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4);
 }
 
