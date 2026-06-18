@@ -273,7 +273,7 @@ button.xp-caption {
 
 .hero-title {
   margin: 0 0 0 0;
-  margin-top: -100px;
+  margin-top: -30px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -302,7 +302,7 @@ button.xp-caption {
 }
 
 .hero-sponsor-logo {
-  width: clamp(41px, 9vw, 76px);
+  width: clamp(49px, 10.8vw, 91px);
   height: auto;
   filter: drop-shadow(0 4px 16px rgba(0, 30, 90, 0.6));
 }

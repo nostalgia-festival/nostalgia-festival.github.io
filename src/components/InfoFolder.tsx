@@ -50,7 +50,7 @@ export default function InfoFolder() {
     <>
       {/* Folder window — a normal window in the scrolling stack. */}
       <XPWindow
-        title="תכני האירוע — info"
+        title="תכני האירוע"
         icon={<Emoji e="📁" />}
         menu={['קובץ', 'עריכה', 'תצוגה', 'מועדפים', 'עזרה']}
       >

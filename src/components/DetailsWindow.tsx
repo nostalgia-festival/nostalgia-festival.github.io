@@ -13,7 +13,7 @@ const ROWS: { icon: string; label: string; value: string }[] = [
 export default function DetailsWindow() {
   return (
     <XPWindow
-      title="פרטי האירוע — details.txt"
+      title="פרטי האירוע.txt"
       icon={<Emoji e="📄" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
     >

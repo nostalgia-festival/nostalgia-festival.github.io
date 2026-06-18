@@ -47,14 +47,14 @@ export default function TicketWizard() {
 
   return (
     <XPWindow
-      title="אשף רכישת כרטיסים — tickets.exe"
+      title="אשף רכישת הכרטיסים.exe"
       icon={<Emoji e="🎟️" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
       className="wizard-window"
     >
       <div className="wizard">
         <div className="wizard-header">
-          <h2 className="wizard-title">אשף רכישת כרטיסים</h2>
+          <h2 className="wizard-title">רכישת כרטיסים</h2>
           <p className="wizard-subtitle">מלאו את הפרטים והמשיכו לתשלום</p>
           <p className="wizard-notice">שימו לב — מכירת הכרטיסים עד גמר המלאי</p>
         </div>
