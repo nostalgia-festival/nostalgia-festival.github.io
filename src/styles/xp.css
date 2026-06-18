@@ -233,6 +233,13 @@ button.xp-caption {
   object-fit: contain;
 }
 
+/* The ששטוס logo is the headliner — show it 30% larger than the other file
+   icons. It's wide/short, so width is the limiting dimension; widen it and keep
+   the shared 56px height so the label still lines up with its neighbours. */
+.info-file-img--shustus {
+  width: 73px;
+}
+
 .info-file-label {
   font-size: 12px;
   font-weight: 600;
@@ -250,6 +257,12 @@ button.xp-caption {
   max-height: 150px;
   object-fit: contain;
   margin: 0 auto 14px;
+}
+
+/* Match the 30% bump the ששטוס logo gets in the folder grid. */
+.info-popup-img--shustus {
+  max-width: 286px;
+  max-height: 195px;
 }
 
 .info-popup-title {

@@ -22,6 +22,7 @@ const IMAGES: Record<string, string[]> = {
 }
 const GLYPHS: Record<string, string> = {
   dj: '💿',
+  stands: '🎉',
 }
 
 type Item = (typeof INFO_ITEMS)[number]
@@ -63,7 +64,11 @@ export default function InfoFolder() {
               onClick={() => setSelected(item)}
             >
               {IMAGES[item.id] ? (
-                <ProgressiveImage className="info-file-img" tiers={IMAGES[item.id]} alt="" />
+                <ProgressiveImage
+                  className={`info-file-img${item.id === 'shustus' ? ' info-file-img--shustus' : ''}`}
+                  tiers={IMAGES[item.id]}
+                  alt=""
+                />
               ) : (
                 <Emoji e={GLYPHS[item.id] ?? '📄'} className="info-file-glyph" />
               )}
@@ -88,7 +93,11 @@ export default function InfoFolder() {
             >
               <div className="info-popup">
                 {IMAGES[selected.id] && (
-                  <ProgressiveImage className="info-popup-img" tiers={IMAGES[selected.id]} alt={selected.label} />
+                  <ProgressiveImage
+                    className={`info-popup-img${selected.id === 'shustus' ? ' info-popup-img--shustus' : ''}`}
+                    tiers={IMAGES[selected.id]}
+                    alt={selected.label}
+                  />
                 )}
                 <h3 className="info-popup-title">{selected.title}</h3>
                 {selected.lines.map((line, i) => (
