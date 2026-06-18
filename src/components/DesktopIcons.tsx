@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Icon from './Icon'
 import XPWindow from './XPWindow'
+import Minesweeper, { MinesweeperGlyph } from './Minesweeper'
 
 interface DesktopIconsProps {
   /** Scroll to the "פרטי האירוע" (details.txt) window. */
@@ -22,18 +23,23 @@ interface DesktopIconsProps {
  */
 export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }: DesktopIconsProps) {
   // The recycle bin is the only icon that opens its own window rather than
-  // scrolling to a section in the page, so its open/close state lives here.
+  // scrolling to a section in the page, so its open/close state lives here. The
+  // bin holds one "deleted" file — a working Minesweeper clone — which opens in
+  // its own modal layer on top of the bin.
   const [recycleOpen, setRecycleOpen] = useState(false)
+  const [minesweeperOpen, setMinesweeperOpen] = useState(false)
 
-  // Escape closes the open recycle bin (mirrors the modal in InfoFolder).
+  // Escape closes the topmost open layer (mirrors the modal in InfoFolder).
   useEffect(() => {
-    if (!recycleOpen) return
+    if (!recycleOpen && !minesweeperOpen) return
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setRecycleOpen(false)
+      if (e.key !== 'Escape') return
+      if (minesweeperOpen) setMinesweeperOpen(false)
+      else setRecycleOpen(false)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [recycleOpen])
+  }, [recycleOpen, minesweeperOpen])
 
   return (
     <>
@@ -64,7 +70,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }
         </button>
       </div>
 
-      {/* Recycle bin — a modal window that's always empty. */}
+      {/* Recycle bin — holds one "deleted" file: a Minesweeper clone. */}
       {recycleOpen && (
         <div
           className="xp-modal-overlay"
@@ -78,10 +84,36 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }
               menu={['קובץ', 'עריכה', 'תצוגה', 'מועדפים', 'עזרה']}
               onClose={() => setRecycleOpen(false)}
             >
-              <div className="recycle-empty">
-                <Icon name="recyclebin" e="🗑️" className="recycle-empty-glyph" />
-                <p className="recycle-empty-text">סל המיחזור ריק.</p>
+              <div className="info-folder">
+                <button
+                  type="button"
+                  className="info-file"
+                  onClick={() => setMinesweeperOpen(true)}
+                >
+                  <MinesweeperGlyph className="info-file-glyph" />
+                  <span className="info-file-label">שולה המוקשים.exe</span>
+                </button>
               </div>
+            </XPWindow>
+          </div>
+        </div>
+      )}
+
+      {/* Minesweeper — a modal layer above the bin; backdrop click closes it. */}
+      {minesweeperOpen && (
+        <div
+          className="xp-modal-overlay"
+          onClick={() => setMinesweeperOpen(false)}
+          role="presentation"
+        >
+          <div className="xp-modal xp-modal--minesweeper" onClick={(e) => e.stopPropagation()}>
+            <XPWindow
+              title="שולה המוקשים"
+              icon={<MinesweeperGlyph />}
+              menu={['משחק', 'עזרה']}
+              onClose={() => setMinesweeperOpen(false)}
+            >
+              <Minesweeper />
             </XPWindow>
           </div>
         </div>

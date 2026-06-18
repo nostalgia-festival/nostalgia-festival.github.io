@@ -1068,14 +1068,223 @@ button.xp-caption:active {
     column-gap: 4px;
     row-gap: 10px;
   }
-  /* The recycle bin is the one icon that opens its own window rather than
-     jumping to a page section, so it's the least useful on a small screen —
-     hide it to free up room in the top row. */
-  .desktop-icon--recycle {
-    display: none;
-  }
   .hero-desktop-icons .desktop-icon {
     width: 60px;
     padding: 6px 2px;
   }
+}
+
+/* ------------------------------------------------- שולה מוקשים (Minesweeper) --- */
+/* A faithful winmine.exe clone living in the recycle bin. It keeps the classic
+   Win 9x/2000 grey-bevel look (3D outset tiles, inset wells) rather than the XP
+   Luna theme, because that *is* what the original game looked like. Its window
+   sizes to the board, so it gets its own modal width override. The board width
+   is driven by --ms-cols (set inline per difficulty). LTR — the game grid and
+   its numbers are not Hebrew text. */
+.xp-modal--minesweeper {
+  width: auto;
+  max-width: 96vw;
+}
+.xp-modal--minesweeper .xp-window-body {
+  padding: 0;
+  background: #c0c0c0;
+}
+
+.ms-game {
+  direction: ltr;
+  padding: 6px;
+  background: #c0c0c0;
+  font-family: 'Tahoma', 'Segoe UI', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* The difficulty / flag-mode strip standing in for the original Game menu. */
+.ms-menu {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.ms-menu-btn {
+  appearance: none;
+  font: 600 11px 'Tahoma', sans-serif;
+  padding: 3px 8px;
+  background: #c0c0c0;
+  color: #000;
+  cursor: pointer;
+  /* Classic raised bevel. */
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+.ms-menu-btn:active,
+.ms-menu-btn--on {
+  border-color: #808080 #fff #fff #808080;
+  background: #b0b0b0;
+}
+.ms-flag-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.ms-flag-toggle-glyph {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+/* The grey playfield frame: an outset border wrapping the panel + board. */
+.ms-frame {
+  background: #c0c0c0;
+  border: 3px solid;
+  border-color: #fff #808080 #808080 #fff;
+  padding: 6px;
+}
+
+/* The status panel: mine counter · smiley · timer, in an inset well. */
+.ms-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  padding: 4px 6px;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #c0c0c0;
+}
+
+/* The red 7-segment-style LED readouts. */
+.ms-led {
+  background: #000;
+  color: #f00;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 2px;
+  padding: 2px 4px;
+  min-width: 44px;
+  text-align: right;
+  /* A faint unlit segment ghost behind the lit digits. */
+  text-shadow: 0 0 1px #500;
+}
+
+/* The smiley reset button. */
+.ms-face {
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ms-face:active {
+  border-color: #808080 #fff #fff #808080;
+}
+.ms-face svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* The mine grid. --ms-cells drives the column count per difficulty. */
+.ms-board {
+  display: grid;
+  grid-template-columns: repeat(var(--ms-cols, 9), 24px);
+  border: 3px solid;
+  border-color: #808080 #fff #fff #808080;
+  width: max-content;
+}
+
+.ms-cell {
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 15px 'Tahoma', sans-serif;
+  line-height: 1;
+}
+
+/* Unrevealed tile: raised bevel, clickable. */
+.ms-cell--hidden {
+  appearance: none;
+  cursor: pointer;
+  background: #c0c0c0;
+  border: 3px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+.ms-cell--hidden:disabled {
+  cursor: default;
+}
+
+/* Revealed tile: flat, with the thin classic grid line on the top/left. */
+.ms-cell--open {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  border-width: 1px 0 0 1px;
+}
+
+/* The detonated mine sits on a red field. */
+.ms-cell--boom {
+  background: #f00;
+}
+
+/* A flag the player placed on a safe cell — struck through with a red X on loss. */
+.ms-cell--wrong {
+  position: relative;
+}
+.ms-cell--wrong::after {
+  content: '✕';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f00;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ms-cell-glyph {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.ms-question {
+  color: #000;
+  font-weight: 700;
+}
+
+/* The eight authentic Minesweeper number colours. */
+.ms-num-1 { color: #0000ff; }
+.ms-num-2 { color: #008000; }
+.ms-num-3 { color: #ff0000; }
+.ms-num-4 { color: #000080; }
+.ms-num-5 { color: #800000; }
+.ms-num-6 { color: #008080; }
+.ms-num-7 { color: #000000; }
+.ms-num-8 { color: #808080; }
+
+.ms-hint {
+  direction: rtl;
+  margin: 8px 2px 2px;
+  font-size: 11px;
+  color: #333;
+  text-align: center;
+}
+
+/* Expert/intermediate boards can outgrow a phone — let the body scroll them. */
+.xp-modal--minesweeper .xp-window-body {
+  overflow: auto;
 }
