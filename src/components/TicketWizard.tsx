@@ -16,13 +16,16 @@ type SubmitState = 'idle' | 'saving' | 'redirecting' | 'error'
  */
 export default function TicketWizard() {
   const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
   const [numTickets, setNumTickets] = useState(1)
 
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
 
   const price = useMemo(() => calculatePrice({ numTickets }), [numTickets])
 
-  const formValid = fullName.trim().length >= 2 && numTickets >= 1
+  // Simple email sanity check — enough to catch typos without over-validating.
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+  const formValid = fullName.trim().length >= 2 && emailValid && numTickets >= 1
 
   async function handlePurchase() {
     setSubmitState('saving')
@@ -30,6 +33,7 @@ export default function TicketWizard() {
     // Log first — but never let a logging failure block the user from paying.
     await logTicketClick({
       full_name: fullName.trim(),
+      email: email.trim(),
       num_tickets: numTickets,
       calculated_price: price.total,
     })
@@ -68,6 +72,17 @@ export default function TicketWizard() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="הכנס/י את שמך המלא"
+            />
+          </label>
+
+          <label className="field">
+            <span className="field-label">דוא״ל</span>
+            <input
+              className="xp-input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="הכנס/י כתובת דוא״ל"
             />
           </label>
 

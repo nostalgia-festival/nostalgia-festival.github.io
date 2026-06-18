@@ -286,7 +286,7 @@ button.xp-caption {
 
 .hero-title {
   margin: 0 0 0 0;
-  margin-top: -150px;
+  margin-top: -50px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -571,6 +571,38 @@ button.xp-caption {
   margin: 0;
   color: #222;
   text-align: start;
+}
+
+/* ------------------------------------------------------------ Contact --- */
+.contact-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.contact-lead {
+  margin: 0;
+  color: #333;
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #0a3d91;
+  text-decoration: none;
+}
+
+.contact-email:hover {
+  text-decoration: underline;
+}
+
+.contact-email-icon {
+  width: 1.1em;
+  height: 1.1em;
 }
 
 /* ------------------------------------------------------------- Wizard --- */
@@ -920,7 +952,9 @@ button.xp-caption {
 }
 
 .start-flag {
-  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
 
 .taskbar-tray {

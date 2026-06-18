@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react'
-import Emoji from './Emoji'
+
+/** The classic 4-color flag, matching the tab favicon (not the modern window glyph). */
+function StartFlag() {
+  return (
+    <svg className="start-flag" viewBox="0 0 16 16" aria-hidden="true">
+      <rect x="2" y="2" width="5" height="5" fill="#f25022" />
+      <rect x="9" y="2" width="5" height="5" fill="#7fba00" />
+      <rect x="2" y="9" width="5" height="5" fill="#00a4ef" />
+      <rect x="9" y="9" width="5" height="5" fill="#ffb900" />
+    </svg>
+  )
+}
 
 function currentClock(): string {
   const now = new Date()
@@ -24,7 +35,7 @@ export default function Taskbar({ onStartClick }: TaskbarProps) {
   return (
     <div className="taskbar">
       <button className="start-button" onClick={onStartClick}>
-        <Emoji e="🪟" className="start-flag" />
+        <StartFlag />
         התחל
       </button>
 

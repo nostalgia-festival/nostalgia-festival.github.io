@@ -16,6 +16,7 @@ export const isSupabaseConfigured = client !== null
 
 export interface TicketClick {
   full_name: string
+  email: string
   num_tickets: number
   calculated_price: number
 }
@@ -36,6 +37,7 @@ export async function logTicketClick(data: TicketClick): Promise<boolean> {
   try {
     const { error } = await client.from('ticket_clicks').insert({
       full_name: data.full_name,
+      email: data.email,
       num_tickets: data.num_tickets,
       calculated_price: data.calculated_price,
       user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,

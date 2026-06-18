@@ -5,6 +5,7 @@ import Hero from './components/Hero'
 import DetailsWindow from './components/DetailsWindow'
 import InfoFolder from './components/InfoFolder'
 import TicketWizard from './components/TicketWizard'
+import ContactWindow from './components/ContactWindow'
 import Taskbar from './components/Taskbar'
 import Footer from './components/Footer'
 
@@ -12,6 +13,7 @@ export default function App() {
   const detailsRef = useRef<HTMLDivElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
   const wizardRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
 
   const scrollTo = (ref: RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -25,6 +27,7 @@ export default function App() {
         onDetails={() => scrollTo(detailsRef)}
         onInfo={() => scrollTo(infoRef)}
         onTickets={() => scrollTo(wizardRef)}
+        onContact={() => scrollTo(contactRef)}
       />
 
       <Hero onStartClick={() => scrollTo(wizardRef)} />
@@ -40,6 +43,10 @@ export default function App() {
 
         <div ref={wizardRef} className="wizard-anchor scroll-anchor">
           <TicketWizard />
+        </div>
+
+        <div ref={contactRef} className="scroll-anchor">
+          <ContactWindow />
         </div>
 
         <Footer />

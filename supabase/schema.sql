@@ -9,6 +9,7 @@ create table if not exists public.ticket_clicks (
   id               uuid primary key default gen_random_uuid(),
   created_at       timestamptz      not null default now(),
   full_name        text             not null,
+  email            text,
   age              integer,
   num_tickets      integer          not null,
   companions       text,            -- 'friends' | 'family' | 'kids' | 'solo'

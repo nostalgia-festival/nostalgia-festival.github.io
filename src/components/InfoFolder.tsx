@@ -23,6 +23,10 @@ const IMAGES: Record<string, string[]> = {
 const GLYPHS: Record<string, string> = {
   dj: '💿',
   stands: '🎉',
+  'mystery-1': '❓',
+  'mystery-2': '❓',
+  'mystery-3': '❓',
+  'mystery-4': '❓',
 }
 
 type Item = (typeof INFO_ITEMS)[number]

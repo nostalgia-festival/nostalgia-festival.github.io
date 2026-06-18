@@ -29,6 +29,9 @@ export const EVENT = {
   doorsLabel: '19:30',
   mainStageLabel: '21:00',
   locationLabel: 'רדינג 3',
+
+  // Contact address shown in the "צרו קשר" window (and its mailto: link).
+  contactEmail: 'contact@nostalgia-festival.co.il',
 }
 
 // ---------------------------------------------------------------------------
@@ -85,6 +88,38 @@ export const INFO_ITEMS = [
     title: 'דוכנים',
     lines: [
       'דוכנים שלא יביישו יריד שהלכתם אליו עם אמא ביום העצמאות 2005',
+    ],
+  },
+  {
+    id: 'mystery-1',
+    label: 'ייחשף בהמשך',
+    title: 'ייחשף בהמשך',
+    lines: [
+      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+    ],
+  },
+  {
+    id: 'mystery-2',
+    label: 'ייחשף בהמשך',
+    title: 'ייחשף בהמשך',
+    lines: [
+      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+    ],
+  },
+  {
+    id: 'mystery-3',
+    label: 'ייחשף בהמשך',
+    title: 'ייחשף בהמשך',
+    lines: [
+      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+    ],
+  },
+  {
+    id: 'mystery-4',
+    label: 'ייחשף בהמשך',
+    title: 'ייחשף בהמשך',
+    lines: [
+      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
     ],
   },
 ] as const

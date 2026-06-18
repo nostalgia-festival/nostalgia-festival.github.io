@@ -7,6 +7,8 @@ interface DesktopIconsProps {
   onInfo: () => void
   /** Scroll to the ticket purchase wizard (tickets.exe). */
   onTickets: () => void
+  /** Scroll to the "צרו קשר" contact window. */
+  onContact: () => void
 }
 
 /**
@@ -16,7 +18,7 @@ interface DesktopIconsProps {
  * scrolling away with the hero. Each one double-acts as a jump link to its
  * matching window further down the page.
  */
-export default function DesktopIcons({ onDetails, onInfo, onTickets }: DesktopIconsProps) {
+export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }: DesktopIconsProps) {
   return (
     <div className="hero-desktop-icons">
       <button type="button" className="desktop-icon" onClick={onDetails}>
@@ -31,7 +33,12 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets }: DesktopIc
 
       <button type="button" className="desktop-icon" onClick={onTickets}>
         <Emoji e="🎟️" className="desktop-icon-glyph" />
-        <span className="desktop-icon-label">tickets.exe</span>
+        <span className="desktop-icon-label">כרטיסים.exe</span>
+      </button>
+
+      <button type="button" className="desktop-icon" onClick={onContact}>
+        <Emoji e="✉️" className="desktop-icon-glyph" />
+        <span className="desktop-icon-label">צרו קשר</span>
       </button>
     </div>
   )
