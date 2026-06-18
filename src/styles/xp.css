@@ -77,16 +77,28 @@ body {
 }
 
 .hero-desktop-icons {
-  position: absolute;
+  /* Pinned to the viewport (not the hero) so the shortcuts ride along as the
+     page scrolls and never disappear. */
+  position: fixed;
   top: 16px;
   /* RTL page → "inset-inline-end" is the visual right edge, matching the mock. */
   inset-inline-end: 16px;
+  z-index: 50;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
 .desktop-icon {
+  /* These are real <button>s now — strip the native chrome so they read as
+     plain desktop shortcuts. */
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,9 +109,26 @@ body {
   font-size: 12px;
 }
 
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.desktop-icon:focus-visible {
+  outline: 1px dotted #fff;
+  outline-offset: 1px;
+}
+
 .desktop-icon-glyph {
   font-size: 30px;
+  line-height: 1;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.desktop-icon-img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
 }
 
 .hero-center {
@@ -528,7 +557,8 @@ body {
 }
 
 /* ------------------------------------------------------------- Wizard --- */
-.wizard-anchor {
+.scroll-anchor {
+  /* Keep a little breathing room when a desktop shortcut jumps here. */
   scroll-margin-top: 20px;
 }
 

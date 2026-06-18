@@ -1,5 +1,6 @@
-import { useRef } from 'react'
+import { useRef, type RefObject } from 'react'
 import Background from './components/Background'
+import DesktopIcons from './components/DesktopIcons'
 import Hero from './components/Hero'
 import DetailsWindow from './components/DetailsWindow'
 import FatesWall from './components/FatesWall'
@@ -8,30 +9,43 @@ import Taskbar from './components/Taskbar'
 import Footer from './components/Footer'
 
 export default function App() {
+  const detailsRef = useRef<HTMLDivElement>(null)
+  const fatesRef = useRef<HTMLDivElement>(null)
   const wizardRef = useRef<HTMLDivElement>(null)
 
-  const scrollToWizard = () => {
-    wizardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  const scrollTo = (ref: RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   return (
     <div className="app">
       <Background />
 
-      <Hero onStartClick={scrollToWizard} />
+      <DesktopIcons
+        onDetails={() => scrollTo(detailsRef)}
+        onFates={() => scrollTo(fatesRef)}
+        onTickets={() => scrollTo(wizardRef)}
+      />
+
+      <Hero onStartClick={() => scrollTo(wizardRef)} />
 
       <main className="windows-stack">
-        <DetailsWindow />
-        <FatesWall />
+        <div ref={detailsRef} className="scroll-anchor">
+          <DetailsWindow />
+        </div>
 
-        <div ref={wizardRef} className="wizard-anchor">
+        <div ref={fatesRef} className="scroll-anchor">
+          <FatesWall />
+        </div>
+
+        <div ref={wizardRef} className="wizard-anchor scroll-anchor">
           <TicketWizard />
         </div>
 
         <Footer />
       </main>
 
-      <Taskbar onStartClick={scrollToWizard} />
+      <Taskbar onStartClick={() => scrollTo(wizardRef)} />
     </div>
   )
 }
