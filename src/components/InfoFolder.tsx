@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { INFO_ITEMS } from '../lib/config'
 import XPWindow from './XPWindow'
-import Emoji from './Emoji'
+import Icon from './Icon'
 import ProgressiveImage from './ProgressiveImage'
 import shustus40 from '../../images/logos/shustus-40.png'
 import shustus160 from '../../images/logos/shustus-160.png'
@@ -20,14 +20,16 @@ const IMAGES: Record<string, string[]> = {
   'ilan-rozenfeld': [ilan],
   'tal-mosseri': [tal],
 }
-const GLYPHS: Record<string, string> = {
-  dj: '💿',
-  stands: '🎉',
-  'mystery-1': '❓',
-  'mystery-2': '❓',
-  'mystery-3': '❓',
-  'mystery-4': '❓',
+// Icon (slug + emoji fallback) for the folder entries without a real image.
+const GLYPHS: Record<string, { name: string; e: string }> = {
+  dj: { name: 'cd', e: '💿' },
+  stands: { name: 'party', e: '🎉' },
+  'mystery-1': { name: 'mystery', e: '❓' },
+  'mystery-2': { name: 'mystery', e: '❓' },
+  'mystery-3': { name: 'mystery', e: '❓' },
+  'mystery-4': { name: 'mystery', e: '❓' },
 }
+const DEFAULT_GLYPH = { name: 'document', e: '📄' }
 
 type Item = (typeof INFO_ITEMS)[number]
 
@@ -56,7 +58,7 @@ export default function InfoFolder() {
       {/* Folder window — a normal window in the scrolling stack. */}
       <XPWindow
         title="תכני האירוע"
-        icon={<Emoji e="📁" />}
+        icon={<Icon name="folder" e="📁" />}
         menu={['קובץ', 'עריכה', 'תצוגה', 'מועדפים', 'עזרה']}
       >
         <div className="info-folder">
@@ -74,7 +76,11 @@ export default function InfoFolder() {
                   alt=""
                 />
               ) : (
-                <Emoji e={GLYPHS[item.id] ?? '📄'} className="info-file-glyph" />
+                <Icon
+                  name={(GLYPHS[item.id] ?? DEFAULT_GLYPH).name}
+                  e={(GLYPHS[item.id] ?? DEFAULT_GLYPH).e}
+                  className="info-file-glyph"
+                />
               )}
               <span className="info-file-label">{item.label}</span>
             </button>
@@ -92,7 +98,13 @@ export default function InfoFolder() {
           <div className="xp-modal xp-modal--popup" onClick={(e) => e.stopPropagation()}>
             <XPWindow
               title={`${selected.label} — readme.txt`}
-              icon={<Emoji e={IMAGES[selected.id] ? '🖼️' : '📄'} />}
+              icon={
+                IMAGES[selected.id] ? (
+                  <Icon name="picture" e="🖼️" />
+                ) : (
+                  <Icon name="document" e="📄" />
+                )
+              }
               onClose={() => setSelected(null)}
             >
               <div className="info-popup">

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react'
-import Emoji from './Emoji'
+import Icon from './Icon'
 
 interface CountdownProps {
   /** Target time as an ISO string. */
@@ -49,7 +49,7 @@ export default function Countdown({ target }: CountdownProps) {
   if (timeLeft.done) {
     return (
       <div className="countdown countdown--done">
-        <span>הדלתות נפתחו! נתראה בפסטיבל הנוסטלגיה <Emoji e="🎉" /></span>
+        <span>הדלתות נפתחו! נתראה בפסטיבל הנוסטלגיה <Icon name="party" e="🎉" /></span>
       </div>
     )
   }

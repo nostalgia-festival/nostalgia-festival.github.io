@@ -1,4 +1,4 @@
-import Emoji from './Emoji'
+import Icon from './Icon'
 
 interface DesktopIconsProps {
   /** Scroll to the "פרטי האירוע" (details.txt) window. */
@@ -22,22 +22,22 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }
   return (
     <div className="hero-desktop-icons">
       <button type="button" className="desktop-icon" onClick={onDetails}>
-        <Emoji e="📄" className="desktop-icon-glyph" />
+        <Icon name="document" e="📄" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">פרטים.txt</span>
       </button>
 
       <button type="button" className="desktop-icon" onClick={onInfo}>
-        <Emoji e="📁" className="desktop-icon-glyph" />
+        <Icon name="folder" e="📁" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">מידע</span>
       </button>
 
       <button type="button" className="desktop-icon" onClick={onTickets}>
-        <Emoji e="🎟️" className="desktop-icon-glyph" />
+        <Icon name="tickets" e="🎟️" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">כרטיסים.exe</span>
       </button>
 
       <button type="button" className="desktop-icon" onClick={onContact}>
-        <Emoji e="✉️" className="desktop-icon-glyph" />
+        <Icon name="mail" e="✉️" className="desktop-icon-glyph" />
         <span className="desktop-icon-label">צרו קשר</span>
       </button>
     </div>

@@ -1,6 +1,6 @@
 import { EVENT } from '../lib/config'
 import Countdown from './Countdown'
-import Emoji from './Emoji'
+import Icon from './Icon'
 import ProgressiveImage from './ProgressiveImage'
 import logo80 from '../../images/logos/hero-logo-80.png'
 import logo320 from '../../images/logos/hero-logo-320.png'
@@ -34,7 +34,7 @@ export default function Hero({ onStartClick }: HeroProps) {
         <Countdown target={EVENT.startsAtISO} />
 
         <button className="hero-cta xp-button xp-button--green" onClick={onStartClick}>
-          <Emoji e="🎟️" /> אני רוצה כרטיס!
+          <Icon name="tickets" e="🎟️" /> אני רוצה כרטיס!
         </button>
       </div>
 

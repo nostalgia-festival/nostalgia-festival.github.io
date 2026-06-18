@@ -1,5 +1,3 @@
-import Emoji from './Emoji'
-
 /** Page footer matching the mock. */
 export default function Footer() {
   return (

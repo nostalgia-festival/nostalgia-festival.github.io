@@ -137,15 +137,22 @@ body {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
 }
 
-/* Emoji rendered as a bundled Twemoji image (see Emoji.tsx). Sized to the
-   surrounding text via 1em, so it slots in wherever a glyph used to sit; the
-   few fixed-size contexts (folder icons) override the dimensions below. */
-.emoji {
+/* Emoji rendered as a bundled Twemoji image (see Emoji.tsx) and the authentic
+   XP system icons (see Icon.tsx) share one base box: sized to the surrounding
+   text via 1em, so each slots in wherever a glyph used to sit; the few
+   fixed-size contexts (folder icons) override the dimensions below. */
+.emoji,
+.xp-icon {
   display: inline-block;
   width: 1em;
   height: 1em;
   vertical-align: -0.125em;
   object-fit: contain;
+}
+
+/* details.txt rows: a touch larger than the body text so each icon reads. */
+.details-icon {
+  font-size: 18px;
 }
 
 /* ----------------------------------------------- modal windows (מידע) --- */
@@ -420,7 +427,8 @@ button.xp-caption {
 /* ----------------------------------------------------------- XP Window --- */
 .xp-window {
   border: 1px solid var(--xp-blue-dark);
-  border-radius: 8px 8px 3px 3px;
+  /* Luna windows round only the top corners; the bottom is square. */
+  border-radius: 8px 8px 0 0;
   background: var(--xp-face);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
   overflow: hidden;
@@ -432,18 +440,24 @@ button.xp-caption {
   justify-content: space-between;
   height: 30px;
   padding: 0 6px 0 4px;
+  /* Authentic Luna ramp: a bright top sheen quickly deepening to the core blue,
+     with a darker band at the very bottom. */
   background: linear-gradient(
     180deg,
-    var(--xp-title-from) 0%,
-    var(--xp-title-mid) 8%,
-    var(--xp-title-to) 40%,
-    var(--xp-blue) 88%,
-    #1c52d6 100%
+    #4196ff 0%,
+    #2f7bf0 9%,
+    var(--xp-blue) 45%,
+    #1f54cf 91%,
+    #1546b8 100%
   );
   color: #fff;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   border-radius: 7px 7px 0 0;
+  /* The signature glossy highlight along the top edge + a soft shadow at the
+     bottom seam, which the old flat gradient lacked. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .xp-titlebar-text {
@@ -474,16 +488,39 @@ button.xp-caption {
   display: grid;
   place-items: center;
   font-size: 11px;
+  line-height: 1;
   font-weight: 700;
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid #1c419b;
   border-radius: 3px;
-  background: linear-gradient(180deg, #5b8def, #2c63da);
-  text-shadow: none;
+  /* Glossy blue button: light sheen on top, deeper blue below. */
+  background: linear-gradient(180deg, #7fb0ff 0%, #4f8bf2 48%, #2f63d6 52%, #2a59c8 100%);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  /* The XP bevel: white highlight top-left, dark shadow bottom-right. */
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.6),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.xp-caption:hover {
+  filter: brightness(1.12);
+}
+
+/* Pressed: invert the bevel so the button reads as pushed in. */
+button.xp-caption:active {
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.45),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .xp-close {
-  background: linear-gradient(180deg, #f08060, #c63b1e);
+  border-color: #8f2410;
+  background: linear-gradient(180deg, #f6a187 0%, #e36b48 48%, #cf3f1f 52%, #bd3318 100%);
+}
+
+/* Nudge the minimize underscore up so it sits as a low centered bar, not on the
+   baseline edge of the button. */
+.xp-min {
+  align-content: center;
+  padding-bottom: 4px;
 }
 
 .xp-menubar {
