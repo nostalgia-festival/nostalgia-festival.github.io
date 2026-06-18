@@ -1,6 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { CONFIG } from './config'
-import type { Companion } from './pricing'
 
 // The Supabase client is only created when both the URL and publishable key are
 // present. This lets the site build & run locally (and even on GitHub Pages)
@@ -17,9 +16,7 @@ export const isSupabaseConfigured = client !== null
 
 export interface TicketClick {
   full_name: string
-  age: number | null
   num_tickets: number
-  companions: Companion | null
   calculated_price: number
 }
 
@@ -39,9 +36,7 @@ export async function logTicketClick(data: TicketClick): Promise<boolean> {
   try {
     const { error } = await client.from('ticket_clicks').insert({
       full_name: data.full_name,
-      age: data.age,
       num_tickets: data.num_tickets,
-      companions: data.companions,
       calculated_price: data.calculated_price,
       user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
       referrer: typeof document !== 'undefined' ? document.referrer || null : null,

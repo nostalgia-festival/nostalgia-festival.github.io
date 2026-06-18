@@ -9,7 +9,7 @@ export const CONFIG = {
 
   // Where to redirect the user after we log their details. When empty (e.g. in
   // local dev), the wizard shows a friendly placeholder instead of redirecting.
-  paymentUrl: import.meta.env.VITE_PAYMENT_URL ?? '',
+  paymentUrl: import.meta.env.VITE_PAYMENT_URL ?? 'https://pay.tranzila.com/double12ch10',
 }
 
 // ---------------------------------------------------------------------------
