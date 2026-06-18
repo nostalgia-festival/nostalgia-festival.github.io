@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import Hero from './components/Hero'
-import WelcomeWindow from './components/WelcomeWindow'
 import DetailsWindow from './components/DetailsWindow'
 import FatesWall from './components/FatesWall'
 import TicketWizard from './components/TicketWizard'
@@ -19,7 +18,6 @@ export default function App() {
       <Hero onStartClick={scrollToWizard} />
 
       <main className="windows-stack">
-        <WelcomeWindow />
         <DetailsWindow />
         <FatesWall />
 

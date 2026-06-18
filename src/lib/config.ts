@@ -7,9 +7,10 @@ export const CONFIG = {
   // legacy anon key. Safe to expose to the browser; protected by RLS.
   supabasePublishableKey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '',
 
-  // Where to redirect the user after we log their details. When empty (e.g. in
-  // local dev), the wizard shows a friendly placeholder instead of redirecting.
-  paymentUrl: import.meta.env.VITE_PAYMENT_URL ?? 'https://pay.tranzila.com/double12ch10',
+  // Where to redirect the user after we log their details. `||` (not `??`) so an
+  // empty env var — which the deploy workflow sets when the GitHub variable is
+  // unset — falls through to the real payment URL instead of disabling redirect.
+  paymentUrl: import.meta.env.VITE_PAYMENT_URL || 'https://pay.tranzila.com/double12ch10',
 }
 
 // ---------------------------------------------------------------------------
