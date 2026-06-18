@@ -1031,7 +1031,15 @@ button.xp-caption:active {
     /* On mobile the shortcuts shouldn't hog the small viewport, so drop the
        `fixed` pinning: `absolute` parks them at the top of the page (no
        positioned ancestor → relative to the document) where they scroll away
-       with the hero instead of riding along. */
+       with the hero instead of riding along. Lay them out as a horizontal row
+       across the top (wrapping if the viewport is too narrow) rather than a
+       tall vertical stack down the side; anchor both edges and center so the
+       four-wide row doesn't push off-screen. */
     position: absolute;
+    inset-inline-start: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
 }
