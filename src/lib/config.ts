@@ -17,8 +17,8 @@ export const CONFIG = {
 // PLACEHOLDER values are taken from the brief; confirm before going live.
 // ---------------------------------------------------------------------------
 export const EVENT = {
-  titleLine1: 'קפסולת הזמן',
-  titleLine2: 'הישראלית 1990–2009',
+  titleLine1: 'פסטיבל נוסטלגיה',
+  titleLine2: 'שנות ה-2000 חוזרות ליום אחד',
 
   // Used for the countdown. Monday 29.6.2026, doors at 17:00 (Asia/Jerusalem).
   // Format: ISO with explicit +03:00 (Israel Daylight Time in June).
