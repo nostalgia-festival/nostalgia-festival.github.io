@@ -1,4 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+// The recycle-bin file icon and window title-bar icon use this real winmine.exe
+// logo (bundled at build time); the in-game mine cells still use the inline
+// MineGlyph SVG below.
+import minesweeperLogo from '../../images/Minesweeper.webp'
 
 // A faithful clone of the classic Windows Minesweeper (winmine.exe) — the same
 // rules, the same little chrome. Self-contained: state, logic, and the pixel
@@ -186,12 +190,12 @@ function LedCounter({ value }: { value: number }) {
 }
 
 /**
- * The classic landmine glyph, exported for the recycle-bin file and the window
- * title bar. Defaults to the `xp-icon` sizing (1em) used by the other chrome
- * icons when no explicit className is given.
+ * The Minesweeper logo, exported for the recycle-bin file and the window title
+ * bar. Defaults to the `xp-icon` sizing (1em) used by the other chrome icons
+ * when no explicit className is given.
  */
 export function MinesweeperGlyph({ className }: { className?: string }) {
-  return <MineGlyph className={className ?? 'xp-icon'} />
+  return <img src={minesweeperLogo} alt="" aria-hidden="true" className={className ?? 'xp-icon'} />
 }
 
 export default function Minesweeper() {
