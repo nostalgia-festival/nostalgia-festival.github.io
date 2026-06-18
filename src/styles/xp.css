@@ -84,6 +84,12 @@ body {
      hero fills the viewport behind them. */
   z-index: 0;
   min-height: calc(100vh - var(--taskbar-h));
+  /* `dvh` tracks the *visible* viewport (it shrinks/grows with the mobile URL
+     bar) where `100vh` counts the area behind it. Without this the vertically
+     centered content sits lower than the visible center on mobile and the CTA +
+     scroll hint fall below the fold. Kept after the `vh` line as a progressive
+     enhancement for browsers that support it. */
+  min-height: calc(100dvh - var(--taskbar-h));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1082,6 +1088,15 @@ button.xp-caption:active {
 
 /* ----------------------------------------------------------- Responsive */
 @media (max-width: 520px) {
+  /* Tighten the hero stack so the CTA + scroll hint always clear the fold on
+     short mobile viewports: smaller gaps and drop the negative title offset
+     that on desktop pulls the logo up into the empty space above it. */
+  .hero-center {
+    gap: 18px;
+  }
+  .hero-title {
+    margin-top: 0;
+  }
   .countdown-cell {
     min-width: 48px;
   }
