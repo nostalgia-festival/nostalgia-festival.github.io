@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Icon from './Icon'
 import XPWindow from './XPWindow'
 import Minesweeper, { MinesweeperGlyph } from './Minesweeper'
@@ -29,6 +29,43 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }
   const [recycleOpen, setRecycleOpen] = useState(false)
   const [minesweeperOpen, setMinesweeperOpen] = useState(false)
 
+  // The five shortcuts lay out as a vertical column on desktop but as a wrapping
+  // horizontal row on mobile (see .hero-desktop-icons). On the narrowest phones
+  // the row can't hold all five, and the recycle bin — the last child — drops
+  // alone onto a lonely second line. We can't predict the wrap point in CSS
+  // because the icon labels (e.g. "כרטיסים.exe") are wider than the nominal 60px
+  // box, so instead we measure the real layout: if the bin lands on a different
+  // row than the first icon, hide it. (The Minesweeper easter egg inside is an
+  // acceptable casualty on tiny screens.) Done imperatively rather than via
+  // state to measure-and-hide within one synchronous pass — no flicker.
+  const firstIconRef = useRef<HTMLButtonElement>(null)
+  const recycleRef = useRef<HTMLButtonElement>(null)
+  useLayoutEffect(() => {
+    const recycle = recycleRef.current
+    const first = firstIconRef.current
+    if (!recycle || !first) return
+    const mobile = window.matchMedia('(max-width: 520px)')
+    function measure() {
+      if (!recycle || !first) return
+      // Desktop column layout stacks every icon on its own row by design, so
+      // row comparison is meaningless there — always show the bin.
+      if (!mobile.matches) {
+        recycle.style.display = ''
+        return
+      }
+      // Show it first so we can read its true position, then hide if it wrapped.
+      recycle.style.display = ''
+      recycle.style.display = recycle.offsetTop > first.offsetTop ? 'none' : ''
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    mobile.addEventListener('change', measure)
+    return () => {
+      window.removeEventListener('resize', measure)
+      mobile.removeEventListener('change', measure)
+    }
+  }, [])
+
   // Escape closes the topmost open layer (mirrors the modal in InfoFolder).
   useEffect(() => {
     if (!recycleOpen && !minesweeperOpen) return
@@ -44,7 +81,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }
   return (
     <>
       <div className="hero-desktop-icons">
-        <button type="button" className="desktop-icon" onClick={onDetails}>
+        <button type="button" className="desktop-icon" onClick={onDetails} ref={firstIconRef}>
           <Icon name="document" e="📄" className="desktop-icon-glyph" />
           <span className="desktop-icon-label">פרטים.txt</span>
         </button>
@@ -64,7 +101,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact }
           <span className="desktop-icon-label">צרו קשר</span>
         </button>
 
-        <button type="button" className="desktop-icon desktop-icon--recycle" onClick={() => setRecycleOpen(true)}>
+        <button type="button" className="desktop-icon desktop-icon--recycle" onClick={() => setRecycleOpen(true)} ref={recycleRef}>
           <Icon name="recyclebin" e="🗑️" className="desktop-icon-glyph" />
           <span className="desktop-icon-label">סל המיחזור</span>
         </button>
