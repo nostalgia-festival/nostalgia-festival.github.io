@@ -6,7 +6,6 @@ const ROWS: { icon: string; label: string; value: string }[] = [
   { icon: '🚪', label: 'פתיחת דלתות', value: EVENT.doorsLabel },
   { icon: '🎤', label: 'אירועי במה ראשית', value: EVENT.mainStageLabel },
   { icon: '📍', label: 'מיקום', value: EVENT.locationLabel },
-  { icon: '👥', label: 'קהל יעד', value: EVENT.audienceLabel },
 ]
 
 /** "details.txt" — the factual event info window. */

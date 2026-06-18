@@ -3,14 +3,14 @@ import Background from './components/Background'
 import DesktopIcons from './components/DesktopIcons'
 import Hero from './components/Hero'
 import DetailsWindow from './components/DetailsWindow'
-import FatesWall from './components/FatesWall'
+import InfoFolder from './components/InfoFolder'
 import TicketWizard from './components/TicketWizard'
 import Taskbar from './components/Taskbar'
 import Footer from './components/Footer'
 
 export default function App() {
   const detailsRef = useRef<HTMLDivElement>(null)
-  const fatesRef = useRef<HTMLDivElement>(null)
+  const infoRef = useRef<HTMLDivElement>(null)
   const wizardRef = useRef<HTMLDivElement>(null)
 
   const scrollTo = (ref: RefObject<HTMLDivElement>) => {
@@ -23,7 +23,7 @@ export default function App() {
 
       <DesktopIcons
         onDetails={() => scrollTo(detailsRef)}
-        onFates={() => scrollTo(fatesRef)}
+        onInfo={() => scrollTo(infoRef)}
         onTickets={() => scrollTo(wizardRef)}
       />
 
@@ -34,8 +34,8 @@ export default function App() {
           <DetailsWindow />
         </div>
 
-        <div ref={fatesRef} className="scroll-anchor">
-          <FatesWall />
+        <div ref={infoRef} className="scroll-anchor">
+          <InfoFolder />
         </div>
 
         <div ref={wizardRef} className="wizard-anchor scroll-anchor">

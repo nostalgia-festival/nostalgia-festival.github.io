@@ -7,6 +7,12 @@ interface XPWindowProps {
   icon?: ReactNode
   /** Optional menu strip (קובץ, עריכה ...) shown under the title bar. */
   menu?: string[]
+  /**
+   * When provided, the close (✕) caption button becomes a real button wired to
+   * this handler (used by modal windows). Without it the caption buttons stay
+   * purely decorative, like the static windows down the page.
+   */
+  onClose?: () => void
   children: ReactNode
   className?: string
 }
@@ -16,7 +22,7 @@ interface XPWindowProps {
  * classic minimize / maximize / close caption buttons, optional menu strip,
  * and a beige content area. Purely presentational.
  */
-export default function XPWindow({ title, icon, menu, children, className }: XPWindowProps) {
+export default function XPWindow({ title, icon, menu, onClose, children, className }: XPWindowProps) {
   return (
     <section className={`xp-window ${className ?? ''}`}>
       <div className="xp-titlebar">
@@ -24,10 +30,16 @@ export default function XPWindow({ title, icon, menu, children, className }: XPW
           {icon && <span className="xp-titlebar-icon">{icon}</span>}
           <span>{title}</span>
         </div>
-        <div className="xp-caption-buttons" aria-hidden="true">
-          <span className="xp-caption xp-min">_</span>
-          <span className="xp-caption xp-max">▢</span>
-          <span className="xp-caption xp-close">✕</span>
+        <div className="xp-caption-buttons">
+          <span className="xp-caption xp-min" aria-hidden="true">_</span>
+          <span className="xp-caption xp-max" aria-hidden="true">▢</span>
+          {onClose ? (
+            <button type="button" className="xp-caption xp-close" onClick={onClose} aria-label="סגור">
+              ✕
+            </button>
+          ) : (
+            <span className="xp-caption xp-close" aria-hidden="true">✕</span>
+          )}
         </div>
       </div>
 

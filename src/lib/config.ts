@@ -29,5 +29,54 @@ export const EVENT = {
   doorsLabel: '19:30',
   mainStageLabel: '21:00',
   locationLabel: 'רדינג 3',
-  audienceLabel: 'ילדי שנות ה-90 וה-2000 (וכל מי שמתגעגע)',
 }
+
+// ---------------------------------------------------------------------------
+// Contents of the "מידע" (info) desktop folder. Each entry is a "file" inside
+// the folder window; clicking it opens a popup with this copy. Images for the
+// entries are wired in InfoFolder.tsx by `id` (assets live alongside the other
+// images, not here, to keep this file import-free). Edit the copy here.
+// ---------------------------------------------------------------------------
+export const INFO_ITEMS = [
+  {
+    id: 'shustus',
+    label: 'ששטוס',
+    title: 'בואו לקחת חלק במשחק ששטוס ענק!',
+    lines: [
+      'קיר הגורלות חוזר! נצחו במשימות, אספו מפתחות ותוכלו לצבור נקודות בקיר הגורלות!',
+      'הפעלה אינטראקטיבית לאורך כל הערב במתחם המרכזי.',
+    ],
+  },
+  {
+    id: 'oded-paz',
+    label: 'עודד פז',
+    title: 'עודד פז',
+    lines: [
+      'כוכב שנות ה-2000 שליווה את הילדות והנעורים שלכם.',
+    ],
+  },
+  {
+    id: 'ilan-rozenfeld',
+    label: 'אילן רוזנפלד',
+    title: 'אילן רוזנפלד',
+    lines: [
+      'כוכב שנות ה-2000 שליווה את הילדות והנעורים שלכם.',
+    ],
+  },
+  {
+    id: 'tal-mosseri',
+    label: 'טל מוסרי',
+    title: 'טל מוסרי',
+    lines: [
+      'כוכב שנות ה-2000 שליווה את הילדות והנעורים שלכם.',
+    ],
+  },
+  {
+    id: 'dj',
+    label: "דיג'יי",
+    title: "דיג'יי",
+    lines: [
+      'מסיבת הלהיטים הגדולה של פעם — כל הפזמונים שגדלתם עליהם, על רחבת הריקודים.',
+    ],
+  },
+] as const

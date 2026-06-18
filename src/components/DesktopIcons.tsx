@@ -1,10 +1,8 @@
-import sheshtusLogo from '../../images/לוגו ששטוס מ2008.png'
-
 interface DesktopIconsProps {
   /** Scroll to the "פרטי האירוע" (details.txt) window. */
   onDetails: () => void
-  /** Scroll to the "קיר הגורלות" (ששטוס.exe) window. */
-  onFates: () => void
+  /** Open the "מידע" (info) folder window. */
+  onInfo: () => void
   /** Scroll to the ticket purchase wizard (tickets.exe). */
   onTickets: () => void
 }
@@ -16,7 +14,7 @@ interface DesktopIconsProps {
  * scrolling away with the hero. Each one double-acts as a jump link to its
  * matching window further down the page.
  */
-export default function DesktopIcons({ onDetails, onFates, onTickets }: DesktopIconsProps) {
+export default function DesktopIcons({ onDetails, onInfo, onTickets }: DesktopIconsProps) {
   return (
     <div className="hero-desktop-icons">
       <button type="button" className="desktop-icon" onClick={onDetails}>
@@ -24,11 +22,9 @@ export default function DesktopIcons({ onDetails, onFates, onTickets }: DesktopI
         <span className="desktop-icon-label">פרטים.txt</span>
       </button>
 
-      <button type="button" className="desktop-icon" onClick={onFates}>
-        <span className="desktop-icon-glyph">
-          <img className="desktop-icon-img" src={sheshtusLogo} alt="" />
-        </span>
-        <span className="desktop-icon-label">ששטוס.exe</span>
+      <button type="button" className="desktop-icon" onClick={onInfo}>
+        <span className="desktop-icon-glyph">📁</span>
+        <span className="desktop-icon-label">מידע</span>
       </button>
 
       <button type="button" className="desktop-icon" onClick={onTickets}>

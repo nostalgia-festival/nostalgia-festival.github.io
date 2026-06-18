@@ -55,6 +55,7 @@ export default function TicketWizard() {
         <div className="wizard-header">
           <h2 className="wizard-title">אשף רכישת כרטיסים</h2>
           <p className="wizard-subtitle">מלאו את הפרטים והמשיכו לתשלום</p>
+          <p className="wizard-notice">שימו לב — מכירת הכרטיסים עד גמר המלאי</p>
         </div>
 
         <div className="wizard-body">
