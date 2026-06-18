@@ -1,6 +1,6 @@
 # IMPLEMENTATION — מה נבנה ומה נשאר למלא
 
-מסמך זה מסכם את מה שמומש באתר "קפסולת הזמן", את ההחלטות שהתקבלו, ובעיקר את
+מסמך זה מסכם את מה שמומש באתר "פסטיבל נוסטלגיה", את ההחלטות שהתקבלו, ובעיקר את
 **מה שעדיין צריך להשלים לפני העלייה לאוויר**.
 
 ---
@@ -116,7 +116,7 @@ npm run preview           # תצוגה מקומית של ה-build
 ```bash
 git init
 git add .
-git commit -m "קפסולת הזמן — landing page initial version"
+git commit -m "פסטיבל נוסטלגיה — landing page initial version"
 git branch -M main
 git remote add origin https://github.com/<user>/<repo>.git
 git push -u origin main

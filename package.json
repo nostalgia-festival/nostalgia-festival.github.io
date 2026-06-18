@@ -2,7 +2,7 @@
   "name": "time-capsule-2000",
   "version": "1.0.0",
   "private": true,
-  "description": "קפסולת הזמן הישראלית 1990-2009 — landing page for the nostalgia conference",
+  "description": "פסטיבל נוסטלגיה — landing page for the nostalgia conference",
   "type": "module",
   "scripts": {
     "dev": "vite",
