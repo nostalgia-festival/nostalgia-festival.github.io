@@ -21,12 +21,12 @@ export const EVENT = {
   titleLine1: 'פסטיבל נוסטלגיה',
   titleLine2: 'שנות ה-2000 חוזרות ליום אחד',
 
-  // Used for the countdown. Monday 29.6.2026, doors at 17:00 (Asia/Jerusalem).
+  // Used for the countdown. Monday 29.6.2026, doors at 17:30 (Asia/Jerusalem).
   // Format: ISO with explicit +03:00 (Israel Daylight Time in June).
-  startsAtISO: '2026-06-29T17:00:00+03:00',
+  startsAtISO: '2026-06-29T17:30:00+03:00',
 
   dateLabel: 'יום שני, 29.6.2026',
-  doorsLabel: '17:00',
+  doorsLabel: '17:30',
   mainStageLabel: '20:00',
   locationLabel: 'אקספו תל אביב, ביתן 11A',
   audienceLabel: 'ילדי שנות ה-90 וה-2000 (וכל מי שמתגעגע)',

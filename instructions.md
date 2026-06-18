@@ -10,7 +10,7 @@ We're thinking about a Windows XP-esque 2000ish design (colors, font family, but
 
 Features requirements:
 - The page will list the details of the conference 
-Monday 29.6.26, 17:00 opening doors, 20:00 main stage events start. Expo TLV booth (ביתן) 11A.
+Monday 29.6.26, 17:30 opening doors, 20:00 main stage events start. Expo TLV booth (ביתן) 11A.
 - The page will provide information about the conference. But not reveal everything that will take place, but will provide the nostalgic feeling we're aiming for that will convince people to buy tickets
 - The page will have a link to buy tickets. The link will redirect the user to the management's payment service, but before clicking it, the user will fill their name, the number of tickets they want, age, and who they're coming with (friends, family, kids, etc). The price will be calculated according to what they fill, and once they click the link we'll log their information. It might not be possible to redirect them back once they pay, so we have to collect the data at that point.
 
