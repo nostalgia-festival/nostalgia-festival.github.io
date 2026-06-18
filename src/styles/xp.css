@@ -80,6 +80,9 @@ body {
 /* ----------------------------------------------------------------- Hero --- */
 .hero {
   position: relative;
+  /* Below the desktop shortcuts (z-index 1) so they stay clickable while the
+     hero fills the viewport behind them. */
+  z-index: 0;
   min-height: calc(100vh - var(--taskbar-h));
   display: flex;
   flex-direction: column;
@@ -96,7 +99,10 @@ body {
   top: 16px;
   /* RTL page → "inset-inline-end" is the visual right edge, matching the mock. */
   inset-inline-end: 16px;
-  z-index: 50;
+  /* Above the hero (z-index 0) so the shortcuts stay visible and clickable,
+     but below the windows (.windows-stack is z-index 2): a narrow window
+     scrolling past must cover the pinned shortcuts, not be covered by them. */
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -416,6 +422,10 @@ button.xp-caption {
 
 /* ------------------------------------------------------- Windows stack --- */
 .windows-stack {
+  /* Own stacking context above the fixed desktop shortcuts (z-index 1) so the
+     windows paint over them when a narrow window scrolls past. */
+  position: relative;
+  z-index: 2;
   max-width: var(--window-max);
   margin: 0 auto;
   padding: 16px;
@@ -1018,6 +1028,10 @@ button.xp-caption:active {
     grid-template-columns: 1fr;
   }
   .hero-desktop-icons {
-    display: none;
+    /* On mobile the shortcuts shouldn't hog the small viewport, so drop the
+       `fixed` pinning: `absolute` parks them at the top of the page (no
+       positioned ancestor → relative to the document) where they scroll away
+       with the hero instead of riding along. */
+    position: absolute;
   }
 }
