@@ -6,17 +6,21 @@ import ProgressiveImage from './ProgressiveImage'
 import shustus40 from '../../images/logos/shustus-40.png'
 import shustus160 from '../../images/logos/shustus-160.png'
 import shustus440 from '../../images/logos/shustus-440.png'
+import oded from '../../images/artists/oded.png'
+import ilan from '../../images/artists/ilan.png'
+import tal from '../../images/artists/tal.png'
 
 // Image tiers (low → high res) for the folder entries, keyed by the `id` from
 // INFO_ITEMS. Entries without an image fall back to the emoji glyph below.
 // (Kept here, not in config.ts, so config stays free of asset imports.)
+// The artist portraits are single-resolution, so each gets a one-tier array.
 const IMAGES: Record<string, string[]> = {
   shustus: [shustus40, shustus160, shustus440],
+  'oded-paz': [oded],
+  'ilan-rozenfeld': [ilan],
+  'tal-mosseri': [tal],
 }
 const GLYPHS: Record<string, string> = {
-  'oded-paz': '🎙️',
-  'ilan-rozenfeld': '🎙️',
-  'tal-mosseri': '🎤',
   dj: '💿',
 }
 
