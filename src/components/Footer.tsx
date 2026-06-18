@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="site-footer">
       <p>© 2026 פסטיבל נוסטלגיה | כל הזכויות שמורות</p>
       <p className="footer-love">
-        נבנה בנוסטלגיה <Emoji e="❤️" />
+        נבנה בנוסטלגיה 
       </p>
     </footer>
   )
