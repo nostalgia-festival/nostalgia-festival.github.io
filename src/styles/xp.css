@@ -197,6 +197,28 @@ button.xp-caption {
   cursor: pointer;
 }
 
+/* Empty recycle bin contents. */
+.recycle-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 28px 12px;
+}
+
+.recycle-empty-glyph {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.recycle-empty-text {
+  margin: 0;
+  font-size: 13px;
+  color: #333;
+}
+
 /* Folder "file browser" grid. */
 .info-folder {
   display: grid;
@@ -1034,12 +1056,26 @@ button.xp-caption:active {
        with the hero instead of riding along. Lay them out as a horizontal row
        across the top (wrapping if the viewport is too narrow) rather than a
        tall vertical stack down the side; anchor both edges and center so the
-       four-wide row doesn't push off-screen. */
+       row doesn't push off-screen. */
     position: absolute;
     inset-inline-start: 16px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    /* Tighten the horizontal spacing so more icons fit per row before wrapping:
+       a small column gap plus a narrower icon box pulls the shortcuts close
+       together (the larger row gap keeps wrapped rows from touching). */
+    column-gap: 4px;
+    row-gap: 10px;
+  }
+  /* The recycle bin is the one icon that opens its own window rather than
+     jumping to a page section, so it's the least useful on a small screen —
+     hide it to free up room in the top row. */
+  .desktop-icon--recycle {
+    display: none;
+  }
+  .hero-desktop-icons .desktop-icon {
+    width: 60px;
+    padding: 6px 2px;
   }
 }

@@ -27,14 +27,19 @@ React 18 + TypeScript + Vite. No UI library, no router, no state manager — one
 page composed of XP-styled "window" sections. Styling is hand-written CSS in
 `src/styles/xp.css` (the entire visual theme lives here).
 
-- `src/App.tsx` — composes the page: `Hero` → `DetailsWindow` → `FatesWall` →
-  `TicketWizard` → `Footer`, plus a `Taskbar`. The Start button and Hero CTA both
-  scroll to the `TicketWizard` via a ref.
+- `src/App.tsx` — composes the page: a `Background`, `DesktopIcons`, `Hero`, then
+  a `windows-stack` of `DetailsWindow` → `InfoFolder` → `TicketWizard` →
+  `ContactWindow` → `Footer`, plus a `Taskbar`. App owns one ref per scroll target
+  and passes `scrollTo` callbacks down; the desktop icons, Start button, and Hero
+  CTA all `scrollIntoView` their section (Start button and Hero CTA target the
+  `TicketWizard`).
 - `src/components/XPWindow.tsx` — the reusable XP "Luna" window chrome (title bar,
   caption buttons, optional menu strip). Purely presentational; most sections wrap
   their content in this.
-- `src/lib/config.ts` — **single source of truth** for event details (`EVENT`)
-  and runtime config (`CONFIG`). Edit dates/labels/copy here, not in components.
+- `src/lib/config.ts` — **single source of truth** for event details (`EVENT`),
+  runtime config (`CONFIG`), and `INFO_ITEMS` (the "files" inside the `InfoFolder`
+  window — each is a clickable entry with title/copy, wired to images in
+  `InfoFolder.tsx` by `id`). Edit dates/labels/copy here, not in components.
 - `src/lib/pricing.ts` — price calculation. Currently a flat `BASE_PRICE` (₪140)
   per ticket.
 - `src/lib/supabase.ts` — `logTicketClick()` writes a row to the `ticket_clicks`

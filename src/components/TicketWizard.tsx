@@ -51,7 +51,7 @@ export default function TicketWizard() {
 
   return (
     <XPWindow
-      title="אשף רכישת הכרטיסים.exe"
+      title="אשף רכישת הכרטיסים"
       icon={<Icon name="tickets" e="🎟️" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
       className="wizard-window"
