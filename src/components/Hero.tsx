@@ -25,7 +25,7 @@ export default function Hero({ onStartClick }: HeroProps) {
         </h1>
 
         <div className="hero-sponsor">
-          <span className="hero-sponsor-label">בסיוע</span>
+          <span className="hero-sponsor-label">בשיתוף</span>
           <ProgressiveImage className="hero-sponsor-logo" tiers={SPONSOR_TIERS} alt="לוגו נותן החסות" />
         </div>
 

@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import musicUrl from '../../Media/Music.mp3'
+import musicUrl from '../../Media/NostalgiaFest.wav'
 import introUrl from '../../Media/Windows_XP.mp3'
 
 const INTRO_VOLUME = 0.1
 const MUSIC_VOLUME = 0.05
-const CROSSFADE_MS = 1000
 
 type WindowWithWebkitAudio = Window & {
   webkitAudioContext?: typeof AudioContext
 }
 
 /**
- * Plays the Windows XP startup sound, then crossfades (1s) into the looping
- * background music. Browsers block autoplay-with-sound until the user interacts
+ * Plays the Windows XP startup sound, then starts the looping background music
+ * when the intro ends. Browsers block autoplay-with-sound until the user interacts
  * with the page, so when the initial play() is rejected we arm one-time gesture
  * listeners and start on the first click/keypress/touch. Returns the muted state
  * and a toggle for the taskbar volume icon. The toggle also kicks off playback if
@@ -31,8 +30,8 @@ export function useBackgroundMusic() {
   const ctxRef = useRef<AudioContext | null>(null)
   const introGainRef = useRef<GainNode | null>(null)
   const musicGainRef = useRef<GainNode | null>(null)
-  // Latest target levels (what the crossfade is driving toward) and the mute
-  // state, kept in refs so toggleMute can re-apply them outside the effect.
+  // Latest target levels and the mute state, kept in refs so toggleMute can
+  // re-apply them outside the effect.
   const introVolRef = useRef(INTRO_VOLUME)
   const musicVolRef = useRef(MUSIC_VOLUME)
   const mutedRef = useRef(false)
@@ -77,12 +76,6 @@ export function useBackgroundMusic() {
     // (fallback). The target level is remembered so toggleMute can restore it,
     // and a muted track is forced to 0 — on iOS the gain node is what's audible
     // (element output is rerouted through Web Audio), so muting must go here too.
-    const setIntroVolume = (v: number) => {
-      introVolRef.current = v
-      const out = mutedRef.current ? 0 : v
-      if (introGainRef.current) introGainRef.current.gain.value = out
-      else intro.volume = out
-    }
     const setMusicVolume = (v: number) => {
       musicVolRef.current = v
       const out = mutedRef.current ? 0 : v
@@ -107,38 +100,18 @@ export function useBackgroundMusic() {
     // which would otherwise re-arm the listeners on this orphaned audio and leave
     // a second element playing that the mute toggle can't reach.
     let disposed = false
-    let fadeTimer: ReturnType<typeof setInterval> | null = null
-    let crossfadeStarted = false
+    let musicStarted = false
 
-    // Linearly crossfade: fade the intro out and the music in over CROSSFADE_MS,
-    // starting MUSIC near silence and ramping to MUSIC_VOLUME.
-    const startCrossfade = () => {
-      if (disposed || crossfadeStarted) return
-      crossfadeStarted = true
+    // When the intro ends, hard-cut straight into the looping background music.
+    const startMusic = () => {
+      if (disposed || musicStarted) return
+      musicStarted = true
       resumeCtx()
-      setMusicVolume(0)
+      intro.pause()
+      setMusicVolume(MUSIC_VOLUME)
       music.play().catch(() => {})
-      const startedAt = performance.now()
-      fadeTimer = setInterval(() => {
-        const t = Math.min(1, (performance.now() - startedAt) / CROSSFADE_MS)
-        setIntroVolume(INTRO_VOLUME * (1 - t))
-        setMusicVolume(MUSIC_VOLUME * t)
-        if (t >= 1) {
-          if (fadeTimer) clearInterval(fadeTimer)
-          fadeTimer = null
-          intro.pause()
-        }
-      }, 30)
     }
-
-    // Once the intro is within CROSSFADE_MS of its end, begin the crossfade.
-    const onTimeUpdate = () => {
-      if (!Number.isFinite(intro.duration)) return
-      if (intro.duration - intro.currentTime <= CROSSFADE_MS / 1000) startCrossfade()
-    }
-    intro.addEventListener('timeupdate', onTimeUpdate)
-    // Fallback in case timeupdate stops firing before we trigger the crossfade.
-    intro.addEventListener('ended', startCrossfade)
+    intro.addEventListener('ended', startMusic)
 
     const startOnGesture = () => {
       if (disposed) return
@@ -159,11 +132,9 @@ export function useBackgroundMusic() {
 
     return () => {
       disposed = true
-      if (fadeTimer) clearInterval(fadeTimer)
       intro.pause()
       music.pause()
-      intro.removeEventListener('timeupdate', onTimeUpdate)
-      intro.removeEventListener('ended', startCrossfade)
+      intro.removeEventListener('ended', startMusic)
       window.removeEventListener('pointerdown', startOnGesture)
       window.removeEventListener('keydown', startOnGesture)
       window.removeEventListener('touchstart', startOnGesture)
