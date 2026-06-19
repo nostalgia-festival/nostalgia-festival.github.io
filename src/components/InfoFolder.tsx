@@ -119,14 +119,8 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
             </TaskPanel>
 
             <TaskPanel title="מקומות אחרים">
-              <TaskLink icon={<Icon name="calendar" e="📅" />} onClick={onDetails}>
+              <TaskLink icon={<Icon name="document" e="📄" />} onClick={onDetails}>
                 פרטי האירוע
-              </TaskLink>
-              <TaskLink
-                icon={<Icon name="location" e="📍" />}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              >
-                שולחן העבודה
               </TaskLink>
             </TaskPanel>
 

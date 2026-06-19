@@ -751,14 +751,11 @@ button.xp-caption:active {
   color: #444;
 }
 
-/* Narrow screens: the pane stacks above the grid (full width) so neither
-   the panels nor the file icons get crushed. */
+/* Narrow screens: the blue task pane is hidden entirely so the file grid
+   gets the full width (the panel links are duplicated elsewhere on the page). */
 @media (max-width: 540px) {
-  .folder-layout {
-    flex-direction: column;
-  }
   .folder-tasks {
-    flex-basis: auto;
+    display: none;
   }
 }
 
@@ -1493,9 +1490,10 @@ button.xp-caption:active {
 }
 
 @media (max-width: 380px) {
-  /* On the narrowest phones the tray icons crowd the clock and the task
-     buttons; drop them so the clock and any open-window buttons stay legible. */
-  .tray-icons {
+  /* On the narrowest phones the tray crowds the clock and the task buttons;
+     drop the network icon but keep the mute button — it must always be present
+     so the visitor can silence the background music. */
+  .tray-icon--network {
     display: none;
   }
 }

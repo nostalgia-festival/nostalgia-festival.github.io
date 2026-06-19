@@ -35,7 +35,7 @@ function VolumeIcon({ muted }: { muted: boolean }) {
 /** Tray "Local Area Connection" icon: two little monitors with a green link light. */
 function NetworkIcon() {
   return (
-    <svg className="tray-icon" viewBox="0 0 16 16" aria-hidden="true">
+    <svg className="tray-icon tray-icon--network" viewBox="0 0 16 16" aria-hidden="true">
       <rect x="0.6" y="2.6" width="8" height="6" rx="0.6" fill="#cdddf3" stroke="#0b3a8f" strokeWidth="0.6" />
       <rect x="1.8" y="3.6" width="5.6" height="3.4" fill="#2f6fd6" />
       <rect x="7" y="7" width="8" height="6" rx="0.6" fill="#cdddf3" stroke="#0b3a8f" strokeWidth="0.6" />
