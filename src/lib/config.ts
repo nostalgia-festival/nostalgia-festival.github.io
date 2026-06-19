@@ -75,6 +75,14 @@ export const INFO_ITEMS = [
     ],
   },
   {
+    id: 'giora-hamitzer',
+    label: 'גיורא חמיצר',
+    title: 'גיורא חמיצר',
+    lines: [
+      'היוצר האגדי של ששטוס, השמינייה, האי וחצי מהילדות שלנו',
+    ],
+  },
+  {
     id: 'dj',
     label: "דיג'יי",
     title: "דיג'יי",

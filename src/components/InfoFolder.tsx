@@ -10,6 +10,7 @@ import shustus440 from '../../images/logos/shustus-440.png'
 import oded from '../../images/artists/oded.png'
 import ilan from '../../images/artists/ilan.png'
 import tal from '../../images/artists/tal.png'
+import giora from '../../images/artists/Giora.png'
 
 // Image tiers (low → high res) for the folder entries, keyed by the `id` from
 // INFO_ITEMS. Entries without an image fall back to the emoji glyph below.
@@ -20,6 +21,7 @@ const IMAGES: Record<string, string[]> = {
   'oded-paz': [oded],
   'ilan-rozenfeld': [ilan],
   'tal-mosseri': [tal],
+  'giora-hamitzer': [giora],
 }
 // Icon (slug + emoji fallback) for the folder entries without a real image.
 const GLYPHS: Record<string, { name: string; e: string }> = {
