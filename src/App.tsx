@@ -6,13 +6,14 @@ import DetailsWindow from './components/DetailsWindow'
 import InfoFolder from './components/InfoFolder'
 import TicketWizard from './components/TicketWizard'
 import ContactWindow from './components/ContactWindow'
+import Countdown from './components/Countdown'
 import Taskbar, { type TaskButton } from './components/Taskbar'
 import Footer from './components/Footer'
 import Icon from './components/Icon'
 import { MinesweeperGlyph } from './components/Minesweeper'
 import { useTaskWindow } from './lib/useTaskWindow'
 import { useBackgroundMusic } from './lib/useBackgroundMusic'
-import type { InfoItem } from './lib/config'
+import { EVENT, type InfoItem } from './lib/config'
 
 export default function App() {
   const detailsRef = useRef<HTMLDivElement>(null)
@@ -105,6 +106,8 @@ export default function App() {
         <div ref={wizardRef} className="wizard-anchor scroll-anchor">
           <TicketWizard />
         </div>
+
+        <Countdown target={EVENT.startsAtISO} />
 
         <div ref={contactRef} className="scroll-anchor">
           <ContactWindow />

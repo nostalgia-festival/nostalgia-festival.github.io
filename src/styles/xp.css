@@ -614,6 +614,12 @@ button.xp-caption:active {
   padding: 20px;
 }
 
+/* The countdown is a single LCD gadget — center it within the window body. */
+.xp-window--countdown .xp-window-body {
+  display: flex;
+  justify-content: center;
+}
+
 /* Explorer folders use a white file-list pane (the beige face is reserved for
    the dialog-style windows down the page). The blue task pane runs flush to the
    window edge, so the body itself carries no padding — the file grid pads itself. */

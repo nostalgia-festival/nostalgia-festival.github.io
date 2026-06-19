@@ -1,5 +1,4 @@
 import { EVENT } from '../lib/config'
-import Countdown from './Countdown'
 import Icon from './Icon'
 import ProgressiveImage from './ProgressiveImage'
 import logo80 from '../../images/logos/hero-logo-80.png'
@@ -30,8 +29,6 @@ export default function Hero({ onStartClick }: HeroProps) {
           <span className="hero-sponsor-label">בסיוע</span>
           <ProgressiveImage className="hero-sponsor-logo" tiers={SPONSOR_TIERS} alt="לוגו נותן החסות" />
         </div>
-
-        <Countdown target={EVENT.startsAtISO} />
 
         <button className="hero-cta xp-button xp-button--green" onClick={onStartClick}>
           <Icon name="tickets" e="🎟️" /> אני רוצה כרטיס!

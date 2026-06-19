@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
 import Icon from './Icon'
+import XPWindow from './XPWindow'
 
 interface CountdownProps {
   /** Target time as an ISO string. */
@@ -46,30 +47,34 @@ export default function Countdown({ target }: CountdownProps) {
     return () => clearInterval(id)
   }, [targetMs])
 
-  if (timeLeft.done) {
-    return (
-      <div className="countdown countdown--done">
-        <span>הדלתות נפתחו! נתראה בפסטיבל הנוסטלגיה <Icon name="party" e="🎉" /></span>
-      </div>
-    )
-  }
-
   return (
-    <div className="countdown" role="timer" aria-label="זמן עד תחילת האירוע">
-      {/* Rendered LTR so the time reads HH:MM:SS naturally, even on an RTL page. */}
-      <div className="countdown-row" dir="ltr">
-        {PARTS.map((part, i) => (
-          <Fragment key={part.key}>
-            <div className="countdown-cell">
-              <div className="countdown-value">
-                {String(timeLeft[part.key]).padStart(2, '0')}
-              </div>
-              <div className="countdown-label">{part.label}</div>
-            </div>
-            {i < PARTS.length - 1 && <span className="countdown-sep">:</span>}
-          </Fragment>
-        ))}
-      </div>
-    </div>
+    <XPWindow
+      title="timer.exe"
+      icon={<Icon name="timedocument" e="🕐" />}
+      className="xp-window--countdown"
+    >
+      {timeLeft.done ? (
+        <div className="countdown countdown--done">
+          <span>הדלתות נפתחו! נתראה בפסטיבל הנוסטלגיה <Icon name="party" e="🎉" /></span>
+        </div>
+      ) : (
+        <div className="countdown" role="timer" aria-label="זמן עד תחילת האירוע">
+          {/* Rendered LTR so the time reads HH:MM:SS naturally, even on an RTL page. */}
+          <div className="countdown-row" dir="ltr">
+            {PARTS.map((part, i) => (
+              <Fragment key={part.key}>
+                <div className="countdown-cell">
+                  <div className="countdown-value">
+                    {String(timeLeft[part.key]).padStart(2, '0')}
+                  </div>
+                  <div className="countdown-label">{part.label}</div>
+                </div>
+                {i < PARTS.length - 1 && <span className="countdown-sep">:</span>}
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      )}
+    </XPWindow>
   )
 }
