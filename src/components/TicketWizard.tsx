@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import XPWindow from './XPWindow'
 import Icon from './Icon'
 import { CONFIG } from '../lib/config'
@@ -21,6 +21,12 @@ export default function TicketWizard() {
 
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
 
+  // Synchronous re-entry guard. The button's `disabled` only takes effect after
+  // a re-render, so a fast double-click (or click + Enter) can fire two
+  // handlePurchase calls before React disables it — each one inserting a row.
+  // A ref flips immediately, so the second call bails out before logging.
+  const submittingRef = useRef(false)
+
   const price = useMemo(() => calculatePrice({ numTickets }), [numTickets])
 
   // Simple email sanity check — enough to catch typos without over-validating.
@@ -28,6 +34,8 @@ export default function TicketWizard() {
   const formValid = fullName.trim().length >= 2 && emailValid && numTickets >= 1
 
   async function handlePurchase() {
+    if (submittingRef.current) return
+    submittingRef.current = true
     setSubmitState('saving')
 
     // Log first — but never let a logging failure block the user from paying.
@@ -43,6 +51,9 @@ export default function TicketWizard() {
       window.location.href = CONFIG.paymentUrl
     } else {
       // No payment URL configured (e.g. local dev) — show a placeholder notice.
+      // Release the guard so the user can retry (on success we redirect away, so
+      // the guard intentionally stays set there).
+      submittingRef.current = false
       setSubmitState('error')
     }
   }
