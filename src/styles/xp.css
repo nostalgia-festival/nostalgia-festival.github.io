@@ -5,6 +5,8 @@
 /* DSEG: a free 7-segment "digital clock" webfont, used for the countdown.
    @import must stay at the very top of the file (before any other rule). */
 @import url("https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.min.css");
+/* Varela Round: rounded sans with Hebrew support, used for the starburst title. */
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 :root {
   --xp-blue: #245edb;
@@ -1257,6 +1259,8 @@ button.xp-caption:active {
 
 .hero-burst-text {
   position: relative;
+  /* Nudge the whole text block up toward the star's center. */
+  margin-top: -14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1279,6 +1283,9 @@ button.xp-caption:active {
   font-size: clamp(26px, 7.4vw, 38px);
   font-weight: 900;
   letter-spacing: -0.5px;
+  /* Pull the title and everything below it up toward the kicker ("חדש!"),
+     which stays put — tightens the block under the new! line. */
+  margin-top: -8px;
   /* The color-cycling rainbow text — peak 2000s. */
   animation: burst-rainbow 4s linear infinite;
   /* A heavy black outline so every cycling color (even pale yellow/green) stays
@@ -1290,6 +1297,23 @@ button.xp-caption:active {
   text-shadow:
     2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000,
     0 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Only the word "ששטוס" uses Varela Round; "חוזר!" keeps the default font.
+   Varela Round runs visually small, so bump it up to match the rest. */
+.hero-burst-title-sheshtus {
+  font-family: 'Varela Round', var(--font);
+  font-size: 1.25em;
+  /* Varela Round's rounded strokes clash with the title's layered hard-shadow
+     outline (it reads as a doubled/jagged edge). Use a clean single stroke
+     instead — thicker to match the bigger size — and a soft drop shadow only. */
+  -webkit-text-stroke: 4px #000;
+  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+  /* Tighten the gap to "חוזר!" — the larger size widens the inline space. */
+  margin-inline-end: 0em;
+  /* Nudge the bigger word down so it sits level with "חוזר!". */
+  position: relative;
+  top: 0.08em;
 }
 
 .hero-burst-sub {

@@ -42,19 +42,21 @@ export default function Hero({ onStartClick }: HeroProps) {
           <div className="hero-burst-star" aria-hidden="true"></div>
           <div className="hero-burst-text" aria-hidden="true">
             <span className="hero-burst-kicker">★ חדש! ★</span>
-            <span className="hero-burst-title">ששטוס חוזר!</span>
+            <span className="hero-burst-title">
+              <span className="hero-burst-title-sheshtus">ששטוס</span> חוזר!
+            </span>
             <span className="hero-burst-sub">ללילה אחד בלבד</span>
             <span className="hero-burst-sub2">ואתם משתתפים!</span>
             <span className="hero-burst-lineup-label">יופיעו על הבמה:</span>
             <span className="hero-burst-artists">
-              טל מוסרי + גיורא חמיצר + עודד פז + אילן רוזנפלד
+              טל מוסרי + עודד פז + אילן רוזנפלד + גיורא חמיצר
             </span>
           </div>
         </button>
       </div>
 
       <div className="hero-scroll-hint" aria-hidden="true">
-        גללו למטה כדי לפתוח את החלונות ▾
+        גללו מטה כדי לגלות עוד ▾
       </div>
     </header>
   )
