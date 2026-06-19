@@ -31,6 +31,11 @@ export function useBackgroundMusic() {
   const ctxRef = useRef<AudioContext | null>(null)
   const introGainRef = useRef<GainNode | null>(null)
   const musicGainRef = useRef<GainNode | null>(null)
+  // Latest target levels (what the crossfade is driving toward) and the mute
+  // state, kept in refs so toggleMute can re-apply them outside the effect.
+  const introVolRef = useRef(INTRO_VOLUME)
+  const musicVolRef = useRef(MUSIC_VOLUME)
+  const mutedRef = useRef(false)
   const [muted, setMuted] = useState(false)
 
   useEffect(() => {
@@ -68,14 +73,21 @@ export function useBackgroundMusic() {
       webAudio = false
     }
 
-    // Set a track's level via the gain node (preferred) or audio.volume (fallback).
+    // Set a track's level via the gain node (preferred) or audio.volume
+    // (fallback). The target level is remembered so toggleMute can restore it,
+    // and a muted track is forced to 0 — on iOS the gain node is what's audible
+    // (element output is rerouted through Web Audio), so muting must go here too.
     const setIntroVolume = (v: number) => {
-      if (introGainRef.current) introGainRef.current.gain.value = v
-      else intro.volume = v
+      introVolRef.current = v
+      const out = mutedRef.current ? 0 : v
+      if (introGainRef.current) introGainRef.current.gain.value = out
+      else intro.volume = out
     }
     const setMusicVolume = (v: number) => {
-      if (musicGainRef.current) musicGainRef.current.gain.value = v
-      else music.volume = v
+      musicVolRef.current = v
+      const out = mutedRef.current ? 0 : v
+      if (musicGainRef.current) musicGainRef.current.gain.value = out
+      else music.volume = out
     }
 
     if (!webAudio) {
@@ -168,7 +180,13 @@ export function useBackgroundMusic() {
     const intro = introRef.current
     const music = musicRef.current
     if (!intro || !music) return
-    const next = !intro.muted
+    const next = !mutedRef.current
+    mutedRef.current = next
+    // Primary mute path: the gain nodes, which are what's actually audible once
+    // the elements are routed through Web Audio (iOS Safari ignores element.muted
+    // there). Also set element.muted for the non-Web-Audio fallback path.
+    if (introGainRef.current) introGainRef.current.gain.value = next ? 0 : introVolRef.current
+    if (musicGainRef.current) musicGainRef.current.gain.value = next ? 0 : musicVolRef.current
     intro.muted = next
     music.muted = next
     setMuted(next)
