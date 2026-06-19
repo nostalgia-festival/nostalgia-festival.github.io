@@ -64,9 +64,11 @@ export default function InfoFolder({ selected, onOpen, window: win }: InfoFolder
     <>
       {/* Folder window — a normal window in the scrolling stack. */}
       <XPWindow
+        className="xp-window--folder"
         title="תכני האירוע"
         icon={<Icon name="folder" e="📁" />}
         menu={['קובץ', 'עריכה', 'תצוגה', 'מועדפים', 'עזרה']}
+        statusBar={`${INFO_ITEMS.length} אובייקטים`}
       >
         <div className="info-folder">
           {INFO_ITEMS.map((item) => (

@@ -619,6 +619,23 @@ button.xp-caption:active {
   padding: 20px;
 }
 
+/* Explorer folders use a white file-list pane (the beige face is reserved for
+   the dialog-style windows down the page). */
+.xp-window--folder .xp-window-body {
+  background: #fff;
+}
+
+/* Sunken status-bar strip at the bottom of a folder ("8 אובייקטים"): a thin
+   inset bevel below the content, like the bottom edge of an Explorer window. */
+.xp-statusbar {
+  background: var(--xp-face);
+  border-top: 1px solid #fff;
+  box-shadow: inset 0 1px 0 #d6d2c2;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: #333;
+}
+
 /* --------------------------------------------------------- welcome.exe --- */
 .welcome {
   background: #fff;

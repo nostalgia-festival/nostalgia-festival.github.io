@@ -18,6 +18,11 @@ interface XPWindowProps {
    * taskbar button, just like real XP. Decorative when omitted.
    */
   onMinimize?: () => void
+  /**
+   * Optional sunken status-bar strip rendered below the content area, like the
+   * bottom of an Explorer folder ("8 אובייקטים"). Omitted on dialog-style windows.
+   */
+  statusBar?: ReactNode
   children: ReactNode
   className?: string
 }
@@ -27,7 +32,7 @@ interface XPWindowProps {
  * classic minimize / maximize / close caption buttons, optional menu strip,
  * and a beige content area. Purely presentational.
  */
-export default function XPWindow({ title, icon, menu, onClose, onMinimize, children, className }: XPWindowProps) {
+export default function XPWindow({ title, icon, menu, onClose, onMinimize, statusBar, children, className }: XPWindowProps) {
   return (
     <section className={`xp-window ${className ?? ''}`}>
       <div className="xp-titlebar">
@@ -65,6 +70,8 @@ export default function XPWindow({ title, icon, menu, onClose, onMinimize, child
       )}
 
       <div className="xp-window-body">{children}</div>
+
+      {statusBar && <div className="xp-statusbar">{statusBar}</div>}
     </section>
   )
 }
