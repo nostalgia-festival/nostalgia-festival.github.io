@@ -1,5 +1,4 @@
 import { EVENT } from '../lib/config'
-import Icon from './Icon'
 import ProgressiveImage from './ProgressiveImage'
 import logo80 from '../../images/logos/hero-logo-80.png'
 import logo320 from '../../images/logos/hero-logo-320.png'
@@ -30,8 +29,27 @@ export default function Hero({ onStartClick }: HeroProps) {
           <ProgressiveImage className="hero-sponsor-logo" tiers={SPONSOR_TIERS} alt="לוגו נותן החסות" />
         </div>
 
-        <button className="hero-cta xp-button xp-button--green" onClick={onStartClick}>
-          <Icon name="tickets" e="🎟️" /> אני רוצה כרטיס!
+        {/* A loud early-2000s "starburst" sticker — the kind that screamed off
+            every Geocities/Flash splash page. Pure CSS spiky star + blinking,
+            color-cycling text. Hypes the returning ששטוס game, and doubles as
+            the hero CTA: clicking it scrolls to the ticket wizard. */}
+        <button
+          type="button"
+          className="hero-burst"
+          onClick={onStartClick}
+          aria-label="חדש! ששטוס חוזר ללילה אחד בלבד, ואתם משתתפים! יופיעו על הבמה: טל מוסרי, גיורא חמיצר, עודד פז ואילן רוזנפלד. לחצו לרכישת כרטיס"
+        >
+          <div className="hero-burst-star" aria-hidden="true"></div>
+          <div className="hero-burst-text" aria-hidden="true">
+            <span className="hero-burst-kicker">★ חדש! ★</span>
+            <span className="hero-burst-title">ששטוס חוזר!</span>
+            <span className="hero-burst-sub">ללילה אחד בלבד</span>
+            <span className="hero-burst-sub2">ואתם משתתפים!</span>
+            <span className="hero-burst-lineup-label">יופיעו על הבמה:</span>
+            <span className="hero-burst-artists">
+              טל מוסרי + גיורא חמיצר + עודד פז + אילן רוזנפלד
+            </span>
+          </div>
         </button>
       </div>
 
