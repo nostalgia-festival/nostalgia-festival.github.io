@@ -1243,7 +1243,7 @@ button.xp-caption:active {
 }
 
 .hero-burst-star {
-  background: radial-gradient(circle at 50% 38%, #fff3a0 0%, #ffd000 38%, #ff8a00 100%);
+  background: #ffd000;
   border-radius: 4px; /* softens the clip-path tips a touch */
   animation: burst-spin 9s linear infinite;
 }
@@ -1252,7 +1252,7 @@ button.xp-caption:active {
   content: '';
   /* Sits behind, a hair larger, so its spikes peek out between the front ones. */
   inset: -7%;
-  background: radial-gradient(circle at 50% 38%, #ff5fa2 0%, #ff1e7a 55%, #d6006c 100%);
+  background: #ff1e7a;
   z-index: -1;
   animation: burst-spin 11s linear infinite reverse;
 }
