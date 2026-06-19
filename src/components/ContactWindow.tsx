@@ -6,14 +6,13 @@ import Icon from './Icon'
 export default function ContactWindow() {
   return (
     <XPWindow
-      title="צרו קשר.eml"
+      title="צרו קשר"
       icon={<Icon name="mail" e="✉️" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
     >
       <div className="contact-window">
         <p className="contact-lead">יש לכם שאלה? נשמח לשמוע מכם.</p>
         <a className="contact-email" href={`mailto:${EVENT.contactEmail}`}>
-          <Icon name="mail" e="✉️" className="contact-email-icon" />
           {EVENT.contactEmail}
         </a>
       </div>

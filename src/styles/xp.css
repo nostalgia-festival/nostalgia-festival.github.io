@@ -162,11 +162,6 @@ body {
   object-fit: contain;
 }
 
-/* details.txt rows: a touch larger than the body text so each icon reads. */
-.details-icon {
-  font-size: 18px;
-}
-
 /* ----------------------------------------------- modal windows (מידע) --- */
 /* Dimmed full-screen backdrop; a click on it (but not on the window inside)
    closes the layer. Sits above the taskbar (z-index 100). */
@@ -806,35 +801,68 @@ button.xp-caption:active {
 }
 
 /* ---------------------------------------------------------- details.txt --- */
-.details-list {
-  margin: 0;
+/* Dressed as Notepad: the body is the window frame, the .notepad div is the
+   white text area (sunken edge), and the lines are monospace with dot leaders. */
+.xp-window--notepad .xp-window-body {
+  background: var(--xp-face);
+  padding: 3px;
 }
 
-.details-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 4px;
-  border-bottom: 1px dotted #c9c4b2;
+.notepad {
+  background: #fff;
+  border: 1px solid #7f9db9; /* the classic XP sunken edit-control border */
+  box-shadow: inset 1px 1px 0 #d6d2c2;
+  padding: 14px 16px;
 }
 
-.details-row:last-child {
-  border-bottom: none;
+/* Consolas/Lucida Console have no Hebrew glyphs, so Latin digits render
+   monospace (the Notepad "data" feel) while Hebrew falls through to Tahoma and
+   stays naturally spaced. Note: NO 'Courier New'/generic 'monospace' here — both
+   carry fixed-width Hebrew, which jams the letters into ugly gaps. */
+.notepad-text {
+  font-family: 'Consolas', 'Lucida Console', 'Tahoma', sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #000;
 }
 
-.details-term {
+.np-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 700;
-  color: #333;
 }
 
-.details-value {
-  margin: 0;
-  color: #222;
-  text-align: start;
+.np-label {
+  white-space: nowrap;
+}
+
+/* The dotted run between label and value — fills the gap so values line up.
+   Centered vertically; a min-width keeps a few dots even on the widest label. */
+.np-leader {
+  flex: 1 1 auto;
+  min-width: 16px;
+  border-bottom: 2px dotted #b9b39c;
+  transform: translateY(-2px);
+}
+
+.np-value {
+  white-space: nowrap;
+}
+
+.np-value a {
+  color: #0a3d91;
+}
+
+/* Notepad's bottom status cell ("Ln 1, Col 1"), pushed to the far end. */
+.notepad-status {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.notepad-status-cell {
+  padding: 0 14px;
+  border: 1px solid #fff;
+  box-shadow: inset 1px 1px 0 #aca899;
 }
 
 /* ------------------------------------------------------------ Contact --- */

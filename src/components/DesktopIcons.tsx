@@ -37,7 +37,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
   // horizontal row on mobile (see .hero-desktop-icons). On the narrowest phones
   // the row can't hold all five, and the recycle bin — the last child — drops
   // alone onto a lonely second line. We can't predict the wrap point in CSS
-  // because the icon labels (e.g. "כרטיסים.exe") are wider than the nominal 60px
+  // because the icon labels (e.g. "כרטיסים") are wider than the nominal 60px
   // box, so instead we measure the real layout: if the bin lands on a different
   // row than the first icon, hide it. (The Minesweeper easter egg inside is an
   // acceptable casualty on tiny screens.) Done imperatively rather than via
@@ -97,7 +97,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
 
         <button type="button" className="desktop-icon" onClick={onTickets}>
           <Icon name="tickets" e="🎟️" className="desktop-icon-glyph" />
-          <span className="desktop-icon-label">כרטיסים.exe</span>
+          <span className="desktop-icon-label">כרטיסים</span>
         </button>
 
         <button type="button" className="desktop-icon" onClick={onContact}>
