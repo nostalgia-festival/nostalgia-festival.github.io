@@ -96,6 +96,9 @@ export default function App() {
               info.show()
             }}
             window={info}
+            onTickets={() => scrollTo(wizardRef)}
+            onContact={() => scrollTo(contactRef)}
+            onDetails={() => scrollTo(detailsRef)}
           />
         </div>
 

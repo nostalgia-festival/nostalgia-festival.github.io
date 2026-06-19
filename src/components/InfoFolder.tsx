@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { INFO_ITEMS, type InfoItem } from '../lib/config'
 import XPWindow from './XPWindow'
 import Icon from './Icon'
@@ -39,6 +39,42 @@ interface InfoFolderProps {
   onOpen: (item: InfoItem) => void
   /** The readme popup's window lifecycle (shared with the taskbar). */
   window: TaskWindow
+  /** Task-pane shortcuts: scroll to the ticket wizard / contact / details. */
+  onTickets?: () => void
+  onContact?: () => void
+  onDetails?: () => void
+}
+
+/**
+ * A collapsible XP "task pane" panel (blue Luna webview block): a header bar with
+ * a chevron that toggles the body, just like "File and Folder Tasks" in Explorer.
+ */
+function TaskPanel({ title, children }: { title: string; children: ReactNode }) {
+  const [open, setOpen] = useState(true)
+  return (
+    <div className={`task-panel${open ? '' : ' task-panel--closed'}`}>
+      <button
+        type="button"
+        className="task-panel-head"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span className="task-panel-title">{title}</span>
+        <span className="task-panel-chevron" aria-hidden="true" />
+      </button>
+      {open && <div className="task-panel-body">{children}</div>}
+    </div>
+  )
+}
+
+/** One blue hyperlink row inside a task pane panel (icon + label). */
+function TaskLink({ icon, onClick, children }: { icon: ReactNode; onClick?: () => void; children: ReactNode }) {
+  return (
+    <button type="button" className="task-link" onClick={onClick}>
+      <span className="task-link-icon">{icon}</span>
+      <span className="task-link-label">{children}</span>
+    </button>
+  )
 }
 
 /**
@@ -49,7 +85,7 @@ interface InfoFolderProps {
  * App via useTaskWindow), and still closes on its ✕, a backdrop click, or
  * Escape — just like the Recycle Bin.
  */
-export default function InfoFolder({ selected, onOpen, window: win }: InfoFolderProps) {
+export default function InfoFolder({ selected, onOpen, window: win, onTickets, onContact, onDetails }: InfoFolderProps) {
   // Escape closes the open popup.
   useEffect(() => {
     if (!win.visible) return
@@ -70,7 +106,40 @@ export default function InfoFolder({ selected, onOpen, window: win }: InfoFolder
         menu={['קובץ', 'עריכה', 'תצוגה', 'מועדפים', 'עזרה']}
         statusBar={`${INFO_ITEMS.length} אובייקטים`}
       >
-        <div className="info-folder">
+        <div className="folder-layout">
+          {/* The signature XP "task pane": blue webview panels down the side. */}
+          <aside className="folder-tasks">
+            <TaskPanel title="משימות תיקייה">
+              <TaskLink icon={<Icon name="tickets" e="🎟️" />} onClick={onTickets}>
+                קנה כרטיסים
+              </TaskLink>
+              <TaskLink icon={<Icon name="mail" e="✉️" />} onClick={onContact}>
+                צור קשר
+              </TaskLink>
+            </TaskPanel>
+
+            <TaskPanel title="מקומות אחרים">
+              <TaskLink icon={<Icon name="calendar" e="📅" />} onClick={onDetails}>
+                פרטי האירוע
+              </TaskLink>
+              <TaskLink
+                icon={<Icon name="location" e="📍" />}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                שולחן העבודה
+              </TaskLink>
+            </TaskPanel>
+
+            <TaskPanel title="פרטים">
+              <div className="folder-details">
+                <p className="folder-details-name">תכני האירוע</p>
+                <p className="folder-details-line">תיקיית קבצים</p>
+                <p className="folder-details-line">{INFO_ITEMS.length} אובייקטים</p>
+              </div>
+            </TaskPanel>
+          </aside>
+
+          <div className="info-folder">
           {INFO_ITEMS.map((item) => (
             <button
               type="button"
@@ -94,6 +163,7 @@ export default function InfoFolder({ selected, onOpen, window: win }: InfoFolder
               <span className="info-file-label">{item.label}</span>
             </button>
           ))}
+          </div>
         </div>
       </XPWindow>
 
