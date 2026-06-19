@@ -28,6 +28,7 @@ export const EVENT = {
   doorsLabel: '19:30',
   mainStageLabel: '21:00',
   locationLabel: 'רדינג 3',
+  locationUrl: 'https://www.reading3.co.il/index.html',
 
   // Contact address shown in the "צרו קשר" window (and its mailto: link).
   contactEmail: 'contact@nostalgia-festival.co.il',

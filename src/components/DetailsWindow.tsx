@@ -2,11 +2,11 @@ import { EVENT } from '../lib/config'
 import XPWindow from './XPWindow'
 import Icon from './Icon'
 
-const ROWS: { icon: string; emoji: string; label: string; value: string }[] = [
+const ROWS: { icon: string; emoji: string; label: string; value: string; href?: string }[] = [
   { icon: 'calendar', emoji: '📅', label: 'תאריך', value: EVENT.dateLabel },
   { icon: 'door', emoji: '🚪', label: 'פתיחת דלתות', value: EVENT.doorsLabel },
   { icon: 'microphone', emoji: '🎤', label: 'אירועי במה ראשית', value: EVENT.mainStageLabel },
-  { icon: 'location', emoji: '📍', label: 'מיקום', value: EVENT.locationLabel },
+  { icon: 'location', emoji: '📍', label: 'מיקום', value: EVENT.locationLabel, href: EVENT.locationUrl },
 ]
 
 /** "details.txt" — the factual event info window. */
@@ -24,7 +24,15 @@ export default function DetailsWindow() {
               <Icon name={row.icon} e={row.emoji} className="details-icon" />
               {row.label}
             </dt>
-            <dd className="details-value">{row.value}</dd>
+            <dd className="details-value">
+              {row.href ? (
+                <a href={row.href} target="_blank" rel="noopener noreferrer">
+                  {row.value}
+                </a>
+              ) : (
+                row.value
+              )}
+            </dd>
           </div>
         ))}
       </dl>

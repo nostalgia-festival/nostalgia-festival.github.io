@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 // The recycle-bin file icon and window title-bar icon use this real winmine.exe
-// logo (bundled at build time); the in-game mine cells still use the inline
-// MineGlyph SVG below.
-import minesweeperLogo from '../../images/Minesweeper.webp'
+// logo. `?inline` forces Vite to embed it as a base64 data URI in the bundle
+// (it's only ~6KB) instead of emitting a separate hashed file — so the icon
+// shows instantly when the recycle bin opens, with no network round-trip.
+// The in-game mine cells still use the inline MineGlyph SVG below.
+import minesweeperLogo from '../../images/Minesweeper.webp?inline'
 
 // A faithful clone of the classic Windows Minesweeper (winmine.exe) — the same
 // rules, the same little chrome. Self-contained: state, logic, and the pixel
