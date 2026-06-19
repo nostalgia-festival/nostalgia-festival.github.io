@@ -853,18 +853,6 @@ button.xp-caption:active {
   color: #0a3d91;
 }
 
-/* Notepad's bottom status cell ("Ln 1, Col 1"), pushed to the far end. */
-.notepad-status {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.notepad-status-cell {
-  padding: 0 14px;
-  border: 1px solid #fff;
-  box-shadow: inset 1px 1px 0 #aca899;
-}
-
 /* ------------------------------------------------------------ Contact --- */
 .contact-window {
   display: flex;

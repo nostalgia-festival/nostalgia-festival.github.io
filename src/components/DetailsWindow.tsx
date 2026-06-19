@@ -18,11 +18,7 @@ export default function DetailsWindow() {
       title="פרטי האירוע.txt"
       icon={<Icon name="document" e="📄" />}
       menu={['קובץ', 'עריכה', 'תצוגה', 'עזרה']}
-      statusBar={
-        <div className="notepad-status">
-          <span className="notepad-status-cell">שורה 1, עמודה 1</span>
-        </div>
-      }
+      statusBar={' '}
     >
       <div className="notepad">
         <div className="notepad-text">
