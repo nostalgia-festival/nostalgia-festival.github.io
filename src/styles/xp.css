@@ -1269,7 +1269,6 @@ button.xp-caption:active {
   line-height: 1.05;
   /* Keep the text inside the star's flat middle, away from the spikes. */
   width: 64%;
-  text-shadow: 1px 1px 0 #fff, -1px -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .hero-burst-kicker {
@@ -1290,13 +1289,11 @@ button.xp-caption:active {
   animation: burst-rainbow 4s linear infinite;
   /* A heavy black outline so every cycling color (even pale yellow/green) stays
      legible against the bright star — the classic WordArt look. `paint-order`
-     keeps the stroke behind the fill so it doesn't eat into thin strokes; the
-     layered shadows fake a thicker outline for browsers without paint-order. */
-  -webkit-text-stroke: 3px #000;
+     keeps the stroke behind the fill so it doesn't eat into thin strokes. A soft
+     drop shadow only — no layered hard shadows (they read as a doubled edge). */
+  -webkit-text-stroke: 5px #000;
   paint-order: stroke fill;
-  text-shadow:
-    2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000,
-    0 3px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Only the word "ששטוס" uses Varela Round; "חוזר!" keeps the default font.
@@ -1304,10 +1301,9 @@ button.xp-caption:active {
 .hero-burst-title-sheshtus {
   font-family: 'Varela Round', var(--font);
   font-size: 1.25em;
-  /* Varela Round's rounded strokes clash with the title's layered hard-shadow
-     outline (it reads as a doubled/jagged edge). Use a clean single stroke
-     instead — thicker to match the bigger size — and a soft drop shadow only. */
-  -webkit-text-stroke: 4px #000;
+  /* Match the heavy single stroke on "חוזר!" so both big lines read as one
+     weight — clean stroke, soft drop shadow only, no layered hard shadows. */
+  -webkit-text-stroke: 5px #000;
   text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
   /* Tighten the gap to "חוזר!" — the larger size widens the inline space. */
   margin-inline-end: 0em;
@@ -1334,7 +1330,6 @@ button.xp-caption:active {
   font-weight: 800;
   letter-spacing: 0.5px;
   color: #6a1bb0;
-  text-shadow: 1px 1px 0 #fff, -1px -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .hero-burst-artists {
