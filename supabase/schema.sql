@@ -1,5 +1,5 @@
 -- ===========================================================================
--- פסטיבל נוסטלגיה — Supabase schema
+-- פסטיבל נוסטלגיה - Supabase schema
 -- Run this in the Supabase SQL Editor (see SUPABASE_SETUP.md for full steps).
 -- ===========================================================================
 
@@ -20,7 +20,7 @@ create table if not exists public.ticket_clicks (
 
 -- Row Level Security: lock the table down, then allow ONLY anonymous inserts.
 -- The browser uses the public "publishable" key (sb_publishable_...), which maps
--- to the Postgres "anon" role — so that role must be allowed to INSERT, but it
+-- to the Postgres "anon" role - so that role must be allowed to INSERT, but it
 -- must NOT be able to read other people's submissions.
 alter table public.ticket_clicks enable row level security;
 

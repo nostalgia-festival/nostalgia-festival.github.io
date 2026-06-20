@@ -38,7 +38,7 @@ export default function App() {
   // Looping background music; the taskbar's volume icon mutes/unmutes it.
   const music = useBackgroundMusic()
 
-  // One taskbar button per open window — pressed (`active`) while it's on screen,
+  // One taskbar button per open window - pressed (`active`) while it's on screen,
   // raised while minimized. Clicking toggles minimize/restore, like real XP.
   const tasks: TaskButton[] = []
   if (recycle.open) {
@@ -62,7 +62,7 @@ export default function App() {
   if (info.open && infoItem) {
     tasks.push({
       id: 'info',
-      title: `${infoItem.label} — readme.txt`,
+      title: `${infoItem.label} - readme.txt`,
       icon: <Icon name="document" e="📄" />,
       active: info.visible,
       onClick: info.toggle,

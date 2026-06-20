@@ -13,16 +13,16 @@ interface DesktopIconsProps {
   onTickets: () => void
   /** Scroll to the "צרו קשר" contact window. */
   onContact: () => void
-  /** Recycle bin window lifecycle (shared with the taskbar — owned by App). */
+  /** Recycle bin window lifecycle (shared with the taskbar - owned by App). */
   recycle: TaskWindow
-  /** Minesweeper window lifecycle (shared with the taskbar — owned by App). */
+  /** Minesweeper window lifecycle (shared with the taskbar - owned by App). */
   minesweeper: TaskWindow
 }
 
 /**
  * The XP "desktop" shortcuts pinned to the wallpaper. They are rendered at the
  * App level (not inside the Hero) and positioned `fixed`, so they stay parked in
- * the corner and travel with the viewport as the visitor scrolls — never
+ * the corner and travel with the viewport as the visitor scrolls - never
  * scrolling away with the hero. Each one double-acts as a jump link to its
  * matching window further down the page.
  */
@@ -30,18 +30,18 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
   // The recycle bin is the only icon that opens its own window rather than
   // scrolling to a section in the page. Its open/minimize state is owned by App
   // (see useTaskWindow) so its taskbar button can track it. The bin holds one
-  // "deleted" file — a working Minesweeper clone — which opens in its own modal
+  // "deleted" file - a working Minesweeper clone - which opens in its own modal
   // layer on top of the bin.
 
   // The five shortcuts lay out as a vertical column on desktop but as a wrapping
   // horizontal row on mobile (see .hero-desktop-icons). On the narrowest phones
-  // the row can't hold all five, and the recycle bin — the last child — drops
+  // the row can't hold all five, and the recycle bin - the last child - drops
   // alone onto a lonely second line. We can't predict the wrap point in CSS
   // because the icon labels (e.g. "כרטיסים") are wider than the nominal 60px
   // box, so instead we measure the real layout: if the bin lands on a different
   // row than the first icon, hide it. (The Minesweeper easter egg inside is an
   // acceptable casualty on tiny screens.) Done imperatively rather than via
-  // state to measure-and-hide within one synchronous pass — no flicker.
+  // state to measure-and-hide within one synchronous pass - no flicker.
   const firstIconRef = useRef<HTMLButtonElement>(null)
   const recycleRef = useRef<HTMLButtonElement>(null)
   useLayoutEffect(() => {
@@ -52,7 +52,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
     function measure() {
       if (!recycle || !first) return
       // Desktop column layout stacks every icon on its own row by design, so
-      // row comparison is meaningless there — always show the bin.
+      // row comparison is meaningless there - always show the bin.
       if (!mobile.matches) {
         recycle.style.display = ''
         return
@@ -111,7 +111,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
         </button>
       </div>
 
-      {/* Recycle bin — holds one "deleted" file: a Minesweeper clone. */}
+      {/* Recycle bin - holds one "deleted" file: a Minesweeper clone. */}
       {recycle.visible && (
         <div
           className="xp-modal-overlay"
@@ -141,7 +141,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
         </div>
       )}
 
-      {/* Minesweeper — a modal layer above the bin; backdrop click closes it. */}
+      {/* Minesweeper - a modal layer above the bin; backdrop click closes it. */}
       {minesweeper.visible && (
         <div
           className="xp-modal-overlay"

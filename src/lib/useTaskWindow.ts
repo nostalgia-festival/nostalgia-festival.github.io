@@ -3,7 +3,7 @@ import { useState } from 'react'
 /**
  * Models a single XP-style window's taskbar lifecycle: open (has a taskbar
  * button), minimized (button stays, window hidden), and visible (open and not
- * minimized — the only state in which the modal actually renders).
+ * minimized - the only state in which the modal actually renders).
  *
  * Lifting this above both <DesktopIcons> (which opens the windows) and
  * <Taskbar> (which lists them as buttons) lets the taskbar button and the
@@ -12,13 +12,13 @@ import { useState } from 'react'
 export interface TaskWindow {
   /** A taskbar button exists for this window. */
   open: boolean
-  /** Open but collapsed to the taskbar — button shown, modal hidden. */
+  /** Open but collapsed to the taskbar - button shown, modal hidden. */
   minimized: boolean
   /** Open and not minimized: the modal is on screen and the button is pressed. */
   visible: boolean
   /** Open it (and un-minimize if it was collapsed). */
   show: () => void
-  /** Close entirely — removes its taskbar button. */
+  /** Close entirely - removes its taskbar button. */
   close: () => void
   /** Collapse to the taskbar without closing. */
   minimize: () => void

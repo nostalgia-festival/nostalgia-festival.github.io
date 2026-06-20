@@ -19,7 +19,7 @@ type WindowWithWebkitAudio = Window & {
  *
  * Volume is controlled through the Web Audio API (a GainNode per track) rather
  * than `audio.volume`, because iOS Safari (and some other mobile browsers) ignore
- * `HTMLMediaElement.volume` entirely — it's read-only there and always plays at
+ * `HTMLMediaElement.volume` entirely - it's read-only there and always plays at
  * full hardware volume, so our low background level would not be respected. The
  * GainNode is honored on every browser. If Web Audio is unavailable we fall back
  * to `audio.volume` (best-effort on those browsers).
@@ -74,7 +74,7 @@ export function useBackgroundMusic() {
 
     // Set a track's level via the gain node (preferred) or audio.volume
     // (fallback). The target level is remembered so toggleMute can restore it,
-    // and a muted track is forced to 0 — on iOS the gain node is what's audible
+    // and a muted track is forced to 0 - on iOS the gain node is what's audible
     // (element output is rerouted through Web Audio), so muting must go here too.
     const setMusicVolume = (v: number) => {
       musicVolRef.current = v

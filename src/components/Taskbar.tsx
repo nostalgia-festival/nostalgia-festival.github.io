@@ -61,7 +61,7 @@ export interface TaskButton {
   icon: ReactNode
   /** Pressed-in (focused) when visible; raised when minimized. */
   active: boolean
-  /** Click handler — toggles minimize/restore. */
+  /** Click handler - toggles minimize/restore. */
   onClick: () => void
 }
 

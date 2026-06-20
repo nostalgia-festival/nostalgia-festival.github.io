@@ -17,8 +17,8 @@ npm run build    # → dist/
 ```
 
 ## תיעוד
-- **[IMPLEMENTATION.md](./IMPLEMENTATION.md)** — מה נבנה, החלטות, ו**מה עוד צריך למלא**.
-- **[SUPABASE_SETUP.md](./SUPABASE_SETUP.md)** — הקמת Supabase ופרסום ב-GitHub Pages, צעד-אחר-צעד.
+- **[IMPLEMENTATION.md](./IMPLEMENTATION.md)** - מה נבנה, החלטות, ו**מה עוד צריך למלא**.
+- **[SUPABASE_SETUP.md](./SUPABASE_SETUP.md)** - הקמת Supabase ופרסום ב-GitHub Pages, צעד-אחר-צעד.
 
 > לפני העלייה לאוויר חובה להגדיר את `VITE_PAYMENT_URL`, `VITE_SUPABASE_URL`,
 > `VITE_SUPABASE_PUBLISHABLE_KEY`, ולעדכן את מחירי הכרטיסים (placeholder) ב-`src/lib/pricing.ts`.

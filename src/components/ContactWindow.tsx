@@ -2,7 +2,7 @@ import { EVENT } from '../lib/config'
 import XPWindow from './XPWindow'
 import Icon from './Icon'
 
-/** "צרו קשר" — the contact window with a mailto link to the festival inbox. */
+/** "צרו קשר" - the contact window with a mailto link to the festival inbox. */
 export default function ContactWindow() {
   return (
     <XPWindow

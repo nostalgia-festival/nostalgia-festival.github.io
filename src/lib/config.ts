@@ -8,13 +8,13 @@ export const CONFIG = {
   supabasePublishableKey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '',
 
   // Where to redirect the user after we log their details. `||` (not `??`) so an
-  // empty env var — which the deploy workflow sets when the GitHub variable is
-  // unset — falls through to the real payment URL instead of disabling redirect.
+  // empty env var - which the deploy workflow sets when the GitHub variable is
+  // unset - falls through to the real payment URL instead of disabling redirect.
   paymentUrl: import.meta.env.VITE_PAYMENT_URL || 'https://pay.tranzila.com/double12ch10',
 }
 
 // ---------------------------------------------------------------------------
-// Event details — single source of truth, shown across the page.
+// Event details - single source of truth, shown across the page.
 // PLACEHOLDER values are taken from the brief; confirm before going live.
 // ---------------------------------------------------------------------------
 export const EVENT = {
@@ -103,7 +103,7 @@ export const INFO_ITEMS = [
     label: 'ייחשף בהמשך',
     title: 'ייחשף בהמשך',
     lines: [
-      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+      'עוד הפתעה שתיחשף בקרוב - הישארו מעודכנים!',
     ],
   },
   {
@@ -111,7 +111,7 @@ export const INFO_ITEMS = [
     label: 'ייחשף בהמשך',
     title: 'ייחשף בהמשך',
     lines: [
-      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+      'עוד הפתעה שתיחשף בקרוב - הישארו מעודכנים!',
     ],
   },
   {
@@ -119,7 +119,7 @@ export const INFO_ITEMS = [
     label: 'ייחשף בהמשך',
     title: 'ייחשף בהמשך',
     lines: [
-      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+      'עוד הפתעה שתיחשף בקרוב - הישארו מעודכנים!',
     ],
   },
   {
@@ -127,7 +127,7 @@ export const INFO_ITEMS = [
     label: 'ייחשף בהמשך',
     title: 'ייחשף בהמשך',
     lines: [
-      'עוד הפתעה שתיחשף בקרוב — הישארו מעודכנים!',
+      'עוד הפתעה שתיחשף בקרוב - הישארו מעודכנים!',
     ],
   },
 ] as const

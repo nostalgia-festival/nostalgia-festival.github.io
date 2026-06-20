@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 interface XPWindowProps {
-  /** Text shown in the title bar (e.g. "details.txt — פרטי האירוע"). */
+  /** Text shown in the title bar (e.g. "details.txt - פרטי האירוע"). */
   title: string
   /** Optional emoji/glyph rendered before the title. */
   icon?: ReactNode

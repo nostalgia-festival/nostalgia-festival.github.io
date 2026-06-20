@@ -80,12 +80,12 @@ function TaskLink({ icon, onClick, children }: { icon: ReactNode; onClick?: () =
 }
 
 /**
- * The "מידע" folder — an inline XP "file browser" window in the page's window
+ * The "מידע" folder - an inline XP "file browser" window in the page's window
  * stack (the מידע desktop icon scrolls here). It lists the event's content as
  * files; clicking a file opens a readme popup with its info. That popup is a
  * real window: it gets a taskbar button and can be minimized (state owned by
  * App via useTaskWindow), and still closes on its ✕, a backdrop click, or
- * Escape — just like the Recycle Bin.
+ * Escape - just like the Recycle Bin.
  */
 export default function InfoFolder({ selected, onOpen, window: win, onTickets, onContact, onDetails }: InfoFolderProps) {
   // Escape closes the open popup.
@@ -100,7 +100,7 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
 
   return (
     <>
-      {/* Folder window — a normal window in the scrolling stack. */}
+      {/* Folder window - a normal window in the scrolling stack. */}
       <XPWindow
         className="xp-window--folder"
         title="תכני האירוע"
@@ -163,7 +163,7 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
         </div>
       </XPWindow>
 
-      {/* Info popup — modal; backdrop click closes the popup. Only on screen
+      {/* Info popup - modal; backdrop click closes the popup. Only on screen
           when visible (open and not minimized to the taskbar). */}
       {selected && win.visible && (
         <div
@@ -173,7 +173,7 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
         >
           <div className="xp-modal xp-modal--popup" onClick={(e) => e.stopPropagation()}>
             <XPWindow
-              title={`${selected.label} — readme.txt`}
+              title={`${selected.label} - readme.txt`}
               icon={
                 IMAGES[selected.id] ? (
                   <Icon name="picture" e="🖼️" />

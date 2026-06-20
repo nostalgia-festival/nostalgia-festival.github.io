@@ -3,7 +3,7 @@ import { CONFIG } from './config'
 
 // The Supabase client is only created when both the URL and publishable key are
 // present. This lets the site build & run locally (and even on GitHub Pages)
-// without credentials — logging simply becomes a no-op in that case.
+// without credentials - logging simply becomes a no-op in that case.
 let client: SupabaseClient | null = null
 
 if (CONFIG.supabaseUrl && CONFIG.supabasePublishableKey) {
@@ -25,12 +25,12 @@ export interface TicketClick {
  * Logs a ticket-purchase intent to Supabase right before redirecting the user
  * to the payment service. Resolves to true on success, false otherwise.
  *
- * This intentionally never throws — a logging/network failure must NOT block
+ * This intentionally never throws - a logging/network failure must NOT block
  * the user from reaching the payment page.
  */
 export async function logTicketClick(data: TicketClick): Promise<boolean> {
   if (!client) {
-    console.warn('[supabase] not configured — skipping log', data)
+    console.warn('[supabase] not configured - skipping log', data)
     return false
   }
 

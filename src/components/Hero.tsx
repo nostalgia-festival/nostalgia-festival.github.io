@@ -29,7 +29,7 @@ export default function Hero({ onStartClick }: HeroProps) {
           <ProgressiveImage className="hero-sponsor-logo" tiers={SPONSOR_TIERS} alt="לוגו נותן החסות" />
         </div>
 
-        {/* A loud early-2000s "starburst" sticker — the kind that screamed off
+        {/* A loud early-2000s "starburst" sticker - the kind that screamed off
             every Geocities/Flash splash page. Pure CSS spiky star + blinking,
             color-cycling text. Hypes the returning ששטוס game, and doubles as
             the hero CTA: clicking it scrolls to the ticket wizard. */}

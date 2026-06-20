@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 // The recycle-bin file icon and window title-bar icon use this real winmine.exe
 // logo. `?inline` forces Vite to embed it as a base64 data URI in the bundle
-// (it's only ~6KB) instead of emitting a separate hashed file — so the icon
+// (it's only ~6KB) instead of emitting a separate hashed file - so the icon
 // shows instantly when the recycle bin opens, with no network round-trip.
 // The in-game mine cells still use the inline MineGlyph SVG below.
 import minesweeperLogo from '../../images/Minesweeper.webp?inline'
 
-// A faithful clone of the classic Windows Minesweeper (winmine.exe) — the same
+// A faithful clone of the classic Windows Minesweeper (winmine.exe) - the same
 // rules, the same little chrome. Self-contained: state, logic, and the pixel
 // glyphs (mine / flag / faces) all live here; only its CSS lives in xp.css with
 // the rest of the theme. It opens as a modal launched from the recycle bin.
@@ -28,9 +28,9 @@ interface Cell {
   mark: 0 | 1 | 2
   /** Number of mines in the 8 neighbours (only meaningful once mines exist). */
   adjacent: number
-  /** The specific mine the player detonated — drawn on a red background. */
+  /** The specific mine the player detonated - drawn on a red background. */
   exploded?: boolean
-  /** A flag on a cell that turned out to be safe — drawn with a red X on loss. */
+  /** A flag on a cell that turned out to be safe - drawn with a red X on loss. */
   wrongFlag?: boolean
 }
 
@@ -85,7 +85,7 @@ function placeMines(board: Cell[], level: Level, safe: number): Cell[] {
   const { rows, cols, mines } = level
   const candidates: number[] = []
   for (let i = 0; i < board.length; i++) if (i !== safe) candidates.push(i)
-  // Fisher–Yates shuffle, take the first `mines`.
+  // Fisher-Yates shuffle, take the first `mines`.
   for (let i = candidates.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[candidates[i], candidates[j]] = [candidates[j], candidates[i]]
@@ -344,59 +344,66 @@ export default function Minesweeper() {
         </button>
       </div>
 
-      <div className="ms-frame">
-        <div className="ms-panel">
-          <LedCounter value={level.mines - flagCount} />
-          <button
-            type="button"
-            className="ms-face"
-            onClick={() => reset()}
-            aria-label="משחק חדש"
-          >
-            <Face status={status} pressed={pressed} />
-          </button>
-          <LedCounter value={time} />
-        </div>
+      {/* The frame can be wider than the window (intermediate/expert boards), so
+          it lives in its own LTR horizontal-scroll wrapper. Scrolling here rather
+          than on the RTL window body is deliberate: an RTL scroll container treats
+          this LTR overflow as off to the inline-start and never offers a scrollbar
+          for it. The menu and hint stay outside, at window width. */}
+      <div className="ms-scroll">
+        <div className="ms-frame">
+          <div className="ms-panel">
+            <LedCounter value={level.mines - flagCount} />
+            <button
+              type="button"
+              className="ms-face"
+              onClick={() => reset()}
+              aria-label="משחק חדש"
+            >
+              <Face status={status} pressed={pressed} />
+            </button>
+            <LedCounter value={time} />
+          </div>
 
-        <div
-          ref={boardRef}
-          className="ms-board"
-          onMouseDown={() => inPlay && setPressed(true)}
-          onMouseUp={() => setPressed(false)}
-          onMouseLeave={() => setPressed(false)}
-        >
-          {board.map((cell, i) => {
-            if (cell.revealed) {
+          <div
+            ref={boardRef}
+            className="ms-board"
+            onMouseDown={() => inPlay && setPressed(true)}
+            onMouseUp={() => setPressed(false)}
+            onMouseLeave={() => setPressed(false)}
+          >
+            {board.map((cell, i) => {
+              if (cell.revealed) {
+                return (
+                  <div
+                    key={i}
+                    className={`ms-cell ms-cell--open${cell.exploded ? ' ms-cell--boom' : ''}`}
+                  >
+                    {cell.mine ? (
+                      <MineGlyph className="ms-cell-glyph" />
+                    ) : cell.adjacent > 0 ? (
+                      <span className={`ms-num ms-num-${cell.adjacent}`}>{cell.adjacent}</span>
+                    ) : null}
+                  </div>
+                )
+              }
               return (
-                <div
+                <button
                   key={i}
-                  className={`ms-cell ms-cell--open${cell.exploded ? ' ms-cell--boom' : ''}`}
+                  type="button"
+                  className={`ms-cell ms-cell--hidden${cell.wrongFlag ? ' ms-cell--wrong' : ''}`}
+                  onClick={() => onCellClick(i)}
+                  onContextMenu={(e) => onCellContext(e, i)}
+                  disabled={!inPlay && cell.mark !== 1}
                 >
-                  {cell.mine ? (
-                    <MineGlyph className="ms-cell-glyph" />
-                  ) : cell.adjacent > 0 ? (
-                    <span className={`ms-num ms-num-${cell.adjacent}`}>{cell.adjacent}</span>
+                  {cell.mark === 1 ? (
+                    <FlagGlyph className="ms-cell-glyph" />
+                  ) : cell.mark === 2 ? (
+                    <span className="ms-question">?</span>
                   ) : null}
-                </div>
+                </button>
               )
-            }
-            return (
-              <button
-                key={i}
-                type="button"
-                className={`ms-cell ms-cell--hidden${cell.wrongFlag ? ' ms-cell--wrong' : ''}`}
-                onClick={() => onCellClick(i)}
-                onContextMenu={(e) => onCellContext(e, i)}
-                disabled={!inPlay && cell.mark !== 1}
-              >
-                {cell.mark === 1 ? (
-                  <FlagGlyph className="ms-cell-glyph" />
-                ) : cell.mark === 2 ? (
-                  <span className="ms-question">?</span>
-                ) : null}
-              </button>
-            )
-          })}
+            })}
+          </div>
         </div>
       </div>
 

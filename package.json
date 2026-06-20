@@ -2,7 +2,7 @@
   "name": "nostalgia-festival",
   "version": "1.0.0",
   "private": true,
-  "description": "פסטיבל נוסטלגיה — landing page for the nostalgia conference",
+  "description": "פסטיבל נוסטלגיה - landing page for the nostalgia conference",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,5 +1,5 @@
 /* ===========================================================================
-   פסטיבל נוסטלגיה — Windows XP "Luna" themed styles (RTL Hebrew)
+   פסטיבל נוסטלגיה - Windows XP "Luna" themed styles (RTL Hebrew)
    =========================================================================== */
 
 /* DSEG: a free 7-segment "digital clock" webfont, used for the countdown.
@@ -38,7 +38,7 @@ body {
   /* The hero starburst spins/wobbles/scales; on narrow screens its tilted
      bounding box can poke past 100vw and flicker a horizontal scrollbar (which
      shifts the page width). `clip` walls off that overflow without creating a
-     scroll container — so it won't disturb the fixed wallpaper/taskbar. */
+     scroll container - so it won't disturb the fixed wallpaper/taskbar. */
   overflow-x: clip;
 }
 
@@ -47,7 +47,7 @@ body {
   color: var(--text);
   /* Flat sky tone as a fallback behind the <Background> image while its first
      (sub-1 KB) tier decodes. The actual "Bliss" wallpaper is the .bg-image
-     element below, loaded progressively low→high — see Background.tsx. */
+     element below, loaded progressively low→high - see Background.tsx. */
   background: #4c93e8;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -122,7 +122,7 @@ body {
 }
 
 .desktop-icon {
-  /* These are real <button>s now — strip the native chrome so they read as
+  /* These are real <button>s now - strip the native chrome so they read as
      plain desktop shortcuts. */
   appearance: none;
   background: none;
@@ -197,7 +197,7 @@ body {
   overflow: auto;
 }
 
-/* The close caption is a real <button> in modals — reset its native chrome. */
+/* The close caption is a real <button> in modals - reset its native chrome. */
 button.xp-caption {
   appearance: none;
   font: inherit;
@@ -276,7 +276,7 @@ button.xp-caption {
   object-fit: contain;
 }
 
-/* The ששטוס logo is the headliner — show it 30% larger than the other file
+/* The ששטוס logo is the headliner - show it 30% larger than the other file
    icons. It's wide/short, so width is the limiting dimension; widen it and keep
    the shared 56px height so the label still lines up with its neighbours. */
 .info-file-img--shustus {
@@ -442,7 +442,7 @@ button.xp-caption {
   color: #8dffbb;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  /* Tight phosphor glow — enough to read as "lit", not enough to smear. */
+  /* Tight phosphor glow - enough to read as "lit", not enough to smear. */
   text-shadow: 0 0 3px rgba(141, 255, 187, 0.5);
 }
 
@@ -556,7 +556,7 @@ button.xp-caption {
   display: flex;
   gap: 2px;
   /* Caption buttons sit in the top-left corner; render rtl so close (✕) is
-     nearest the corner, then maximize, then minimize — real XP order. */
+     nearest the corner, then maximize, then minimize - real XP order. */
   direction: rtl;
 }
 
@@ -621,7 +621,7 @@ button.xp-caption:active {
   padding: 20px;
 }
 
-/* The countdown is a single LCD gadget — center it within the window body. */
+/* The countdown is a single LCD gadget - center it within the window body. */
 .xp-window--countdown .xp-window-body {
   display: flex;
   justify-content: center;
@@ -629,13 +629,13 @@ button.xp-caption:active {
 
 /* Explorer folders use a white file-list pane (the beige face is reserved for
    the dialog-style windows down the page). The blue task pane runs flush to the
-   window edge, so the body itself carries no padding — the file grid pads itself. */
+   window edge, so the body itself carries no padding - the file grid pads itself. */
 .xp-window--folder .xp-window-body {
   background: #fff;
   padding: 0;
 }
 
-/* Two columns: the blue task pane (start side — the right, in RTL) + file grid. */
+/* Two columns: the blue task pane (start side - the right, in RTL) + file grid. */
 .folder-layout {
   display: flex;
   align-items: stretch;
@@ -830,7 +830,7 @@ button.xp-caption:active {
 
 /* Consolas/Lucida Console have no Hebrew glyphs, so Latin digits render
    monospace (the Notepad "data" feel) while Hebrew falls through to Tahoma and
-   stays naturally spaced. Note: NO 'Courier New'/generic 'monospace' here — both
+   stays naturally spaced. Note: NO 'Courier New'/generic 'monospace' here - both
    carry fixed-width Hebrew, which jams the letters into ugly gaps. */
 .notepad-text {
   font-family: 'Consolas', 'Lucida Console', 'Tahoma', sans-serif;
@@ -839,7 +839,7 @@ button.xp-caption:active {
   color: #000;
 }
 
-/* Short intro blurb above the dot-leader rows — sits a little apart from the
+/* Short intro blurb above the dot-leader rows - sits a little apart from the
    data lines so it reads as a sentence, not a field. */
 .np-intro {
   margin: 0 0 12px;
@@ -855,7 +855,7 @@ button.xp-caption:active {
   white-space: nowrap;
 }
 
-/* The dotted run between label and value — fills the gap so values line up.
+/* The dotted run between label and value - fills the gap so values line up.
    Centered vertically; a min-width keeps a few dots even on the widest label. */
 .np-leader {
   flex: 1 1 auto;
@@ -1199,7 +1199,7 @@ button.xp-caption:active {
 /* ------------------------------------------------- Hero starburst sticker --- */
 /* A deliberately gaudy ~2002 "splash page" starburst: a spinning spiky star
    with blinking, color-cycling text on top. The star spins; the text does not
-   (so it stays readable) — they're stacked siblings, both centered. */
+   (so it stays readable) - they're stacked siblings, both centered. */
 .hero-burst {
   position: relative;
   width: clamp(240px, 72vw, 320px);
@@ -1207,7 +1207,7 @@ button.xp-caption:active {
   margin-top: -8px;
   display: grid;
   place-items: center;
-  /* It's the hero CTA now — strip the native <button> chrome. */
+  /* It's the hero CTA now - strip the native <button> chrome. */
   padding: 0;
   border: 0;
   background: none;
@@ -1218,7 +1218,7 @@ button.xp-caption:active {
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
 }
 
-/* Lean into the click affordance — bump and brighten on hover/focus. */
+/* Lean into the click affordance - bump and brighten on hover/focus. */
 .hero-burst:hover,
 .hero-burst:focus-visible {
   animation-play-state: paused;
@@ -1289,14 +1289,14 @@ button.xp-caption:active {
   font-weight: 900;
   letter-spacing: -0.5px;
   /* Pull the title and everything below it up toward the kicker ("חדש!"),
-     which stays put — tightens the block under the new! line. */
+     which stays put - tightens the block under the new! line. */
   margin-top: -8px;
-  /* The color-cycling rainbow text — peak 2000s. */
+  /* The color-cycling rainbow text - peak 2000s. */
   animation: burst-rainbow 4s linear infinite;
   /* A heavy black outline so every cycling color (even pale yellow/green) stays
-     legible against the bright star — the classic WordArt look. `paint-order`
+     legible against the bright star - the classic WordArt look. `paint-order`
      keeps the stroke behind the fill so it doesn't eat into thin strokes. A soft
-     drop shadow only — no layered hard shadows (they read as a doubled edge). */
+     drop shadow only - no layered hard shadows (they read as a doubled edge). */
   -webkit-text-stroke: 5px #000;
   paint-order: stroke fill;
   text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
@@ -1308,10 +1308,10 @@ button.xp-caption:active {
   font-family: 'Varela Round', var(--font);
   font-size: 1.25em;
   /* Match the heavy single stroke on "חוזר!" so both big lines read as one
-     weight — clean stroke, soft drop shadow only, no layered hard shadows. */
+     weight - clean stroke, soft drop shadow only, no layered hard shadows. */
   -webkit-text-stroke: 5px #000;
   text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
-  /* Tighten the gap to "חוזר!" — the larger size widens the inline space. */
+  /* Tighten the gap to "חוזר!" - the larger size widens the inline space. */
   margin-inline-end: 0em;
   /* Nudge the bigger word down so it sits level with "חוזר!". */
   position: relative;
@@ -1455,7 +1455,7 @@ button.xp-caption:active {
   border: none;
   cursor: pointer;
   /* The signature lozenge Start button. RTL: it sits at the right edge of the
-     screen, so round only the inner (left) edge — the outer edge stays flush. */
+     screen, so round only the inner (left) edge - the outer edge stays flush. */
   background: linear-gradient(180deg, #5bb83f 0%, #43a233 45%, #2f861f 100%);
   border-radius: 12px 0 0 12px;
   box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4);
@@ -1499,7 +1499,7 @@ button.xp-caption:active {
   cursor: pointer;
   border: 1px solid #2b5fc7;
   border-radius: 3px;
-  /* Raised glossy blue — the default (unfocused / minimized) task button. */
+  /* Raised glossy blue - the default (unfocused / minimized) task button. */
   background: linear-gradient(180deg, #4a90ff 0%, #2f6fe0 50%, #2a62d6 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
@@ -1740,7 +1740,7 @@ button.xp-caption:active {
 
 @media (max-width: 380px) {
   /* On the narrowest phones the tray crowds the clock and the task buttons;
-     drop the network icon but keep the mute button — it must always be present
+     drop the network icon but keep the mute button - it must always be present
      so the visitor can silence the background music. */
   .tray-icon--network {
     display: none;
@@ -1752,11 +1752,17 @@ button.xp-caption:active {
    Win 9x/2000 grey-bevel look (3D outset tiles, inset wells) rather than the XP
    Luna theme, because that *is* what the original game looked like. Its window
    sizes to the board, so it gets its own modal width override. The board width
-   is driven by --ms-cols (set inline per difficulty). LTR — the game grid and
+   is driven by --ms-cols (set inline per difficulty). LTR - the game grid and
    its numbers are not Hebrew text. */
 .xp-modal--minesweeper {
   width: auto;
   max-width: 96vw;
+  /* As a flex item the default min-width:auto resolves to the content's
+     min-content width, which would let a wide (intermediate/expert) board pin the
+     modal past max-width and off a phone screen with nothing to scroll. min-width:0
+     lets max-width:96vw actually cap the modal; the oversized board then scrolls
+     inside the window body (see the .xp-window-body override below). */
+  min-width: 0;
 }
 .xp-modal--minesweeper .xp-window-body {
   padding: 0;
@@ -1806,12 +1812,29 @@ button.xp-caption:active {
   display: block;
 }
 
+/* Dedicated horizontal scroller for the playfield. It inherits .ms-game's LTR
+   direction, so (unlike the RTL window body) it actually shows a scrollbar when
+   the frame is wider than it. It fills the window, so a board that fits (beginner)
+   produces no scrollbar; a wider board (intermediate/expert) does. */
+.ms-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* The grey playfield frame: an outset border wrapping the panel + board. */
 .ms-frame {
   background: #c0c0c0;
   border: 3px solid;
   border-color: #fff #808080 #808080 #fff;
   padding: 6px;
+  /* Size to the board but never below the window: min-width:100% makes the frame
+     fill the window when the board fits (beginner - no scrollbar, the classic
+     look), while width:max-content lets it grow to the full board width when that
+     exceeds the window (intermediate/expert), so only those boards get the
+     horizontal scroll from the window body. The board keeps its fixed 24px tiles. */
+  width: max-content;
+  min-width: 100%;
 }
 
 /* The status panel: mine counter · smiley · timer, in an inset well. */
@@ -1911,7 +1934,7 @@ button.xp-caption:active {
   background: #f00;
 }
 
-/* A flag the player placed on a safe cell — struck through with a red X on loss. */
+/* A flag the player placed on a safe cell - struck through with a red X on loss. */
 .ms-cell--wrong {
   position: relative;
 }
@@ -1957,7 +1980,13 @@ button.xp-caption:active {
   text-align: center;
 }
 
-/* Expert/intermediate boards can outgrow a phone — let the body scroll them. */
+/* The body only needs the vertical scroll (the inherited max-height:70vh handles
+   a board taller than the viewport). Horizontal scrolling is handled by .ms-scroll
+   inside, because this body is RTL and would not offer a scrollbar for the LTR
+   board overflow. overflow-x:hidden keeps a stray RTL horizontal scrollbar away. */
 .xp-modal--minesweeper .xp-window-body {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }

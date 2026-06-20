@@ -1,7 +1,7 @@
 // Renders an emoji as a bundled Twemoji SVG instead of relying on the OS emoji
 // font. The platform emoji fonts differ wildly (and clash with the XP/2000
 // nostalgia theme), so we pin a single consistent image set. The SVGs live in
-// images/emoji/, named by Unicode code point, and are bundled at build time —
+// images/emoji/, named by Unicode code point, and are bundled at build time -
 // no runtime CDN dependency, in keeping with the rest of the site.
 
 // Vite inlines the URL of every emoji SVG, keyed by its file path.

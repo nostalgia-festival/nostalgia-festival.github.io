@@ -31,13 +31,13 @@ export default function TicketWizard() {
 
   // Synchronous re-entry guard. The button's `disabled` only takes effect after
   // a re-render, so a fast double-click (or click + Enter) can fire two
-  // handlePurchase calls before React disables it — each one inserting a row.
+  // handlePurchase calls before React disables it - each one inserting a row.
   // A ref flips immediately, so the second call bails out before logging.
   const submittingRef = useRef(false)
 
   const price = useMemo(() => calculatePrice({ numTickets }), [numTickets])
 
-  // Simple email sanity check — enough to catch typos without over-validating.
+  // Simple email sanity check - enough to catch typos without over-validating.
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
   const formValid = fullName.trim().length >= 2 && emailValid && numTickets >= 1
 
@@ -46,7 +46,7 @@ export default function TicketWizard() {
     submittingRef.current = true
     setSubmitState('saving')
 
-    // Log first — but never let a logging failure block the user from paying.
+    // Log first - but never let a logging failure block the user from paying.
     await logTicketClick({
       full_name: fullName.trim(),
       email: email.trim(),
@@ -56,7 +56,7 @@ export default function TicketWizard() {
 
     if (CONFIG.paymentUrl) {
       // Track the purchase intent for paid-ad attribution before leaving the
-      // page. Guarded — a missing/blocked pixel must never block the redirect.
+      // page. Guarded - a missing/blocked pixel must never block the redirect.
       window.fbq?.('track', 'Purchase', {
         value: price.total,
         currency: 'ILS',
@@ -65,7 +65,7 @@ export default function TicketWizard() {
       setSubmitState('redirecting')
       window.location.href = CONFIG.paymentUrl
     } else {
-      // No payment URL configured (e.g. local dev) — show a placeholder notice.
+      // No payment URL configured (e.g. local dev) - show a placeholder notice.
       // Release the guard so the user can retry (on success we redirect away, so
       // the guard intentionally stays set there).
       submittingRef.current = false
@@ -145,7 +145,7 @@ export default function TicketWizard() {
           {submitState === 'error' && (
             <p className="wizard-error">
               {isSupabaseConfigured
-                ? 'קישור התשלום עדיין לא הוגדר. הפרטים נשמרו — אנא נסו שוב מאוחר יותר.'
+                ? 'קישור התשלום עדיין לא הוגדר. הפרטים נשמרו - אנא נסו שוב מאוחר יותר.'
                 : 'מצב הדגמה: קישור התשלום וה-Supabase עדיין לא הוגדרו (ראו SUPABASE_SETUP.md).'}
             </p>
           )}

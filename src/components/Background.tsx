@@ -9,11 +9,11 @@ import bliss2560 from '../../images/bliss/bliss-2560.jpg'
  * The "Bliss" desktop wallpaper, loaded progressively from low to high
  * resolution. We always paint the tiniest variant first (instant, <1 KB) and
  * then climb tier-by-tier, only swapping the visible src once the next, sharper
- * variant has fully decoded — so the picture sharpens in steps and never shows
+ * variant has fully decoded - so the picture sharpens in steps and never shows
  * a blank/half-loaded frame.
  *
  * Nearest-neighbour upscaling (`image-rendering: pixelated`, see xp.css) keeps
- * the early low-res tiers crisply blocky rather than blurry — both an explicit
+ * the early low-res tiers crisply blocky rather than blurry - both an explicit
  * requirement and a fitting nod to the XP-era nostalgia theme.
  */
 const TIERS = [bliss32, bliss128, bliss480, bliss1280, bliss2560]
@@ -25,7 +25,7 @@ const TIERS = [bliss32, bliss128, bliss480, bliss1280, bliss2560]
  */
 function maxTierForConnection(): number {
   const last = TIERS.length - 1
-  // Not all browsers expose navigator.connection — default to full quality.
+  // Not all browsers expose navigator.connection - default to full quality.
   const conn = (navigator as Navigator & { connection?: { effectiveType?: string; saveData?: boolean } }).connection
   if (!conn) return last
   if (conn.saveData) return 2 // Data Saver on → cap at the 480px tier.
@@ -58,7 +58,7 @@ export default function Background() {
         tier += 1
         loadNext()
       }
-      // A broken tier must not stall the climb — skip it and keep going.
+      // A broken tier must not stall the climb - skip it and keep going.
       img.onerror = () => {
         if (cancelled) return
         tier += 1

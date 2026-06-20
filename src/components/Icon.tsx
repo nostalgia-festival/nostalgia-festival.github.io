@@ -1,8 +1,8 @@
 // Renders an authentic Windows XP system icon (original .ico file) for the
 // chrome roles where a modern emoji would clash with the theme. The icons live
-// in images/icons/, named by a semantic slug, and are bundled at build time — no
+// in images/icons/, named by a semantic slug, and are bundled at build time - no
 // runtime CDN, mirroring Emoji.tsx. (The untouched originals, by their real XP
-// names, are kept in images/icons/source/ — outside this non-recursive glob.)
+// names, are kept in images/icons/source/ - outside this non-recursive glob.)
 //
 // Graceful fallback: if a given slug has no .ico in images/icons/, the matching
 // emoji (`e`) is rendered via <Emoji> instead, so the site still builds and runs

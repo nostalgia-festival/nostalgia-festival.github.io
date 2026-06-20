@@ -14,7 +14,7 @@ interface ProgressiveImageProps {
  */
 function maxTierForConnection(tierCount: number): number {
   const last = tierCount - 1
-  // Not all browsers expose navigator.connection — default to full quality.
+  // Not all browsers expose navigator.connection - default to full quality.
   const conn = (navigator as Navigator & { connection?: { effectiveType?: string; saveData?: boolean } }).connection
   if (!conn) return last
   if (conn.saveData) return Math.min(1, last) // Data Saver → one step up from the tiniest.
@@ -34,8 +34,8 @@ function maxTierForConnection(tierCount: number): number {
  * tiniest variant first (instant) and climb tier-by-tier, swapping the visible
  * src only once the next, sharper variant has fully decoded. Until we reach the
  * sharpest reachable tier the image renders with nearest-neighbour upscaling
- * (`image-rendering: pixelated`) — crisply blocky rather than blurry, and a nod
- * to the XP-era nostalgia theme — then switches to smooth rendering once sharp.
+ * (`image-rendering: pixelated`) - crisply blocky rather than blurry, and a nod
+ * to the XP-era nostalgia theme - then switches to smooth rendering once sharp.
  */
 export default function ProgressiveImage({ tiers, alt, className }: ProgressiveImageProps) {
   // Connection cap is read once at mount and kept stable across renders.
@@ -56,7 +56,7 @@ export default function ProgressiveImage({ tiers, alt, className }: ProgressiveI
         tier += 1
         loadNext()
       }
-      // A broken tier must not stall the climb — skip it and keep going.
+      // A broken tier must not stall the climb - skip it and keep going.
       img.onerror = () => {
         if (cancelled) return
         tier += 1

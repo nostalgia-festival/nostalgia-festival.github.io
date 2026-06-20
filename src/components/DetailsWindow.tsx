@@ -9,7 +9,7 @@ const ROWS: { label: string; value: string; href?: string }[] = [
   { label: 'מיקום', value: EVENT.locationLabel, href: EVENT.locationUrl },
 ]
 
-/** "פרטי האירוע.txt" — the factual event info, dressed up as a Notepad document
+/** "פרטי האירוע.txt" - the factual event info, dressed up as a Notepad document
     (white paper, monospace, dot-leader lines) so it actually reads like a .txt. */
 export default function DetailsWindow() {
   return (
