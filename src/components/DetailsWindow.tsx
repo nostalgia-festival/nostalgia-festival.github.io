@@ -23,8 +23,7 @@ export default function DetailsWindow() {
       <div className="notepad">
         <div className="notepad-text">
           <p className="np-intro">
-            אירוע של 3 ב-1! בואו לשחק במשחק ששטוס ענק, לקפוץ בהופעה חיה של האמנים שגדלנו עליהם ולקנח במסיבה
-            מטורפת של שירי התקופה!
+            שנות האלפיים חוזרות לפסטיבל מטורף - הופעה של עודד פז ואילן רוזנפלד, משחק ששטוס ענקי, הנחייה של טל מוסרי וגיורא חמיצר, דיג'יי אל תוך הלילה, ועוד מלא מלא הפתעות!
           </p>
           {ROWS.map((row) => (
             <div className="np-row" key={row.label}>
