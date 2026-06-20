@@ -29,13 +29,19 @@ page composed of XP-styled "window" sections. Styling is hand-written CSS in
 
 - `src/App.tsx` — composes the page: a `Background`, `DesktopIcons`, `Hero`, then
   a `windows-stack` of `DetailsWindow` → `InfoFolder` → `TicketWizard` →
-  `ContactWindow` → `Footer`, plus a `Taskbar`. App owns one ref per scroll target
-  and passes `scrollTo` callbacks down; the desktop icons, Start button, and Hero
-  CTA all `scrollIntoView` their section (Start button and Hero CTA target the
-  `TicketWizard`).
+  `Countdown` → `ContactWindow` → `Footer`, plus a `Taskbar`. App owns one ref per
+  scroll target and passes `scrollTo` callbacks down; the desktop icons, Start
+  button, and Hero CTA all `scrollIntoView` their section (Start button and Hero
+  CTA target the `TicketWizard`). App also owns the three taskbar-managed modal
+  windows and the background-music hook (see below).
 - `src/components/XPWindow.tsx` — the reusable XP "Luna" window chrome (title bar,
   caption buttons, optional menu strip). Purely presentational; most sections wrap
   their content in this.
+- `src/components/Countdown.tsx` — live countdown to `EVENT.startsAtISO`.
+- `src/components/Background.tsx` — the "Bliss" desktop wallpaper, progressively
+  loaded (see "Theme assets" below).
+- `src/components/DesktopIcons.tsx` / `Taskbar.tsx` — the XP desktop icons and the
+  bottom taskbar (Start button + one button per open modal window + volume icon).
 - `src/lib/config.ts` — **single source of truth** for event details (`EVENT`),
   runtime config (`CONFIG`), and `INFO_ITEMS` (the "files" inside the `InfoFolder`
   window — each is a clickable entry with title/copy, wired to images in
@@ -68,6 +74,54 @@ missing:
 
 Local dev: copy `.env.example` → `.env`. In production these are set as GitHub
 Actions repository **Variables** (see `.github/workflows/deploy.yml`).
+
+### Two kinds of "windows"
+
+There are two distinct windowing mechanisms; don't conflate them.
+
+- **Scroll-stack sections** (`DetailsWindow`, `InfoFolder`, `TicketWizard`,
+  `ContactWindow`) — always-on-screen content wrapped in `XPWindow` chrome, laid
+  out in the `windows-stack` and reached by smooth-scroll.
+- **Taskbar-managed modal windows** — the *real* floating windows that open over
+  the page: the Recycle Bin, the `Minesweeper` clone inside it, and the מידע
+  folder's readme popup. Each is driven by a `useTaskWindow()` hook
+  (`src/lib/useTaskWindow.ts`) whose state (`open`/`minimized`/`visible`) is lifted
+  into `App` so the desktop icon that opens it, the window itself, and its taskbar
+  button all stay in sync. Clicking a taskbar button toggles minimize/restore just
+  like real XP. `Minesweeper.tsx` is a self-contained game (and exports a
+  `MinesweeperGlyph` used as its taskbar icon).
+
+### Background music
+
+`src/lib/useBackgroundMusic.ts` plays the Windows XP startup sound and then
+hard-cuts into looping background music; the taskbar volume icon mutes/unmutes it.
+The non-obvious parts are documented in the file and must be preserved: browsers
+block autoplay-with-sound, so a rejected `play()` arms one-time
+pointer/key/touch gesture listeners; volume runs through Web Audio `GainNode`s
+(not `audio.volume`, which iOS Safari ignores) with a fallback; and a `disposed`
+guard defends against React StrictMode's double-mount. Audio assets live in
+`Media/` (`Windows_XP.mp3` intro, `NostalgiaFest.wav` loop), imported by Vite.
+
+### Theme assets
+
+Visual assets are imported through Vite from the top-level `images/` and `Media/`
+folders (hashed/bundled at build time), **not** served from `public/`. `public/`
+holds only files that must keep stable URLs: the favicon and OpenGraph/preview
+images referenced by `index.html`.
+
+- `src/components/Emoji.tsx` — renders every emoji as a bundled Twemoji SVG from
+  `images/emoji/` (keyed by Unicode code point), so emoji look identical across
+  platforms and fit the theme. Unknown emoji fall back to the raw character.
+- `src/components/Icon.tsx` — renders authentic XP `.ico` system icons from
+  `images/icons/` by semantic slug, falling back to an emoji (via `Emoji`) when no
+  matching `.ico` exists, so the site still builds with that folder empty. The
+  untouched originals in `images/icons/source/` are deliberately outside the glob.
+- `src/components/Background.tsx` and `ProgressiveImage.tsx` — progressive
+  low→high-resolution image loading: paint the tiniest tier instantly, then climb
+  tier-by-tier, capping the top tier by the visitor's connection (Network
+  Information API, `saveData` respected). Early tiers render with
+  `image-rendering: pixelated` (crisp blocky upscaling — an intentional XP-era nod,
+  see `xp.css`), switching to smooth once the sharpest tier loads.
 
 ## Deployment
 
