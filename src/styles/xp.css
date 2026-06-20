@@ -1295,11 +1295,10 @@ button.xp-caption:active {
   animation: burst-rainbow 4s linear infinite;
   /* A heavy black outline so every cycling color (even pale yellow/green) stays
      legible against the bright star - the classic WordArt look. `paint-order`
-     keeps the stroke behind the fill so it doesn't eat into thin strokes. A soft
-     drop shadow only - no layered hard shadows (they read as a doubled edge). */
+     keeps the stroke behind the fill so it doesn't eat into thin strokes. No
+     drop shadow - iOS renders it as a hard doubled edge on some words. */
   -webkit-text-stroke: 5px #000;
   paint-order: stroke fill;
-  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Only the word "ששטוס" uses Varela Round; "חוזר!" keeps the default font.
@@ -1308,9 +1307,8 @@ button.xp-caption:active {
   font-family: 'Varela Round', var(--font);
   font-size: 1.25em;
   /* Match the heavy single stroke on "חוזר!" so both big lines read as one
-     weight - clean stroke, soft drop shadow only, no layered hard shadows. */
+     weight - clean stroke, no drop shadow (iOS doubles it on some words). */
   -webkit-text-stroke: 5px #000;
-  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
   /* Tighten the gap to "חוזר!" - the larger size widens the inline space. */
   margin-inline-end: 0em;
   /* Nudge the bigger word down so it sits level with "חוזר!". */
