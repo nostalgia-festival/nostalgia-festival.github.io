@@ -7,6 +7,14 @@ import { calculatePrice, formatPrice } from '../lib/pricing'
 
 type SubmitState = 'idle' | 'saving' | 'redirecting' | 'error'
 
+// Meta Pixel's `fbq` is loaded as a global by the snippet in index.html. It may
+// be absent (ad blockers, snippet not yet loaded), so calls are guarded.
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+  }
+}
+
 /**
  * The "אשף רכישת כרטיסים" (ticket purchase wizard). A single step: the buyer
  * enters their name and how many tickets they want, the price is calculated
@@ -47,6 +55,13 @@ export default function TicketWizard() {
     })
 
     if (CONFIG.paymentUrl) {
+      // Track the purchase intent for paid-ad attribution before leaving the
+      // page. Guarded — a missing/blocked pixel must never block the redirect.
+      window.fbq?.('track', 'Purchase', {
+        value: price.total,
+        currency: 'ILS',
+      })
+
       setSubmitState('redirecting')
       window.location.href = CONFIG.paymentUrl
     } else {
