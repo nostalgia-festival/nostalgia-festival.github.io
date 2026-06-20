@@ -1439,34 +1439,79 @@ button.xp-caption:active {
 }
 
 .start-button {
+  position: relative;
   font-family: var(--font);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   height: 100%;
-  padding: 0 22px 0 26px;
-  font-size: 17px;
+  padding: 0 26px 4px 30px;
+  font-size: 18px;
   font-style: italic;
   font-weight: 800;
   color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.55);
   border: none;
   cursor: pointer;
+  overflow: hidden;
   /* The signature lozenge Start button. RTL: it sits at the right edge of the
-     screen, so round only the inner (left) edge - the outer edge stays flush. */
-  background: linear-gradient(180deg, #5bb83f 0%, #43a233 45%, #2f861f 100%);
-  border-radius: 12px 0 0 12px;
-  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4);
+     screen, so round only the inner (left) edge - the outer edge stays flush.
+     The Luna green is a layered "leaf green": a bright top band rolls into a
+     deep, slightly desaturated base, with a darker rim along the bottom. */
+  background:
+    linear-gradient(180deg,
+      #7bb868 0%,
+      #57a13e 8%,
+      #4a9a32 18%,
+      #3f8f29 45%,
+      #357d22 72%,
+      #2e6e1c 90%,
+      #245914 100%);
+  border-radius: 9px 3px 3px 9px;
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 6px rgba(15, 60, 8, 0.6),
+    inset 6px 0 14px rgba(120, 200, 90, 0.55);
+}
+
+/* The curved specular gloss: a soft white shine pooled in the upper-left that
+   fades out toward the middle - the bit that makes it read as glossy plastic. */
+.start-button::before {
+  content: '';
+  position: absolute;
+  inset: 2px 4px auto 4px;
+  height: 45%;
+  border-radius: 8px 3px 8px 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
 .start-button:hover {
-  filter: brightness(1.06);
+  filter: brightness(1.07) saturate(1.05);
+}
+
+.start-button:active {
+  padding-top: 1px;
+  background:
+    linear-gradient(180deg,
+      #2e6e1c 0%,
+      #357d22 30%,
+      #3f8f29 70%,
+      #4a9a32 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(15, 60, 8, 0.7),
+    inset 0 -2px 1px rgba(255, 255, 255, 0.3);
+}
+
+.start-button:active::before {
+  opacity: 0.4;
 }
 
 .start-flag {
-  width: 18px;
-  height: 18px;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+  position: relative;
+  width: 19px;
+  height: 19px;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.4));
 }
 
 /* Open-window buttons: fill the stretch between Start and the tray, flowing
