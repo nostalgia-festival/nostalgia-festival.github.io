@@ -22,6 +22,10 @@ export default function DetailsWindow() {
     >
       <div className="notepad">
         <div className="notepad-text">
+          <p className="np-intro">
+            אירוע של 3 ב-1! בואו לשחק במשחק ששטוס ענק, לקפוץ בהופעה חיה של האמנים שגדלנו עליהם ולקנח במסיבה
+            מטורפת של שירי התקופה!
+          </p>
           {ROWS.map((row) => (
             <div className="np-row" key={row.label}>
               <span className="np-label">{row.label}</span>

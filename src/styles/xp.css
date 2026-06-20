@@ -839,6 +839,12 @@ button.xp-caption:active {
   color: #000;
 }
 
+/* Short intro blurb above the dot-leader rows — sits a little apart from the
+   data lines so it reads as a sentence, not a field. */
+.np-intro {
+  margin: 0 0 12px;
+}
+
 .np-row {
   display: flex;
   align-items: center;
