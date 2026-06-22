@@ -283,6 +283,13 @@ button.xp-caption {
   width: 73px;
 }
 
+/* The סנופקינים logo reads small at the shared icon size - bump it a bit.
+   Scale visually (transform doesn't reflow) so the 56px box height is kept
+   and the label still lines up with its neighbours. */
+.info-file-img--snufkins {
+  transform: scale(1.3);
+}
+
 .info-file-label {
   font-size: 12px;
   font-weight: 600;
@@ -306,6 +313,12 @@ button.xp-caption {
 .info-popup-img--shustus {
   max-width: 286px;
   max-height: 195px;
+}
+
+/* Match the bump the סנופקינים logo gets in the folder grid. */
+.info-popup-img--snufkins {
+  max-width: 280px;
+  max-height: 200px;
 }
 
 .info-popup-title {

@@ -11,6 +11,7 @@ import oded from '../../images/artists/oded.png'
 import ilan from '../../images/artists/ilan.png'
 import tal from '../../images/artists/tal.png'
 import giora from '../../images/artists/Giora.png'
+import snufkins from '../../images/logos/snufkins.png'
 
 // Image tiers (low → high res) for the folder entries, keyed by the `id` from
 // INFO_ITEMS. Entries without an image fall back to the emoji glyph below.
@@ -22,6 +23,7 @@ const IMAGES: Record<string, string[]> = {
   'ilan-rozenfeld': [ilan],
   'tal-mosseri': [tal],
   'giora-hamitzer': [giora],
+  snufkins: [snufkins],
 }
 // Icon (slug + emoji fallback) for the folder entries without a real image.
 const GLYPHS: Record<string, { name: string; e: string }> = {
@@ -145,7 +147,7 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
             >
               {IMAGES[item.id] ? (
                 <ProgressiveImage
-                  className={`info-file-img${item.id === 'shustus' ? ' info-file-img--shustus' : ''}`}
+                  className={`info-file-img${item.id === 'shustus' ? ' info-file-img--shustus' : ''}${item.id === 'snufkins' ? ' info-file-img--snufkins' : ''}`}
                   tiers={IMAGES[item.id]}
                   alt=""
                 />
@@ -187,7 +189,7 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
               <div className="info-popup">
                 {IMAGES[selected.id] && (
                   <ProgressiveImage
-                    className={`info-popup-img${selected.id === 'shustus' ? ' info-popup-img--shustus' : ''}`}
+                    className={`info-popup-img${selected.id === 'shustus' ? ' info-popup-img--shustus' : ''}${selected.id === 'snufkins' ? ' info-popup-img--snufkins' : ''}`}
                     tiers={IMAGES[selected.id]}
                     alt={selected.label}
                   />
