@@ -376,6 +376,17 @@ button.xp-caption {
   filter: drop-shadow(0 4px 16px rgba(0, 30, 90, 0.6));
 }
 
+/* The Lamda logo is light and glossy, so the soft blue glow above leaves it
+   washed out against the bright Bliss sky. Layer a tighter, darker drop shadow
+   to trace its edges for contrast. Wider than the sponsor too (it's a horizontal
+   wordmark), so size it by height to sit level with its square-ish neighbour. */
+.hero-sponsor-logo--lamda {
+  width: auto;
+  height: clamp(26px, 5.2vw, 44px);
+  filter: drop-shadow(0 1px 1px rgba(0, 20, 60, 0.85))
+    drop-shadow(0 3px 10px rgba(0, 20, 60, 0.6));
+}
+
 .hero-title-main {
   font-size: clamp(40px, 9vw, 84px);
   font-weight: 800;

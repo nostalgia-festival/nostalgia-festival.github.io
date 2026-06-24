@@ -6,6 +6,7 @@ import logo1280 from '../../images/logos/hero-logo-1280.png'
 import sponsor24 from '../../images/logos/sponsor-24.png'
 import sponsor80 from '../../images/logos/sponsor-80.png'
 import sponsor200 from '../../images/logos/sponsor-200.png'
+import lamdaLogo from '../../images/logos/lamda logo.png'
 
 // Logo variants ordered low → high resolution (see ProgressiveImage).
 const LOGO_TIERS = [logo80, logo320, logo1280]
@@ -27,6 +28,7 @@ export default function Hero({ onStartClick }: HeroProps) {
         <div className="hero-sponsor">
           <span className="hero-sponsor-label">בשיתוף</span>
           <ProgressiveImage className="hero-sponsor-logo" tiers={SPONSOR_TIERS} alt="לוגו נותן החסות" />
+          <img className="hero-sponsor-logo hero-sponsor-logo--lamda" src={lamdaLogo} alt="לוגו למדא" />
         </div>
 
         {/* A loud early-2000s "starburst" sticker - the kind that screamed off
