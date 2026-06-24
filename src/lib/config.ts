@@ -27,6 +27,7 @@ export const EVENT = {
   dateLabel: 'יום שני, 29.6.2026',
   doorsLabel: '19:30',
   mainStageLabel: '21:00',
+  partyLabel: '23:00',
   locationLabel: 'רדינג 3',
   locationUrl: 'https://www.reading3.co.il/index.html',
 
@@ -84,8 +85,8 @@ export const INFO_ITEMS = [
   },
   {
     id: 'snufkins',
-    label: 'הופעת קאברים לשירי פתיחה',
-    title: 'הופעת קאברים לשירי פתיחה',
+    label: 'הופעת קאברים לשירי סדרות ופסטיגלים',
+    title: 'הופעת קאברים לשירי סדרות ופסטיגלים',
     lines: [
       'שירי הסדרות והפסטיגלים שגדלנו עליהם בהופעה חיה של להקת הסנופקינים ואורחים מיוחדים',
     ],

@@ -4,8 +4,9 @@ import Icon from './Icon'
 
 const ROWS: { label: string; value: string; href?: string }[] = [
   { label: 'תאריך', value: EVENT.dateLabel },
-  { label: 'פתיחת דלתות', value: EVENT.doorsLabel },
-  { label: 'אירועי במה ראשית', value: EVENT.mainStageLabel },
+  { label: 'פתיחה ומשחקי ששטוס', value: EVENT.doorsLabel },
+  { label: 'הופעה חיה', value: EVENT.mainStageLabel },
+  { label: 'מסיבה לתוך הלילה', value: EVENT.partyLabel },
   { label: 'מיקום', value: EVENT.locationLabel, href: EVENT.locationUrl },
 ]
 
