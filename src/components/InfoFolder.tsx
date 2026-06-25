@@ -13,6 +13,7 @@ import tal from '../../images/artists/tal.png'
 import giora from '../../images/artists/Giora.png'
 import snufkins from '../../images/logos/snufkins.png'
 import proCream from '../../images/logos/לוגו פרו קרים.png'
+import dj from '../../images/logos/DJ ZAHI MASHIACH.jpeg'
 
 // Image tiers (low → high res) for the folder entries, keyed by the `id` from
 // INFO_ITEMS. Entries without an image fall back to the emoji glyph below.
@@ -26,10 +27,10 @@ const IMAGES: Record<string, string[]> = {
   'giora-hamitzer': [giora],
   snufkins: [snufkins],
   'pro-cream': [proCream],
+  dj: [dj],
 }
 // Icon (slug + emoji fallback) for the folder entries without a real image.
 const GLYPHS: Record<string, { name: string; e: string }> = {
-  dj: { name: 'cd', e: '💿' },
   stands: { name: 'party', e: '🎉' },
   'mystery-1': { name: 'mystery', e: '❓' },
   'mystery-2': { name: 'mystery', e: '❓' },

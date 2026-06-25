@@ -94,7 +94,7 @@ export const INFO_ITEMS = [
   {
     id: 'dj',
     label: "דיג'יי",
-    title: "דיג'יי",
+    title: "דיג'יי צחי משיח",
     lines: [
       'שירי פסטיגלים, סדרות ולהיטים מהתקופה',
     ],
