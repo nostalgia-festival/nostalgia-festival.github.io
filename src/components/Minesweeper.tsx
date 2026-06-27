@@ -578,7 +578,7 @@ function ScoreDialog({
               <p className="ms-score-lead">
                 התוצאה נשמרה!
               </p>
-              <p>אם זכיתם בפרס - ניצור איתכם קשר. בהצלחה!</p>
+              <p>תודה רבה! הפרטים יתבהרו בקרוב </p>
               <div className="ms-score-actions">
                 <button type="button" className="xp-button xp-button--green" onClick={onClose}>
                   סגירה
