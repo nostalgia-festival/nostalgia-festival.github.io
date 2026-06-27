@@ -1845,6 +1845,51 @@ button.xp-caption:active {
   -webkit-user-select: none;
 }
 
+/* The win → high-score registration dialog. It renders inside .ms-game (which
+   is direction:ltr for the board), so it must reassert the site's RTL and a
+   normal font; it also stacks above the Minesweeper modal it covers. */
+.xp-modal-overlay--score {
+  direction: rtl;
+  z-index: 300;
+  font-family: var(--font);
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+.ms-score {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 6px 2px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ms-score-lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ms-score-time {
+  font-weight: 700;
+  color: var(--xp-blue);
+}
+
+.ms-score-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.ms-score-actions .xp-button {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 15px;
+}
+
 /* The difficulty / flag-mode strip standing in for the original Game menu. */
 .ms-menu {
   display: flex;
