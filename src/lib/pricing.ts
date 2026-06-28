@@ -7,7 +7,7 @@
 // ---------------------------------------------------------------------------
 
 // Base price per ticket, in ILS.
-export const BASE_PRICE = 160
+export const BASE_PRICE = 140
 
 export interface PriceInput {
   numTickets: number
