@@ -387,6 +387,13 @@ button.xp-caption {
     drop-shadow(0 3px 10px rgba(0, 20, 60, 0.6));
 }
 
+/* 3DClick logo: a busy pink graphic on transparent, sized by height to align
+   with the other logos in the row. */
+.hero-sponsor-logo--3dclick {
+  width: auto;
+  height: clamp(40px, 8vw, 68px);
+}
+
 .hero-title-main {
   font-size: clamp(40px, 9vw, 84px);
   font-weight: 800;
