@@ -14,6 +14,7 @@ import giora from '../../images/artists/Giora.png'
 import snufkins from '../../images/logos/snufkins.png'
 import proCream from '../../images/logos/לוגו פרו קרים.png'
 import dj from '../../images/logos/DJ ZAHI MASHIACH.jpeg'
+import kodkod from '../../images/KODKOD.png'
 
 // Image tiers (low → high res) for the folder entries, keyed by the `id` from
 // INFO_ITEMS. Entries without an image fall back to the emoji glyph below.
@@ -28,6 +29,7 @@ const IMAGES: Record<string, string[]> = {
   snufkins: [snufkins],
   'pro-cream': [proCream],
   dj: [dj],
+  kodkod: [kodkod],
 }
 // Icon (slug + emoji fallback) for the folder entries without a real image.
 const GLYPHS: Record<string, { name: string; e: string }> = {
