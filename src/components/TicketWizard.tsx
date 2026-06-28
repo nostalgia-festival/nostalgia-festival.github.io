@@ -135,7 +135,7 @@ export default function TicketWizard() {
           </label>
 
           <div className="price-box">
-            <span className="price-box-label">סה״כ לתשלום · מחיר מכירה מוקדמת</span>
+            <span className="price-box-label">סה״כ לתשלום · מחיר אינטרנט</span>
             <span className="price-box-value">{formatPrice(price.total, price.currency)}</span>
             <span className="price-box-note">
               ({formatPrice(price.perTicket, price.currency)} × {numTickets} כרטיסים)
