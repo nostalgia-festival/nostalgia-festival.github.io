@@ -10,6 +10,7 @@ import Countdown from './components/Countdown'
 import Taskbar, { type TaskButton } from './components/Taskbar'
 import Footer from './components/Footer'
 import Icon from './components/Icon'
+import EventOverDialog from './components/EventOverDialog'
 import { MinesweeperGlyph } from './components/Minesweeper'
 import { useTaskWindow } from './lib/useTaskWindow'
 import { useBackgroundMusic } from './lib/useBackgroundMusic'
@@ -37,6 +38,9 @@ export default function App() {
 
   // Looping background music; the taskbar's volume icon mutes/unmutes it.
   const music = useBackgroundMusic()
+
+  // The festival is over: greet visitors with a one-time "event ended" popup.
+  const [eventOverOpen, setEventOverOpen] = useState(true)
 
   // One taskbar button per open window - pressed (`active`) while it's on screen,
   // raised while minimized. Clicking toggles minimize/restore, like real XP.
@@ -122,6 +126,8 @@ export default function App() {
         muted={music.muted}
         onToggleMute={music.toggleMute}
       />
+
+      {eventOverOpen && <EventOverDialog onClose={() => setEventOverOpen(false)} />}
     </div>
   )
 }

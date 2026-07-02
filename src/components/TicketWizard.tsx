@@ -1,80 +1,14 @@
-import { useMemo, useRef, useState } from 'react'
 import XPWindow from './XPWindow'
 import Icon from './Icon'
-import { CONFIG } from '../lib/config'
-import { isSupabaseConfigured, logTicketClick } from '../lib/supabase'
-import { calculatePrice, formatPrice } from '../lib/pricing'
-
-type SubmitState = 'idle' | 'saving' | 'redirecting' | 'error'
-
-// Meta Pixel's `fbq` is loaded as a global by the snippet in index.html. It may
-// be absent (ad blockers, snippet not yet loaded), so calls are guarded.
-declare global {
-  interface Window {
-    fbq?: (...args: unknown[]) => void
-  }
-}
+import { EVENT } from '../lib/config'
 
 /**
- * The "אשף רכישת כרטיסים" (ticket purchase wizard). A single step: the buyer
- * enters their name and how many tickets they want, the price is calculated
- * live, and the button logs the intent to Supabase then redirects straight to
- * the payment service. Data is captured BEFORE the redirect because we may not
- * be able to bring the user back after they pay.
+ * The "אשף רכישת הכרטיסים" (ticket purchase wizard). The festival has taken
+ * place, so ticket sales are closed: the window now shows a "sale ended" notice
+ * instead of the purchase form. The lead-capture flow (name/email → Supabase →
+ * payment redirect) has been retired along with the sale.
  */
 export default function TicketWizard() {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [numTickets, setNumTickets] = useState(1)
-
-  const [submitState, setSubmitState] = useState<SubmitState>('idle')
-
-  // Synchronous re-entry guard. The button's `disabled` only takes effect after
-  // a re-render, so a fast double-click (or click + Enter) can fire two
-  // handlePurchase calls before React disables it - each one inserting a row.
-  // A ref flips immediately, so the second call bails out before logging.
-  const submittingRef = useRef(false)
-
-  const price = useMemo(() => calculatePrice({ numTickets }), [numTickets])
-
-  // Simple email sanity check - enough to catch typos without over-validating.
-  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-  const formValid = fullName.trim().length >= 2 && emailValid && numTickets >= 1
-
-  async function handlePurchase() {
-    if (submittingRef.current) return
-    submittingRef.current = true
-    setSubmitState('saving')
-
-    // Log first - but never let a logging failure block the user from paying.
-    await logTicketClick({
-      full_name: fullName.trim(),
-      email: email.trim(),
-      num_tickets: numTickets,
-      calculated_price: price.total,
-    })
-
-    if (CONFIG.paymentUrl) {
-      // Track the purchase intent for paid-ad attribution before leaving the
-      // page. Guarded - a missing/blocked pixel must never block the redirect.
-      window.fbq?.('track', 'Purchase', {
-        value: price.total,
-        currency: 'ILS',
-      })
-
-      setSubmitState('redirecting')
-      window.location.href = CONFIG.paymentUrl
-    } else {
-      // No payment URL configured (e.g. local dev) - show a placeholder notice.
-      // Release the guard so the user can retry (on success we redirect away, so
-      // the guard intentionally stays set there).
-      submittingRef.current = false
-      setSubmitState('error')
-    }
-  }
-
-  const busy = submitState === 'saving' || submitState === 'redirecting'
-
   return (
     <XPWindow
       title="אשף רכישת הכרטיסים"
@@ -84,79 +18,16 @@ export default function TicketWizard() {
     >
       <div className="wizard">
         <div className="wizard-header">
-          <h2 className="wizard-title">רכישת כרטיסים</h2>
-          <p className="wizard-notice">מכירת הכרטיסים עד גמר המלאי</p>
+          <h2 className="wizard-title">מכירת הכרטיסים הסתיימה</h2>
+          <p className="wizard-notice">הפסטיבל כבר מאחורינו</p>
         </div>
 
         <div className="wizard-body">
-          <label className="field">
-            <span className="field-label">שם מלא</span>
-            <input
-              className="xp-input"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="הכנס/י את שמך המלא"
-            />
-          </label>
-
-          <label className="field">
-            <span className="field-label">דוא״ל</span>
-            <input
-              className="xp-input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="הכנס/י כתובת דוא״ל"
-            />
-          </label>
-
-          <label className="field">
-            <span className="field-label">כמה כרטיסים?</span>
-            <div className="stepper">
-              <button
-                type="button"
-                className="xp-button stepper-btn"
-                onClick={() => setNumTickets((n) => Math.max(1, n - 1))}
-                aria-label="פחות כרטיסים"
-              >
-                −
-              </button>
-              <span className="stepper-value">{numTickets}</span>
-              <button
-                type="button"
-                className="xp-button stepper-btn"
-                onClick={() => setNumTickets((n) => Math.min(20, n + 1))}
-                aria-label="עוד כרטיסים"
-              >
-                +
-              </button>
-            </div>
-          </label>
-
           <div className="price-box">
-            <span className="price-box-label">סה״כ לתשלום · מחיר אינטרנט</span>
-            <span className="price-box-value">{formatPrice(price.total, price.currency)}</span>
-            <span className="price-box-note">
-              ({formatPrice(price.perTicket, price.currency)} × {numTickets} כרטיסים)
-            </span>
+            <span className="price-box-label">הפסטיבל התקיים ב־{EVENT.dateLabel}</span>
+            <span className="price-box-value">תודה שהייתם חלק מהנוסטלגיה 💙</span>
+            <span className="price-box-note">נתראה בפעם הבאה!</span>
           </div>
-
-          {submitState === 'error' && (
-            <p className="wizard-error">
-              {isSupabaseConfigured
-                ? 'קישור התשלום עדיין לא הוגדר. הפרטים נשמרו - אנא נסו שוב מאוחר יותר.'
-                : 'מצב הדגמה: קישור התשלום וה-Supabase עדיין לא הוגדרו (ראו SUPABASE_SETUP.md).'}
-            </p>
-          )}
-
-          <button
-            className="xp-button xp-button--green wizard-pay"
-            onClick={handlePurchase}
-            disabled={!formValid || busy}
-          >
-            {busy ? 'רק רגע…' : <><Icon name="payment" e="💳" /> מעבר לתשלום מאובטח</>}
-          </button>
         </div>
       </div>
     </XPWindow>

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import XPWindow from './XPWindow'
-import { logMinesweeperScore } from '../lib/supabase'
 // The recycle-bin file icon and window title-bar icon use this real winmine.exe
 // logo. `?inline` forces Vite to embed it as a base64 data URI in the bundle
 // (it's only ~6KB) instead of emitting a separate hashed file - so the icon
@@ -213,11 +212,11 @@ export default function Minesweeper() {
   const [flagMode, setFlagMode] = useState(false)
 
   // Wall-clock start of the current game (ms), set on the first move. Used to
-  // record the *exact* win duration for the high-score - the visible LED timer
-  // only has 1-second resolution, so we don't reuse it here.
+  // show the *exact* win duration in the celebration dialog - the visible LED
+  // timer only has 1-second resolution, so we don't reuse it here.
   const startTimeRef = useRef<number | null>(null)
   // Set when the player wins: the captured exact duration + the level played.
-  // Its presence drives the high-score registration dialog. Cleared on reset.
+  // Its presence drives the win celebration dialog. Cleared on reset.
   const [result, setResult] = useState<{ durationMs: number; difficulty: keyof typeof LEVELS } | null>(null)
 
   const flagCount = useMemo(() => board.filter((c) => c.mark === 1).length, [board])
@@ -273,7 +272,7 @@ export default function Minesweeper() {
     if (won) {
       for (const c of next) if (c.mine) c.mark = 1
       // Capture the exact win duration before any further interaction, and arm
-      // the high-score registration dialog.
+      // the win celebration dialog.
       const durationMs = startTimeRef.current !== null ? Date.now() - startTimeRef.current : 0
       setResult({ durationMs, difficulty: levelKey })
       setStatus('won')
@@ -452,11 +451,11 @@ export default function Minesweeper() {
 }
 
 /**
- * The win celebration → high-score registration flow, shown when the player
- * wins. Three stages: a yes/no prompt offering to register the score (with a
- * shot at a prize), a name+email form, and a thank-you. Closing at any stage
- * dismisses it (a "no" at the prompt). Rendered as its own modal layer above
- * the Minesweeper window.
+ * The win celebration, shown when the player clears the board. A simple
+ * congratulations popup with the finish time - the old high-score registration
+ * (name/email → Supabase) was retired after the festival, so nothing is
+ * recorded anymore. Rendered as its own modal layer above the Minesweeper
+ * window; clicking the backdrop or the button dismisses it.
  */
 function ScoreDialog({
   durationMs,
@@ -467,126 +466,24 @@ function ScoreDialog({
   difficulty: keyof typeof LEVELS
   onClose: () => void
 }) {
-  const [stage, setStage] = useState<'prompt' | 'register' | 'done'>('prompt')
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [submitState, setSubmitState] = useState<'idle' | 'saving' | 'error'>('idle')
-  // Synchronous re-entry guard against a fast double-submit (see TicketWizard).
-  const submittingRef = useRef(false)
-
-  // Same lenient email check used by the ticket wizard.
-  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-  const formValid = fullName.trim().length >= 2 && emailValid
   const seconds = (durationMs / 1000).toFixed(1)
-  const saving = submitState === 'saving'
-
-  async function handleSubmit() {
-    if (submittingRef.current || !formValid) return
-    submittingRef.current = true
-    setSubmitState('saving')
-
-    const ok = await logMinesweeperScore({
-      full_name: fullName.trim(),
-      email: email.trim(),
-      duration_ms: durationMs,
-      difficulty,
-    })
-
-    submittingRef.current = false
-    if (ok) setStage('done')
-    else setSubmitState('error')
-  }
 
   return (
     <div className="xp-modal-overlay xp-modal-overlay--score" onClick={onClose} role="presentation">
       <div className="xp-modal xp-modal--popup" onClick={(e) => e.stopPropagation()}>
-        {stage === 'prompt' && (
-          <XPWindow title="ניצחת!" onClose={onClose}>
-            <div className="ms-score">
-              <p className="ms-score-lead">
-                כל הכבוד! ניצחת ברמת {LEVEL_LABELS[difficulty]}!
-              </p>
-              <p className="ms-score-time">הזמן שלך: {seconds} שניות</p>
-              <p>רוצה לרשום את התוצאה שלך? אולי תזכו בפרס!</p>
-              <div className="ms-score-actions">
-                <button
-                  type="button"
-                  className="xp-button xp-button--green"
-                  onClick={() => setStage('register')}
-                >
-                  כן, אשמח
-                </button>
-                <button type="button" className="xp-button" onClick={onClose}>
-                  לא תודה
-                </button>
-              </div>
+        <XPWindow title="ניצחת!" onClose={onClose}>
+          <div className="ms-score">
+            <p className="ms-score-lead">
+              כל הכבוד! ניצחת ברמת {LEVEL_LABELS[difficulty]}!
+            </p>
+            <p className="ms-score-time">הזמן שלך: {seconds} שניות</p>
+            <div className="ms-score-actions">
+              <button type="button" className="xp-button xp-button--green" onClick={onClose}>
+                סגירה
+              </button>
             </div>
-          </XPWindow>
-        )}
-
-        {stage === 'register' && (
-          <XPWindow title="רישום תוצאה" onClose={onClose}>
-            <div className="ms-score">
-              <p className="ms-score-time">
-                רמת {LEVEL_LABELS[difficulty]} · {seconds} שניות
-              </p>
-              <label className="field">
-                <span className="field-label">שם מלא</span>
-                <input
-                  className="xp-input"
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="הכנס/י את שמך המלא"
-                />
-              </label>
-              <label className="field">
-                <span className="field-label">דוא״ל</span>
-                <input
-                  className="xp-input"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="הכנס/י כתובת דוא״ל"
-                />
-              </label>
-
-              {submitState === 'error' && (
-                <p className="wizard-error">לא הצלחנו לשמור את התוצאה. אנא נסו שוב מאוחר יותר.</p>
-              )}
-
-              <div className="ms-score-actions">
-                <button
-                  type="button"
-                  className="xp-button xp-button--green"
-                  onClick={handleSubmit}
-                  disabled={!formValid || saving}
-                >
-                  {saving ? 'שולח…' : 'שליחת התוצאה'}
-                </button>
-                <button type="button" className="xp-button" onClick={onClose} disabled={saving}>
-                  ביטול
-                </button>
-              </div>
-            </div>
-          </XPWindow>
-        )}
-
-        {stage === 'done' && (
-          <XPWindow title="התקבל!" onClose={onClose}>
-            <div className="ms-score">
-              <p className="ms-score-lead">
-                התוצאה נשמרה!
-              </p>
-              <p>תודה רבה! הפרטים יתבהרו בקרוב </p>
-              <div className="ms-score-actions">
-                <button type="button" className="xp-button xp-button--green" onClick={onClose}>
-                  סגירה
-                </button>
-              </div>
-            </div>
-          </XPWindow>
-        )}
+          </div>
+        </XPWindow>
       </div>
     </div>
   )
