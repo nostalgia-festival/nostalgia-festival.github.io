@@ -6,6 +6,7 @@ const ROWS: { label: string; value: string; href?: string }[] = [
   { label: 'תאריך', value: EVENT.dateLabel },
   { label: 'פתיחה ומשחקי ששטוס', value: EVENT.doorsLabel },
   { label: 'הופעה חיה', value: EVENT.mainStageLabel },
+  { label: 'קיר הגורלות', value: EVENT.fateWallLabel },
   { label: 'מסיבה לתוך הלילה', value: EVENT.partyLabel },
   { label: 'מיקום', value: EVENT.locationLabel, href: EVENT.locationUrl },
 ]

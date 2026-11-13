@@ -5,9 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A single-page landing site for an Israeli nostalgia festival ("פסטיבל נוסטלגיה",
-event 29.6.2026). Fully Hebrew, RTL, styled to look like Windows XP/2000. Its job
-is to capture a ticket-purchase lead (name + ticket count) into Supabase and then
-redirect the visitor to an external payment service.
+event 29.6.2026). Fully Hebrew, RTL, styled to look like Windows XP/2000. The
+festival has already happened: ticket sales are closed, and the site's job now is
+to say so and collect signups (name + email + phone) into Supabase from people
+who want to hear about a possible next festival.
 
 ## Commands
 
@@ -28,12 +29,13 @@ page composed of XP-styled "window" sections. Styling is hand-written CSS in
 `src/styles/xp.css` (the entire visual theme lives here).
 
 - `src/App.tsx` - composes the page: a `Background`, `DesktopIcons`, `Hero`, then
-  a `windows-stack` of `DetailsWindow` → `InfoFolder` → `TicketWizard` →
+  a `windows-stack` of `DetailsWindow` → `InfoFolder` → `NotifySignup` →
   `Countdown` → `ContactWindow` → `Footer`, plus a `Taskbar`. App owns one ref per
   scroll target and passes `scrollTo` callbacks down; the desktop icons, Start
-  button, and Hero CTA all `scrollIntoView` their section (Start button and Hero
-  CTA target the `TicketWizard`). App also owns the three taskbar-managed modal
-  windows and the background-music hook (see below).
+  button, Hero CTA, tray balloon and the `EventOverDialog` popup all
+  `scrollIntoView` their section (everything sales-related now targets
+  `NotifySignup`). App also owns the three taskbar-managed modal windows, the
+  on-load `EventOverDialog`, and the background-music hook (see below).
 - `src/components/XPWindow.tsx` - the reusable XP "Luna" window chrome (title bar,
   caption buttons, optional menu strip). Purely presentational; most sections wrap
   their content in this.
@@ -46,31 +48,47 @@ page composed of XP-styled "window" sections. Styling is hand-written CSS in
   runtime config (`CONFIG`), and `INFO_ITEMS` (the "files" inside the `InfoFolder`
   window - each is a clickable entry with title/copy, wired to images in
   `InfoFolder.tsx` by `id`). Edit dates/labels/copy here, not in components.
-- `src/lib/pricing.ts` - price calculation. Currently a flat `BASE_PRICE` (₪140)
-  per ticket.
-- `src/lib/supabase.ts` - `logTicketClick()` writes a row to the `ticket_clicks`
-  table. The Supabase schema lives in `supabase/schema.sql`.
+- `src/lib/pricing.ts` - price calculation (flat `BASE_PRICE`, ₪140). Unused since
+  ticket sales closed; kept for a future sale.
+- `src/lib/supabase.ts` - `logNotifySignup()` writes a row to the
+  `notify_signups` table. `logTicketClick()` (→ `ticket_clicks`) is the retired
+  ticket flow's logger, unused but kept. The schema lives in `supabase/schema.sql`.
 
-### The lead-capture flow (the core behavior - preserve it)
+### The signup flow (the core behavior)
 
-In `TicketWizard.tsx`, clicking pay calls `logTicketClick()` **first**, then
-redirects to `CONFIG.paymentUrl`. Logging must happen *before* the redirect
-because the user may not return after paying, and a logging/network failure must
-**never** block the redirect - `logTicketClick` is written to never throw and to
-return `false` on failure rather than propagate. Keep this ordering and
-non-blocking guarantee intact.
+`NotifySignup.tsx` sits in the slot the ticket wizard used to fill. The visitor
+enters full name, email and phone; the submit button stays disabled until all
+three pass lenient checks. The phone is run through `cleanPhone()` first, which
+drops all separators (spaces, `( ) .`, every dash variant) and invisible bidi
+marks from pasted numbers, and that bare number is what gets saved
+(`050-123 4567` → `0501234567`). `PHONE_RE` then enforces Israeli lengths:
+05X/07X are exactly 10 digits and landlines exactly 9 (so a mobile missing a
+digit is rejected), also in `+972`/`00972` form; foreign `+`/`00` numbers get
+8-15 digits. An "invalid number" hint shows under the field after it's blurred.
+Submitting calls `logNotifySignup()`, which, like every function in
+`supabase.ts`, **never throws** and returns `false` on failure. There's no
+redirect, so on `false` the form shows an error and stays filled for a retry.
+
+`notify_signups` has a unique index on `lower(email)`. A repeat signup fails with
+Postgres error `23505`, and `logNotifySignup` deliberately treats that as success
+(the visitor *is* on the list, and an "already registered" message would reveal
+which emails are). The table also has length `check`s that mirror the inputs'
+`maxLength`. Keep the two in sync, or valid form input will be rejected.
+
+The retired ticket flow (log to `ticket_clicks` *before* redirecting to a payment
+URL, never letting a logging failure block the redirect) is in git history
+(`TicketWizard.tsx` before commit `f766d8b`). There is currently **no payment
+provider**: the old `VITE_PAYMENT_URL` (Tranzila) is gone from config, `.env` and
+the deploy workflow, so a future sale would need a new provider wired in.
 
 ### Config & graceful degradation
 
 All deploy-time config comes from `VITE_`-prefixed env vars, inlined at build
-time (so they are public - only the Supabase *publishable* key and payment URL go
-here, never a secret key). The app is designed to build and run with all of them
-missing:
-- No Supabase URL/key → `logTicketClick` becomes a no-op (`console.warn`) and
-  `isSupabaseConfigured` is `false`.
-- No payment URL → `CONFIG.paymentUrl` falls back to a hardcoded default (note
-  the `||`, not `??`, so an empty string from CI still falls through to the
-  default).
+time (so they are public - only the Supabase URL and *publishable* key go here,
+never a secret key). The app is designed to build and run without them: no
+Supabase URL/key → `isSupabaseConfigured` is `false`, the `supabase.ts` functions
+become no-ops (`console.warn`, return `false`), and the signup form shows a "demo
+mode" error on submit.
 
 Local dev: copy `.env.example` → `.env`. In production these are set as GitHub
 Actions repository **Variables** (see `.github/workflows/deploy.yml`).
@@ -79,7 +97,7 @@ Actions repository **Variables** (see `.github/workflows/deploy.yml`).
 
 There are two distinct windowing mechanisms; don't conflate them.
 
-- **Scroll-stack sections** (`DetailsWindow`, `InfoFolder`, `TicketWizard`,
+- **Scroll-stack sections** (`DetailsWindow`, `InfoFolder`, `NotifySignup`,
   `ContactWindow`) - always-on-screen content wrapped in `XPWindow` chrome, laid
   out in the `windows-stack` and reached by smooth-scroll.
 - **Taskbar-managed modal windows** - the *real* floating windows that open over

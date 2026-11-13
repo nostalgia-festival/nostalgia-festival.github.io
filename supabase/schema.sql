@@ -44,3 +44,38 @@ create index if not exists ticket_clicks_created_at_idx
 -- NOTE: the Minesweeper easter-egg high-score table (minesweeper_scores) was
 -- retired after the festival - the game no longer records scores. Any existing
 -- table is left in place (drop it manually if you want to reclaim the data).
+
+-- ===========================================================================
+-- "Notify me about the next festival" signups. After the festival, the site
+-- collects people who want to hear about a future event. One row per person.
+-- ===========================================================================
+create table if not exists public.notify_signups (
+  id          uuid primary key default gen_random_uuid(),
+  created_at  timestamptz not null default now(),
+  -- Length caps mirror the form's maxLength. The publishable key is public, so
+  -- anyone can call the insert API directly - these keep junk rows bounded.
+  full_name   text        not null check (char_length(full_name) between 2 and 200),
+  email       text        not null check (char_length(email) between 3 and 320),
+  phone       text        not null check (char_length(phone) between 7 and 40),
+  user_agent  text,
+  referrer    text
+);
+
+-- One signup per email (case-insensitive). A repeat signup fails with a unique
+-- violation, which the site treats as success ("you're already on the list").
+create unique index if not exists notify_signups_email_key
+  on public.notify_signups (lower(email));
+
+-- Same RLS posture as ticket_clicks: the public (anon) key may INSERT only, and
+-- can never read the list back. View it in the Table Editor (service role).
+alter table public.notify_signups enable row level security;
+
+drop policy if exists "anon can insert notify signups" on public.notify_signups;
+create policy "anon can insert notify signups"
+  on public.notify_signups
+  for insert
+  to anon, authenticated
+  with check (true);
+
+create index if not exists notify_signups_created_at_idx
+  on public.notify_signups (created_at desc);

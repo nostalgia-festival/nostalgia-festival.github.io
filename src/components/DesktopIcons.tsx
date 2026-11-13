@@ -9,8 +9,8 @@ interface DesktopIconsProps {
   onDetails: () => void
   /** Open the "מידע" (info) folder window. */
   onInfo: () => void
-  /** Scroll to the ticket purchase wizard (tickets.exe). */
-  onTickets: () => void
+  /** Scroll to the "notify me about the next festival" signup window. */
+  onSignup: () => void
   /** Scroll to the "צרו קשר" contact window. */
   onContact: () => void
   /** Recycle bin window lifecycle (shared with the taskbar - owned by App). */
@@ -26,7 +26,7 @@ interface DesktopIconsProps {
  * scrolling away with the hero. Each one double-acts as a jump link to its
  * matching window further down the page.
  */
-export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, recycle, minesweeper }: DesktopIconsProps) {
+export default function DesktopIcons({ onDetails, onInfo, onSignup, onContact, recycle, minesweeper }: DesktopIconsProps) {
   // The recycle bin is the only icon that opens its own window rather than
   // scrolling to a section in the page. Its open/minimize state is owned by App
   // (see useTaskWindow) so its taskbar button can track it. The bin holds one
@@ -37,7 +37,7 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
   // horizontal row on mobile (see .hero-desktop-icons). On the narrowest phones
   // the row can't hold all five, and the recycle bin - the last child - drops
   // alone onto a lonely second line. We can't predict the wrap point in CSS
-  // because the icon labels (e.g. "כרטיסים") are wider than the nominal 60px
+  // because the icon labels (e.g. "עדכונים") are wider than the nominal 60px
   // box, so instead we measure the real layout: if the bin lands on a different
   // row than the first icon, hide it. (The Minesweeper easter egg inside is an
   // acceptable casualty on tiny screens.) Done imperatively rather than via
@@ -95,9 +95,9 @@ export default function DesktopIcons({ onDetails, onInfo, onTickets, onContact, 
           <span className="desktop-icon-label">מידע</span>
         </button>
 
-        <button type="button" className="desktop-icon" onClick={onTickets}>
-          <Icon name="tickets" e="🎟️" className="desktop-icon-glyph" />
-          <span className="desktop-icon-label">כרטיסים</span>
+        <button type="button" className="desktop-icon" onClick={onSignup}>
+          <Icon name="calendar" e="📅" className="desktop-icon-glyph" />
+          <span className="desktop-icon-label">עדכונים</span>
         </button>
 
         <button type="button" className="desktop-icon" onClick={onContact}>

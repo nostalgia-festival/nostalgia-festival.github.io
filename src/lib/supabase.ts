@@ -54,3 +54,47 @@ export async function logTicketClick(data: TicketClick): Promise<boolean> {
     return false
   }
 }
+
+export interface NotifySignup {
+  full_name: string
+  email: string
+  phone: string
+}
+
+/**
+ * Adds a visitor to the "notify me about the next festival" list
+ * (`notify_signups`). Resolves to true on success, false otherwise.
+ *
+ * Like logTicketClick, this never throws - the form shows an error and lets
+ * the visitor retry instead.
+ *
+ * An email that's already on the list hits the table's unique index (Postgres
+ * error 23505). That counts as success: the visitor *is* signed up, and an
+ * "already registered" message would also reveal which emails are on the list.
+ */
+export async function logNotifySignup(data: NotifySignup): Promise<boolean> {
+  if (!client) {
+    console.warn('[supabase] not configured - skipping signup', data)
+    return false
+  }
+
+  try {
+    const { error } = await client.from('notify_signups').insert({
+      full_name: data.full_name,
+      email: data.email,
+      phone: data.phone,
+      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
+      referrer: typeof document !== 'undefined' ? document.referrer || null : null,
+    })
+
+    if (error) {
+      if (error.code === '23505') return true
+      console.error('[supabase] signup insert failed', error)
+      return false
+    }
+    return true
+  } catch (err) {
+    console.error('[supabase] unexpected error', err)
+    return false
+  }
+}

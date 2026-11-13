@@ -943,6 +943,7 @@ button.xp-caption:active {
 
 .wizard-header {
   text-align: center;
+  margin-bottom: 18px;
 }
 
 .wizard-title {
@@ -1045,6 +1046,23 @@ button.xp-caption:active {
 .xp-input:focus {
   border-color: var(--xp-blue);
   box-shadow: 0 0 0 2px rgba(36, 94, 219, 0.2);
+}
+
+/* Email / phone: typed left-to-right so "@", "." and "+972" don't jump around
+   under RTL bidi, but still right-aligned to line up with the Hebrew fields. */
+.xp-input--ltr {
+  direction: ltr;
+  text-align: right;
+}
+
+.xp-input[aria-invalid='true'] {
+  border-color: #c0392b;
+}
+
+.field-error {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b00000;
 }
 
 /* Stepper */
@@ -1172,6 +1190,14 @@ button.xp-caption:active {
   border-radius: 4px;
   font-size: 13px;
   color: #7a5a00;
+}
+
+.wizard-fineprint {
+  margin: -6px 0 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: center;
 }
 
 .wizard-nav {

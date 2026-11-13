@@ -55,7 +55,7 @@ export default function Countdown({ target }: CountdownProps) {
     >
       {timeLeft.done ? (
         <div className="countdown countdown--done">
-          <span>הדלתות נפתחו! נתראה בפסטיבל הנוסטלגיה <Icon name="party" e="🎉" /></span>
+          <span>הפסטיבל הסתיים - נתראה בפעם הבאה? <Icon name="party" e="🎉" /></span>
         </div>
       ) : (
         <div className="countdown" role="timer" aria-label="זמן עד תחילת האירוע">

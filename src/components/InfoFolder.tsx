@@ -48,8 +48,8 @@ interface InfoFolderProps {
   onOpen: (item: InfoItem) => void
   /** The readme popup's window lifecycle (shared with the taskbar). */
   window: TaskWindow
-  /** Task-pane shortcuts: scroll to the ticket wizard / contact / details. */
-  onTickets?: () => void
+  /** Task-pane shortcuts: scroll to the signup form / contact / details. */
+  onSignup?: () => void
   onContact?: () => void
   onDetails?: () => void
 }
@@ -94,7 +94,7 @@ function TaskLink({ icon, onClick, children }: { icon: ReactNode; onClick?: () =
  * App via useTaskWindow), and still closes on its ✕, a backdrop click, or
  * Escape - just like the Recycle Bin.
  */
-export default function InfoFolder({ selected, onOpen, window: win, onTickets, onContact, onDetails }: InfoFolderProps) {
+export default function InfoFolder({ selected, onOpen, window: win, onSignup, onContact, onDetails }: InfoFolderProps) {
   // Escape closes the open popup.
   useEffect(() => {
     if (!win.visible) return
@@ -119,8 +119,8 @@ export default function InfoFolder({ selected, onOpen, window: win, onTickets, o
           {/* The signature XP "task pane": blue webview panels down the side. */}
           <aside className="folder-tasks">
             <TaskPanel title="משימות תיקייה">
-              <TaskLink icon={<Icon name="tickets" e="🎟️" />} onClick={onTickets}>
-                קנה כרטיסים
+              <TaskLink icon={<Icon name="calendar" e="📅" />} onClick={onSignup}>
+                הרשמה לעדכונים
               </TaskLink>
               <TaskLink icon={<Icon name="mail" e="✉️" />} onClick={onContact}>
                 צור קשר

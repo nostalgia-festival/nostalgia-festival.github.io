@@ -7,10 +7,9 @@ export const CONFIG = {
   // legacy anon key. Safe to expose to the browser; protected by RLS.
   supabasePublishableKey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '',
 
-  // Where to redirect the user after we log their details. `||` (not `??`) so an
-  // empty env var - which the deploy workflow sets when the GitHub variable is
-  // unset - falls through to the real payment URL instead of disabling redirect.
-  paymentUrl: import.meta.env.VITE_PAYMENT_URL || 'https://pay.tranzila.com/double12ch10',
+  // There is no payment URL: ticket sales are closed and there's currently no
+  // payment provider. (The old VITE_PAYMENT_URL / Tranzila redirect is in git
+  // history, alongside the retired TicketWizard.)
 }
 
 // ---------------------------------------------------------------------------
@@ -27,6 +26,7 @@ export const EVENT = {
   dateLabel: 'יום שני, 29.6.2026',
   doorsLabel: '19:30',
   mainStageLabel: '21:00',
+  fateWallLabel: '22:30',
   partyLabel: '23:00',
   locationLabel: 'רדינג 3',
   locationUrl: 'https://www.reading3.co.il/index.html',

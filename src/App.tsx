@@ -4,7 +4,7 @@ import DesktopIcons from './components/DesktopIcons'
 import Hero from './components/Hero'
 import DetailsWindow from './components/DetailsWindow'
 import InfoFolder from './components/InfoFolder'
-import TicketWizard from './components/TicketWizard'
+import NotifySignup from './components/NotifySignup'
 import ContactWindow from './components/ContactWindow'
 import Countdown from './components/Countdown'
 import Taskbar, { type TaskButton } from './components/Taskbar'
@@ -19,7 +19,7 @@ import { EVENT, type InfoItem } from './lib/config'
 export default function App() {
   const detailsRef = useRef<HTMLDivElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
-  const wizardRef = useRef<HTMLDivElement>(null)
+  const signupRef = useRef<HTMLDivElement>(null)
   const contactRef = useRef<HTMLDivElement>(null)
 
   const scrollTo = (ref: RefObject<HTMLDivElement>) => {
@@ -39,7 +39,8 @@ export default function App() {
   // Looping background music; the taskbar's volume icon mutes/unmutes it.
   const music = useBackgroundMusic()
 
-  // The festival is over: greet visitors with a one-time "event ended" popup.
+  // The festival is over: greet visitors with a one-time "event ended" popup,
+  // whose "notify me" button jumps to the signup form.
   const [eventOverOpen, setEventOverOpen] = useState(true)
 
   // One taskbar button per open window - pressed (`active`) while it's on screen,
@@ -80,13 +81,13 @@ export default function App() {
       <DesktopIcons
         onDetails={() => scrollTo(detailsRef)}
         onInfo={() => scrollTo(infoRef)}
-        onTickets={() => scrollTo(wizardRef)}
+        onSignup={() => scrollTo(signupRef)}
         onContact={() => scrollTo(contactRef)}
         recycle={recycle}
         minesweeper={minesweeper}
       />
 
-      <Hero onStartClick={() => scrollTo(wizardRef)} />
+      <Hero onStartClick={() => scrollTo(signupRef)} />
 
       <main className="windows-stack">
         <div ref={detailsRef} className="scroll-anchor">
@@ -101,14 +102,14 @@ export default function App() {
               info.show()
             }}
             window={info}
-            onTickets={() => scrollTo(wizardRef)}
+            onSignup={() => scrollTo(signupRef)}
             onContact={() => scrollTo(contactRef)}
             onDetails={() => scrollTo(detailsRef)}
           />
         </div>
 
-        <div ref={wizardRef} className="wizard-anchor scroll-anchor">
-          <TicketWizard />
+        <div ref={signupRef} className="scroll-anchor">
+          <NotifySignup />
         </div>
 
         <Countdown target={EVENT.startsAtISO} />
@@ -121,13 +122,21 @@ export default function App() {
       </main>
 
       <Taskbar
-        onStartClick={() => scrollTo(wizardRef)}
+        onStartClick={() => scrollTo(signupRef)}
         tasks={tasks}
         muted={music.muted}
         onToggleMute={music.toggleMute}
       />
 
-      {eventOverOpen && <EventOverDialog onClose={() => setEventOverOpen(false)} />}
+      {eventOverOpen && (
+        <EventOverDialog
+          onClose={() => setEventOverOpen(false)}
+          onSignup={() => {
+            setEventOverOpen(false)
+            scrollTo(signupRef)
+          }}
+        />
+      )}
     </div>
   )
 }

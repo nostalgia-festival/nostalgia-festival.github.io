@@ -79,7 +79,7 @@ interface TaskbarProps {
  * The fixed XP taskbar: green Start button, a row of buttons for any open
  * windows, then the notification area (tray icons + live clock). A one-time
  * balloon tip rises from the tray a few seconds after load to nudge the visitor
- * toward the ticket flow, exactly like XP's tray notifications.
+ * toward the next-festival signup form, exactly like XP's tray notifications.
  */
 export default function Taskbar({ onStartClick, tasks, muted, onToggleMute }: TaskbarProps) {
   const [clock, setClock] = useState(currentClock)
@@ -163,7 +163,7 @@ export default function Taskbar({ onStartClick, tasks, muted, onToggleMute }: Ta
               onStartClick()
             }}
           >
-            הכרטיסים שלכם ממתינים! לחצו כאן כדי לבחור כמות ולשריין מקום.
+            אולי יהיה פסטיבל נוסף! לחצו כאן כדי להירשם ולשמוע עליו ראשונים.
           </button>
         </div>
       )}
